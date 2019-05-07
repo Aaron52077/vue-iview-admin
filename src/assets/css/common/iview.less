@@ -1,0 +1,198 @@
+@import './_mixins';
+
+/* iview modal */
+.gc-dia-main {
+    .ivu-modal-content {
+        border-radius: 4px;
+    }
+    .ivu-modal-header {
+        border-bottom: 0;
+        padding: 24px 24px 5px;
+    }
+    .ivu-modal-footer {
+        border-top: 0;
+        padding: 7px 10px;
+    }
+    .ivu-modal-body {
+        position: relative;
+        padding: 12px 24px 12px;
+    }
+    .ivu-modal-body {
+        color: #282c36;
+    }
+    .gc-dia-title {
+        font-weight: 700;
+        color: #282c36;
+    }
+    .ivu-modal-footer {
+        text-align: center;
+    }
+    .gc-btn-yes,
+    .gc-btn-no {
+        min-width: 74px;
+    }
+    .gc-btn-no {
+        color:#8899a9;
+        &:hover{
+            background:#f2f5f9;
+            color:#8899a9;
+        }
+        &:active{
+            background:#e9eef1;
+            color:#8899a9;
+        }
+    }
+    .gc-btn-yes {
+        color:#fff;
+        background:#7c7cef;
+        &:hover {
+            background:#e8fdf4;
+        }
+        &:active {
+            background:#ccf5e0;
+        }
+    }
+    .gc-dia-foot {
+        margin-bottom: 10px;
+    }
+    .gc-btn-text + .gc-btn-text {
+        margin-left: 20px;
+    }
+} 
+
+/* iveiw message */
+body .ivu-message-notice {
+    position: absolute;
+    width: 100%;
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+/* iveiw button */
+.gc-btn-gray {
+    border-color:#b7c8d0;
+    background:#f2f5f9;
+    color:#646e78;
+    &:hover {
+        border-color:#b7c8d0;
+        background:#e9eef1;
+        color:#646e78;
+    }
+}
+
+.gc-btn-warn {
+    border-color:#ff9900;
+    background:#ff9900;
+    color:#fff;
+    &:hover {
+        border-color:#e58900;
+        background:#e58900;
+        color:#fff;
+    }
+}
+
+.gc-btn-cancel {
+    border-color:#b7c8d0;
+    background:#fff;
+    color:#8899a9;
+    &:hover {
+        border-color:#8899a9;
+        background:#fff;
+        color:#646e78;
+    }
+}
+
+.gc-btn-text {
+    border-color:transparent;
+    background:transparent;
+    color:#009efb;
+    &:hover {
+        border-color:transparent;
+        background:transparent;
+        color:#009efb;
+    }
+    &.ivu-btn[disabled] {
+        border-color: transparent;
+    }
+}
+
+.gc-table {
+    .ivu-table th {
+        color: #fff;
+        background-color: #6ab5f8;
+    }
+}
+
+/* iveiw tabs */
+.gc-tabs {
+    .ivu-tabs.ivu-tabs-card {
+        > .ivu-tabs-bar .ivu-tabs-tab {
+            font-size: @--size-base - 1;
+            background: @--color-white;
+            border-color: #3799f0;
+        }
+        > .ivu-tabs-bar .ivu-tabs-tab-active {
+            color: @--color-white;
+            background: #3799f0;
+        }
+    }
+    .ivu-tabs-bar {
+        border-color: transparent;
+        margin-bottom: 0;
+    }
+    &__primary {
+        .ivu-tabs-bar {
+            border-bottom: none;
+        }
+        .ivu-tabs-nav-wrap {
+            margin-bottom: 0;
+        }
+        .ivu-tabs-nav-container {
+            width: 320px;
+            line-height: 1;
+            margin-left: ~'calc((100% - 240px) / 2)';
+            .ivu-tabs-ink-bar {
+                height: 0;
+            }
+            .ivu-tabs-tab {
+                width: 50%;
+                margin-right: 0;
+                color: #218dee;
+                border: 1px solid #218dee;
+                border-radius: 5px 0 0 5px;
+                &:last-child {
+                    border-left: none;
+                    border-radius: 0 5px 5px 0;
+                }
+            }
+            .ivu-tabs-tab-active {
+                color: #fff;
+                background: #218dee;
+            }
+        }
+    }
+}
+
+/* iveiw poptip */
+.gc-poptip {
+    .ivu-poptip-title {
+        font-size: 14px;
+        color: #218dee;
+        text-align: center;
+        background-color: #f6f6f6;
+        &::after {
+            background-color: #f6f6f6;
+        }
+    }
+    .ivu-poptip-body {
+        padding: 12px 16px 0;
+    }
+}
+
+/* iveiw tree */
+.gc-tree {
+    .ivu-tree ul {
+        font-size: 13px;
+    }
+}

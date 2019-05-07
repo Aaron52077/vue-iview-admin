@@ -1,0 +1,122 @@
+/* eslint-disable */
+import Vue from 'vue'
+import store from '@/store'
+import cache from '@/utils/cache'
+import { cloneDeep, size } from 'lodash'
+import { dateToStr, unixToStr } from '@/utils/filters'
+
+// 流加载
+import './utils/ljs'
+
+let global = new Vue({
+    template: '<div></div>',
+    data: {
+        ENV: process.env.NODE_ENV,
+        apihost: process.env.VUE_APP_API,
+        debug: (process.env.NODE_ENV || '').indexOf('development') > -1 || window.localStorage && window.localStorage.devOnline == 1,
+        token: cache.getLocal('token') || '',
+        dh: document.body.clientHeight,
+        dw: document.body.clientWidth,
+        ljs: window.ljs,
+        data: {},
+    },
+    computed: {
+        getData() {
+            return store.state.datas;
+        },
+        setToken: {
+            get() {
+                return this.token;
+            },
+            set(val) {
+                this.token = val;
+                cache.setLocal('token', val);
+                if(val == '') cache.removeLocal('token');
+            }
+        },
+    },
+    methods: {
+        //写入共享数据
+        setData(key, val) {
+            // 方法一
+            let storeData = Object.assign({}, this.data);
+            // 方法二
+            // let storeData = cloneDeep(this.data);
+            storeData[key] = val;
+            this.data = storeData;
+            store.dispatch('setData', storeData);
+            return val
+        },
+        setApi(val) {
+            let name = val && val.$options ? val.$options.name : '';
+            if(!name) {
+                console.warn('setApi error, 请定义 name ');
+            }
+            if(!global[`api_${name}`]) {
+                global[`api_${name}`] = val;
+            }
+        },
+        cloneDeep: cloneDeep,
+        size: size,
+        log(...arg){
+            this.debug && console.log(...arg);
+        },
+        init(vm) {
+            window.DevVue = vm;
+            // 动态获取视窗宽高
+            window.onresize = () => {
+                this.dw = document.body.clientWidth;
+                this.dh = document.body.clientHeight;
+            };
+        },
+        load(...arr){
+            var plugins = [];
+            const config = {
+                'viewer':['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
+                'jquery':['plugins/jquery.js']
+            }
+            arr.map(item => {
+                let pluginName = (typeof item == 'string') ? item.toLocaleLowerCase() : item;
+                if(config[pluginName]){
+                    plugins.push(...config[pluginName]);
+                }else{
+                    plugins.push(pluginName);
+                }
+            });
+            this.ljs.load(...plugins);
+        },
+        setValue: cache.setLocal,
+        getValue: cache.getLocal,
+        delValue: cache.removeLocal,
+        dateToStr: dateToStr,
+        unixToStr: unixToStr,
+        fileDownload(data, fileName) {
+            // 后端接口文件流下载
+            const blob = new Blob([data], {
+                type: 'application/vnd.ms-excel;charset=utf-8'
+            })
+            const filename = fileName || 'excel.xlsx'
+            if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                window.navigator.msSaveBlob(blob, filename)
+            } else {
+                var blobURL = window.URL.createObjectURL(blob)
+                var tempLink = document.createElement('a')
+                tempLink.style.display = 'none'
+                tempLink.href = blobURL
+                tempLink.setAttribute('download', filename)
+                if (typeof tempLink.download === 'undefined') {
+                    tempLink.setAttribute('target', '_blank')
+                }
+                document.body.appendChild(tempLink)
+                tempLink.click()
+                document.body.removeChild(tempLink)
+                window.URL.revokeObjectURL(blobURL)
+            }
+        },
+    }
+})
+Vue.global = global
+// Vue 原型链挂载
+Vue.prototype.dataBase = global
+
+export default global
