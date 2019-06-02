@@ -1,6 +1,6 @@
 <template>
     <svg :class="svgClass" aria-hidden="true">
-        <use :xlink:href="iconName"></use>
+        <use :xlink:href="iconsName"></use>
     </svg>
 </template>
 
@@ -9,23 +9,23 @@
  * m-icon  图标
  * @module components/icon
  * @desc 顶部导航
- * @param {String} [iconClass] - 图标类型
- * @param {string} [className] - 自定义图标样式
+ * @param {String} [iconName] - 图标类型
+ * @param {string} [iconClass] - 自定义图标样式
  * @example
  */
 export default {
     name: 'm-icon',
     props: {
         iconClass: String,
-        className: String
+        iconName: String
     },
     computed: {
-        iconName() {
-            return `#${this.iconClass}`
+        iconsName() {
+            return `#${this.iconName}`
         },
         svgClass() {
-            if (this.className) {
-                return 'gc-icon ' + this.className
+            if (this.iconClass) {
+                return 'gc-icon ' + this.iconClass
             } else {
                 return 'gc-icon'
             }

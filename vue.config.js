@@ -1,5 +1,13 @@
 var path = require('path')
 
+/**
+ * @example 
+ * .env                # 在所有的环境中被载入
+ * .env.local          # 在所有的环境中被载入，但会被 git 忽略
+ * .env.[mode]         # 只在指定的模式中被载入
+ * .env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
+ */
+
 function resolve(dir) {
     return path.join(__dirname, dir)
 }
@@ -37,18 +45,13 @@ module.exports = {
             }
         }
     },
-    configureWebpack: {    
-        // 覆盖webpack默认配置的都在这里   
-        // 配置解析别名      
-        resolve: {                   
-            alias: {
-                '@': path.resolve(__dirname, './src')
-            } 
-        }
-    },
     chainWebpack: config => {
+        // 覆盖webpack默认配置的都在这里, 配置解析别名  
+        // 别名@为 VUE 自带默认配置(指向src),无需配置
         config.plugins.delete('prefetch')
         // 配置解析别名
         // config.resolve.alias.set('@', resolve('src'))
+        config.resolve.alias
+            .set("@base", resolve("src/components/Base"))
     }
 }

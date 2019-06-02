@@ -9,22 +9,17 @@
 <script>
 /* eslint-disable */
 export default {
-    data() {
-        return {
-            vmObj: this
-        }
-    },
     props: {
         hide: Boolean,
         config: {
             type: [Object],
-            default: function() {
+            default: () => {
                 return {}
             }
         }
     },
     mounted() {
-        var el = this.$refs.container, vm=this;
+        var el = this.$refs.container, vm = this;
         vm.dataBase.load('jquery','./plugins/scrollbar/jquery.scrollbar.css','./plugins/scrollbar/jquery.scrollbar.min.js', () => {
             var $el=$(el);
             // 销毁滚动事件

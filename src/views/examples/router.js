@@ -5,12 +5,40 @@ export default {
         module: 'docs',
         title: '首页'
     },
-    redirect: '/docs',
+    redirect: '/icons',
     component: r => require.ensure([], () => r(require('./main.vue')), 'home'),
     children: [
         {
-            path: 'docs',
-            component: r => require.ensure([], () => r(require('./Icon/index.vue')), 'docs'),
+            path: 'icons',
+            component: r => require.ensure([], () => r(require('./icon/index.vue')), 'docs'),
+            meta: {
+                module: 'docs'
+            },
+        },
+        {
+            path: 'avatar',
+            component: r => require.ensure([], () => r(require('./avatar/index.vue')), 'docs'),
+            meta: {
+                module: 'docs'
+            },
+        },
+        {
+            path: 'noneTip',
+            component: r => require.ensure([], () => r(require('./noneTip/index.vue')), 'docs'),
+            meta: {
+                module: 'docs'
+            },
+        },
+        {
+            path: 'timePicker',
+            component: r => require.ensure([], () => r(require('./timePicker/index.vue')), 'docs'),
+            meta: {
+                module: 'docs'
+            },
+        },
+        {
+            path: 'echart',
+            component: r => require.ensure([], () => r(require('./echart/index.vue')), 'docs'),
             meta: {
                 module: 'docs'
             },

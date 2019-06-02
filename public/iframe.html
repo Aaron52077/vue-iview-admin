@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="utf-8">
+	    <title>iframe Window</title>
+	    <style>
+	        body {
+	            background-color: #D53C2F;
+	            color: white;
+	        }
+	    </style>
+	</head>
+	<body>
+	    <h1>Hello there, i'm an iframe</h1>
+	    <script>
+	        // 向父vue页面发送信息
+	        window.parent.postMessage({
+	            cmd: 'returnFormJson',
+	            params: {
+					mode: 9527	// 是否显示菜单导航栏
+	            }
+	        }, '*');
+	        // 接受父页面发来的信息
+	        window.addEventListener("message", function(event) {
+	          var data = event.data;
+	          switch (data.cmd) {
+	            case 'getFormJson':
+					// 处理业务逻辑
+					console.log('父页面推送数据:', data)
+	                break;
+	            }
+	        });
+	    </script>
+	</body>
+</html>

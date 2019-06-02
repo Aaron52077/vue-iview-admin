@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.2.1",
     "iview": "^3.3.0",
     "lodash": "^4.17.11",
     "vue": "^2.6.6",
@@ -29,7 +30,6 @@
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "path-to-regexp": "^3.0.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {

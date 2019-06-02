@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import echarts from 'echarts'
 
 // 全局组件库
 import './components/iview'
@@ -21,7 +22,8 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.config.productionTip = false
-Vue.prototype.$axios = axios
+Vue.prototype.$echarts = echarts
+Vue.prototype.$http = axios
 
 dataBase.debug && (() => {
     var script = document.createElement('script'); 

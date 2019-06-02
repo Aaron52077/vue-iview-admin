@@ -1,24 +1,12 @@
 <template>
-    <div class="container gc-main__bd">
-        <!--左侧导航-->
-        <!--内容-->
+    <div class="container">
         <router-view></router-view>
+        <!-- 配置内置过渡动画 -->
+        <!-- <transition name="el-fade-in-linear">
+            <router-view></router-view>
+        </transition> -->
     </div>
 </template>
 
-<script>
-/* eslint-disable */
-export default {
-    name: 'docs',
-    data () {
-        return {
-
-        }
-    },
-    methods: {
-
-    }
-}
-</script>
 
 

@@ -45,7 +45,8 @@ import {
     InputNumber,
     ButtonGroup,
     Card,
-    CheckboxGroup  
+    CheckboxGroup,
+    Divider 
 } from 'iview'
 
 // 全局注册组件
@@ -82,7 +83,7 @@ const components = {
     'sDropdownItem': DropdownItem,
     'sDropdown': Dropdown,
     'sTabs': Tabs,
-    'Submenu': Submenu,
+    'submenu': Submenu,
     'sMenuGroup': MenuGroup,
     'sBreadcrumb': Breadcrumb,
     'sBreadcrumbItem': BreadcrumbItem,
@@ -93,7 +94,8 @@ const components = {
     'sInputNumber': InputNumber,
     'sButtonGroup': ButtonGroup,
     'sCard': Card,
-    'sCheckboxGroup': CheckboxGroup 
+    'sCheckboxGroup': CheckboxGroup,
+    'sDivider': Divider
 }
 
 // 全局注册按需iview组件

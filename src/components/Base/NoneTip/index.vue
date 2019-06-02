@@ -1,10 +1,10 @@
 <template>
-    <div class="no-result" :style="{ paddingTop: `${top}px` }">
+    <div class="no-result" :style="{ paddingTop: `${offsetTop}px` }">
         <template v-if="type == 1">
-            <img class="no-result__img1" src="~@/assets/img/no-result.png" />
+            <sIcon class="no-result__icon" type="logo-html5" />
         </template>
         <template v-if="type == 2">
-            <img class="no-result__img2" src="~@/assets/img/no-result.png" />
+            <mIcon iconClass="no-result__icon1" iconName="wp-form" />
         </template>
         <p>
             <slot></slot>
@@ -19,7 +19,7 @@ export default {
             type: [String, Number],
             default: "1"
         },
-        top: {
+        offsetTop: {
             type: Number,
             default: 120
         }
@@ -32,13 +32,13 @@ export default {
     width: 100%;
     text-align: center;
     background-color: #fff;
-    &__img1 {
-        width: 174px;
-        height: 151px;
+    &__icon {
+        font-size: 48px;
+        color: #999;
     }
-    &__img2 {
-        width: 138px;
-        height: 100px; 
+    &__icon1 {
+        font-size: 40px;
+        color: #999;
     }
     p {
         margin-top: 10px;

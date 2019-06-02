@@ -62,39 +62,33 @@ instance.interceptors.response.use(response => {
 /*
 * request方法（统一axios请求方法的格式）
 * url       请求URL
-* type      请求类型
+* type      请求类型 默认转为大写
 * data      参数
 * isForm    是否表单数据
 * isDown    是否下载文件流
 */
-export const request = async(url = '', type = 'GET', data = {}, isForm = false, isDown = false) => {
+export const request = async(url = '', type = 'GET', data = {}, isDown = false) => {
     let result
-    type = type.toUpperCase()   // 转为大写
+    type = type.toUpperCase()   
     let requestOptions = {
         method: type,
         url: url,
-        responseType: isDown ? 'blob' : 'json'   // 二进制流
+        responseType: isDown ? 'blob' : 'json'   
     }
-    if (isForm) {
-        let form = new FormData()
-        Object.keys(data).forEach(key => {
-            form.append(key, data[key])
-        })
-        data = form
-    }
+
     requestOptions['headers'] = {
         'Content-type': isDown ? 'application/vnd.ms-excel' : 'application/json'
     }
-    requestOptions['headers'] = {
-        'Content-type': isForm ? 'application/x-www-form-urlencoded' : 'application/json'
-    }
+
     if (type === 'GET') {
         requestOptions['params'] = data
     } else {
         requestOptions['data'] = data
     }
+    
     await instance(requestOptions).then(res => {
         result = res
     })
+    
     return result
 }

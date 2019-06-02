@@ -58,6 +58,10 @@ let global = new Vue({
         },
         cloneDeep: cloneDeep,
         size: size,
+        uuid(len = 5) {
+            // 生成随机字符串 提供echart类动态id绘制图表类攻能
+            return Number(Math.random().toString().substr(3, len) + Date.now()).toString(36)
+        },
         log(...arg){
             this.debug && console.log(...arg);
         },

@@ -2,6 +2,7 @@
 @import './_var';
 @import './_mixins';
 
+// 参考element-ui动画效果
 .fade-in-linear-enter-active,
 .fade-in-linear-leave-active {
     transition: @--fade-linear-transition;
@@ -40,16 +41,15 @@
     overflow: hidden;
 }
 
-.gc-main__bd {
-    padding: 20px;
+.gc-container {
+    padding: 10px 20px;
+    &__title {
+        font-size: 16px;
+        color: #999;
+    }
 }
 
 .echart-dom {
     width: 100%;
     height: 100%;
-}
-
-.gc-tb__page {
-    margin: 15px 15px 0;
-    text-align: right;
 }

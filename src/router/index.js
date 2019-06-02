@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
-import cache from '@/utils/cache'
+// import cache from '@/utils/cache'
 import { LoadingBar } from 'iview'
 
 Vue.use(Router)
@@ -17,12 +17,13 @@ const routerObj = new Router({
 // 全局路由登录验证，权限验证路由拦截
 routerObj.beforeEach((to, from, next) => {
     // 免登录或已登录
-    if(to.matched.some(record => record.meta.noAuth) || cache.getLocal('token')) {
+    if(to.matched.some(record => record.meta.noAuth)) {
         LoadingBar.start()
         next()
     }else {
         LoadingBar.start()
-        next({ path:'/account' })
+        next()
+        // next({ path:'/account' })
     }
 })
 

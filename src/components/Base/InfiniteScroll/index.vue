@@ -26,7 +26,7 @@ export default {
 		},
 		config: {
 			type: Object,
-			default: function() {
+			default: () => {
 				return {}
 			}
 		}
@@ -46,13 +46,13 @@ export default {
             inserted: function(el, binding, vnode) {
                 const vm = binding.value;
                 vm.dataBase.load('jquery', () => {
-                    var opt = {
+                    let opt = {
                         offset: 2,
                         base: ['#navTop', '#navBottom'],
                         cls: []
                     }
                 opt = $.extend(true,{}, opt, vm.config)
-                var cls = opt.base.concat(opt.cls);
+                let cls = opt.base.concat(opt.cls);
                 //计算固定区域高度
                 var getHeight = function() {
                     if($(el).length){
@@ -71,21 +71,22 @@ export default {
                         }
                     }
                 }
-                var id = 0;
+                const id = vm.dataBase.uuid();
                 vm.dataBase.setData('gc-fixed-height', id);
-                $(el).attr('fix_id', id);
+                $(el).attr('infinite_id', id);
                 getHeight();
                 setTimeout(() => { 
                     getHeight(); 
                 }, 200);
-                $(window).off('resize.fid' + id).on('resize.fid' + id, getHeight); //已id方式注册事件
+                $(window).off('resize.infinite_id' + id).on('resize.infinite_id' + id, getHeight); // 已id方式注册事件
             });
         },
-        unbind: function(el,binding) { //注销事件
+        unbind: function(el,binding) { 
+            // 注销事件
             const vm = binding.value;
             vm.dataBase.load('jquery', () => {
-                var id = 0;
-                $(window).off('resize.fid' + id);
+                const id = vm.dataBase.uuid();
+                $(window).off('resize.infinite_id' + id);
             })
         }
     }
