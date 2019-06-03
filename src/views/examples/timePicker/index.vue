@@ -24,8 +24,8 @@
             <!-- 日期 -->
             <mTimePicker 
                 type="date" 
-                format="yyyy-MM-dd HH:mm" 
-                formater="yyyy-MM-dd hh:mm" 
+                format="yyyy-MM-dd" 
+                formater="yyyy-MM-dd" 
                 placeholder="选择日期" 
                 innerText="获取日期"
                 @on-click="handle"></mTimePicker>
@@ -33,6 +33,15 @@
         <div class="gc-container">
             <sDivider></sDivider>
             <div class="gc-container__title">其他用法</div>
+            <!-- 月份 -->
+            <mTimePicker 
+                type="month" 
+                format="yyyy-MM" 
+                formater="yyyy-MM" 
+                placeholder="选择月份" 
+                innerText="默认时间"
+                :config="confData"
+                @on-click="handle"></mTimePicker>
             <mTimePicker type="datetime" format="yyyy-MM-dd HH:mm" formater="yyyy-MM-dd hh:mm" :hasLabel="true" innerText="搜索" @on-click="handle">
                 <template v-slot:innerLeft>
                     <span>开始时间</span>
@@ -60,7 +69,19 @@ export default {
             };
             this.$Message.info(`开始时间：${parmas.start}，结束时间：${parmas.end}`)
         }
-    }
+    },
+    computed: {
+        confData() {
+            const t = this.dataBase;
+            let beginTime = new Date().getFullYear();
+            let nowTime = t.dateToStr(new Date(), 'yyyy-MM');
+            const date = {
+                start: `${beginTime}-01-01`,
+                end: `${nowTime}-01`
+            }
+            return date
+        }
+    },
 }
 </script>
 

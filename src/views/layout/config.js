@@ -4,14 +4,14 @@
  */
 export const navList = [
     {
-        id: '1',
         icon: 'md-cube',
-        name: '组件类'
+        name: '组件类',
+        path: '/'
     },
     {
-        id: '2',
-        icon: 'md-chatbubbles',
-        name: 'api'
+        icon: 'md-build',
+        name: 'api',
+        path: '/api'
     }
 ]
 
@@ -28,6 +28,12 @@ export const menuList = [
             {name: 'NoneTip 无记录', path: '/noneTip', icon: 'md-paw'},
             {name: 'TimePicker 时间控件', path: '/timePicker', icon: 'md-time'},
             {name: 'echart 图表', path: '/echart', icon: 'md-podium'}
+        ]
+    },
+    {
+        name: 'API',
+        children: [
+            {name: 'Breadcrumb 面包屑', path: '/api', icon: 'md-filing'}
         ]
     }
 ]

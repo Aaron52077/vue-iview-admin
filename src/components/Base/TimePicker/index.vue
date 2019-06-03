@@ -107,6 +107,10 @@ export default {
         innerText: {
             type: String,
             default: '查询' 
+        },
+        config: {
+            type: Object,
+            default: () => {}
         }
     },
     data () {
@@ -118,6 +122,12 @@ export default {
                     return date && date.valueOf() > Date.now() - 86400000;
                 }
             }
+        }
+    },
+    created() {
+        if(this.config) {
+            this.startTime = this.config.start;
+            this.endTime = this.config.end;
         }
     },
     methods: {

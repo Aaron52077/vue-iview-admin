@@ -4,8 +4,8 @@
         <header class="gc-head" id="navTop">
             <div class="gc-head__bd">
                 <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
-                <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="active">
-                    <sMenuItem v-for="item in navList" :name="item.id" :key="item.id">
+                <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
+                    <sMenuItem v-for="item in navList" :name="item.name" :to="item.path" :key="item.id">
                         <sIcon :type="item.icon" />{{item.name}}
                     </sMenuItem>
                 </sMenu>
@@ -32,7 +32,7 @@
 </template>
 <script>
 /* eslint-disable */
-import {navList, menuList} from './conf';
+import {navList, menuList} from './config';
 
 export default {
     name: 'layout-main',
@@ -41,6 +41,7 @@ export default {
             navList,
             menuList,
             active: 'Icon 图标',
+            navActive: '组件类'
         }
     },
     computed: {
@@ -86,10 +87,18 @@ export default {
             script.type = "text/javascript";
             script.src = "http://api.map.baidu.com/api?v=2.0&ak="+ak+"&callback=init";
             document.head.appendChild(script);
+        },
+        pathHandle(name) {
+            this.navActive = name;
+            if(name === '组件类') {
+                this.active = 'Icon 图标'
+            }else {
+                this.active = 'Breadcrumb 面包屑'
+            }
         }
     },
     watch: {
-        // '$route': 'getPathTitle'
+        '$route': 'getPathTitle'
     },
 }
 </script>
@@ -131,7 +140,7 @@ export default {
             }
         }
         &__nav {
-            float: left;
+            float: right;
             margin-left: 42px;
         }
         &__bd {
