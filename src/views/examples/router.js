@@ -6,7 +6,7 @@ export default {
         title: '首页'
     },
     redirect: '/icons',
-    component: r => require.ensure([], () => r(require('./main.vue')), 'home'),
+    component: r => require.ensure([], () => r(require('./main.vue')), 'docs'),
     children: [
         {
             path: 'icons',
@@ -32,13 +32,6 @@ export default {
         {
             path: 'timePicker',
             component: r => require.ensure([], () => r(require('./timePicker/index.vue')), 'docs'),
-            meta: {
-                module: 'docs'
-            },
-        },
-        {
-            path: 'echart',
-            component: r => require.ensure([], () => r(require('./echart/index.vue')), 'docs'),
             meta: {
                 module: 'docs'
             },

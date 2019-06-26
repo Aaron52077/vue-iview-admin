@@ -4,6 +4,7 @@
         <header class="gc-head" id="navTop">
             <div class="gc-head__bd">
                 <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
+                <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
                 <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
                     <sMenuItem v-for="item in navList" :name="item.name" :to="item.path" :key="item.id">
                         <sIcon :type="item.icon" />{{item.name}}
@@ -13,7 +14,7 @@
         </header>
         <!-- 内容 -->
         <div class="gc-body">
-            <div class="gc-body__lt">
+            <div class="gc-body__lt sidebar-container">
                 <mScrollbar hide>
                     <sMenu :active-name="active" width="210px">
                         <sMenuGroup v-for="(item, index) in menuList" :key="index" :title="item.name">
@@ -48,16 +49,19 @@ export default {
         pageType() {
             // 识别当前所在页面模块 meta.module字段
             let path = (this.$route.meta || {}).module || '';
-            let type = 'entry'
+            let type = 'docs'
             switch (path) {
-                case 'entry':
-                    type = 'entry';
+                case 'echarts':
+                    type = 'echarts';
+                    this.navActive = '可视化';
                     break;
                 case 'docs':
                     type = 'docs';
+                    this.navActive = '组件类';
                     break;
                 case 'api':
                     type = 'api';
+                    this.navActive = 'api';
                     break;
                 default:
                     type = 'account'
@@ -90,10 +94,18 @@ export default {
         },
         pathHandle(name) {
             this.navActive = name;
-            if(name === '组件类') {
-                this.active = 'Icon 图标'
-            }else {
-                this.active = 'Breadcrumb 面包屑'
+            switch (name) {
+                case '组件类':
+                    this.active = 'Icon 图标'
+                    break;
+                case 'api':
+                    this.active = 'Breadcrumb 面包屑'
+                    break;
+                case '可视化':
+                    this.active = 'Echart 图表'
+                    break;
+                default:
+                    break;
             }
         }
     },
@@ -148,6 +160,12 @@ export default {
             width: 95%;
             height: 65px;
             .clearfix();
+        }
+        &__inner {
+            float: left;
+            padding-left: 20px;
+            height: 60px;
+            line-height: 65px;
         }
     }
     .gc-body {

@@ -6,7 +6,7 @@ export default {
         title: 'API'
     },
     redirect: '/api/page',
-    component: r => require.ensure([], () => r(require('./main.vue')), 'home'),
+    component: r => require.ensure([], () => r(require('./main.vue')), 'api'),
     children: [
         {
             path: 'page',
@@ -33,6 +33,34 @@ export default {
                     },
                 }
             ]
-        }
+        },
+        {
+            path: 'umEditor',
+            component: r => require.ensure([], () => r(require('./umEditor/main.vue')), 'api'),
+            meta: {
+                module: 'api'
+            },
+        },
+        {
+            path: 'quillEditor',
+            component: r => require.ensure([], () => r(require('./quillEditor/main.vue')), 'api'),
+            meta: {
+                module: 'api'
+            },
+        },
+        {
+            path: 'tinymce',
+            component: r => require.ensure([], () => r(require('./tinymce/main.vue')), 'api'),
+            meta: {
+                module: 'api'
+            },
+        },
+        {
+            path: 'cropper',
+            component: r => require.ensure([], () => r(require('./cropper/main.vue')), 'api'),
+            meta: {
+                module: 'api'
+            },
+        },
     ]
 }

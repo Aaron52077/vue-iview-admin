@@ -12,9 +12,9 @@
                 <sBreadcrumbItem>某应用</sBreadcrumbItem>
             </sBreadcrumb>
         </div>
-        <mCalcHeight :config="{ cls:['#demo_top'] }">
+        <mInfiniteScroll :config="{ cls:['#demo_top'] }">
             <div style="height:1200px">滚动<br/>内容<br/><br/><br/>...到底了</div>
-        </mCalcHeight>
+        </mInfiniteScroll>
     </div>
 ```
 
@@ -22,9 +22,9 @@
 
 ```html
     用法1
-	<mCalcHeightt v-model="myHeight"></mCalcHeight>
+	<mInfiniteScroll v-model="myHeight"></mInfiniteScroll>
     <!--  {{myHeight}}  -->
     <!--  关联v-model后返回的值，可以做更高级的应用 -->
     用法2
-    <mCalcHeight :config="{ offset: 120 }"></mCalcHeight>
+    <mInfiniteScroll :config="{ offset: 120 }"></mInfiniteScroll>
 ```

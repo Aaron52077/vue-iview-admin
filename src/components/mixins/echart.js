@@ -1,11 +1,39 @@
-
 /* eslint-disable */
+import { debounce } from '@/utils'
+
 export default {
+    data() {
+        return {
+            $_sidebarElm: null
+        }
+    },
     /**
      * 创建缓存
      */
     created () {
         this._cacheEchartstanceArr = []
+    },
+    /**
+     * 图表自适应处理
+     */
+    mounted() {
+        this.__resizeHandler = debounce(() => {
+            if (this.myChart) {
+                this.myChart.resize()
+            }
+        }, 100)
+        window.addEventListener('resize', this.__resizeHandler)
+    
+        this.$_sidebarElm = document.getElementsByClassName('sidebar-container')[0]
+        this.$_sidebarElm && this.$_sidebarElm.addEventListener('transitionend', this.$_sidebarResizeHandler)
+    },
+    /**
+     * 图表销毁之前的处理
+     */
+    beforeDestroy() {
+        window.removeEventListener('resize', this.__resizeHandler)
+    
+        this.$_sidebarElm && this.$_sidebarElm.removeEventListener('transitionend', this.$_sidebarResizeHandler)
     },
     /**
      * 集中销毁实例
@@ -29,6 +57,13 @@ export default {
             const myChart = this.$echarts.init(oDiv)
             this._cacheEchartstanceArr.push(myChart)
             return myChart
+        },
+        // use $_ for mixins properties
+        // https://vuejs.org/v2/style-guide/index.html#Private-property-names-essential
+        $_sidebarResizeHandler(e) {
+            if (e.propertyName === 'width') {
+                this.__resizeHandler()
+            }
         }
     }
 }

@@ -46,7 +46,8 @@ import {
     ButtonGroup,
     Card,
     CheckboxGroup,
-    Divider 
+    Divider,
+    Upload
 } from 'iview'
 
 // 全局注册组件
@@ -95,7 +96,8 @@ const components = {
     'sButtonGroup': ButtonGroup,
     'sCard': Card,
     'sCheckboxGroup': CheckboxGroup,
-    'sDivider': Divider
+    'sDivider': Divider,
+    'sUpload': Upload
 }
 
 // 全局注册按需iview组件

@@ -3,7 +3,6 @@ import store from '@/store'
 import { Message } from 'iview'
 import cache from '@/utils/cache'
 
-const tokenKey = 'token'
 const tokenValue = 'Y2FtcHVzOmNhbXB1cw=='
 // 创建axios实例
 export const instance = axios.create({
@@ -22,7 +21,7 @@ instance.interceptors.request.use(config => {
     }
     if(store.getters.token || cache.getLocal('token')) {
         config.headers['Authorization'] = `Bearer ${store.getters.token || cache.getLocal('token')}` // 让每个请求携带token -- ['AUTH_TOKEN']为自定义key
-        cache.setLocal(tokenKey, cache.getLocal('token'))
+        cache.setLocal('token', cache.getLocal('token'))
     }
     return config
 }, error => {
@@ -77,7 +76,7 @@ export const request = async(url = '', type = 'GET', data = {}, isDown = false) 
     }
 
     requestOptions['headers'] = {
-        'Content-type': isDown ? 'application/vnd.ms-excel' : 'application/json'
+        'Content-Type': isDown ? 'application/vnd.ms-excel' : 'application/json'
     }
 
     if (type === 'GET') {

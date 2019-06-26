@@ -13,7 +13,6 @@
 │   │          └── packages 页面模块包...
 │   ├── components/         项目组件，项目内模块相关的组件
 │   │     ├── Base          主框架ui公用组件
-│   │     ├── Echarts       目前为项目首页echarts组件
 │   │     ├── iview.js      主框架iview ui配置公用组件
 │   │     └── index.js      主框架ui公用组件入口
 │   ├── utils/              项目数据处理全局公用方法等...

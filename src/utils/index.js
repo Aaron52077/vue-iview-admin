@@ -155,3 +155,12 @@ function mockToken() {
     return uuid;
 }
 
+
+function bouncer(arr) {
+    // Don't show a false ID to this bouncer.
+    // 过滤掉数组中false, null, 0, "", undefined, NaN
+    return arr.filter(value => {
+        return !(!value || value === "")
+    });
+}
+

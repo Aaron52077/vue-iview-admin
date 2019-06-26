@@ -4,7 +4,6 @@
         <sDivider></sDivider>
         <div class="gc-container">
             <div class="gc-container__title">常用用法(年、月、日)</div>
-            <sDivider></sDivider>
             <!-- 年份 -->
             <mTimePicker 
                 type="year" 
@@ -51,6 +50,14 @@
                 </template>
             </mTimePicker>
         </div>
+        <div class="gc-container">
+            <sDivider></sDivider>
+            <div class="gc-container__title">设置开始时间和结束时间约束</div>
+            <div style="margin-top: 10px;">
+                <sDatePicker type="date" :options="startTimeOptions" @on-change="startTimeChange" placeholder="开始时间" style="margin-right: 15px" v-model="starttime" transfer></sDatePicker>
+                <sDatePicker type="date" :options="endTimeOptions" @on-change="endTimeChange" placeholder="结束时间" v-model="endtime" transfer></sDatePicker>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -58,7 +65,10 @@
 export default {
     data () {
         return {
-            
+            startTimeOptions: {},   // 开始日期设置
+            endTimeOptions: {},     // 结束日期设置
+            starttime: '',          // 开始日期
+            endtime: '',            // 结束日期
         }
     },
     methods: {
@@ -68,7 +78,27 @@ export default {
                 end: data.end
             };
             this.$Message.info(`开始时间：${parmas.start}，结束时间：${parmas.end}`)
-        }
+        },
+        startTimeChange(event) {
+            // 设置开始时间
+            this.starttime = event;
+            this.endTimeOptions = {
+                disabledDate: date => {
+                    let startTime = this.starttime ? new Date(this.starttime).valueOf() : '';
+                    return date && (date.valueOf() < startTime);
+                }
+            }
+        },
+        endTimeChange(event) { 
+            // 设置结束时间
+            this.endtime = event;
+            let endTime = this.endtime ? new Date(this.endtime).valueOf() - 1 * 24 * 60 * 60 * 1000 : '';
+            this.startTimeOptions = {
+                disabledDate(date) {
+                    return date && date.valueOf() > endTime;
+                }
+            }
+        },
     },
     computed: {
         confData() {

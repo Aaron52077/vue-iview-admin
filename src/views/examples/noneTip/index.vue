@@ -11,17 +11,24 @@
             <div class="gc-container__title">样式2</div>
             <sDivider></sDivider>
             <mNoneTip :type="2" :offset-top="40">无记录</mNoneTip>
+            <!-- <div>{{regxVar(str, value)}}</div> -->
         </div>
     </div>
 </template>
 
 <script>
+/* eslint-disable */
+import { regxVar } from '@/utils/validate';
 export default {
     data () {
         return {
-            
+            str: '距离退休月份<=${value}月, ${value2}日',
+            value: '3'
         }
     },
+    methods: {
+        regxVar,
+    }
 }
 </script>
 

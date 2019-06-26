@@ -4,6 +4,7 @@ import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
 import { dateToStr, unixToStr } from '@/utils/filters'
+import common from '@/common'
 
 // 流加载
 import './utils/ljs'
@@ -19,6 +20,7 @@ let global = new Vue({
         dw: document.body.clientWidth,
         ljs: window.ljs,
         data: {},
+        common: common
     },
     computed: {
         getData() {
@@ -76,8 +78,12 @@ let global = new Vue({
         load(...arr){
             var plugins = [];
             const config = {
+                'jquery':['plugins/jquery.js'],
+                'superslide':['plugins/superslide/jquery.SuperSlide.js'],
+                'umeditor':['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-cn.js'],
                 'viewer':['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
-                'jquery':['plugins/jquery.js']
+                'quill':['plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js'],
+                'tinymce':['plugins/tinymce/tinymce.min.js','plugins/tinymce/langs/zh_CN.js']
             }
             arr.map(item => {
                 let pluginName = (typeof item == 'string') ? item.toLocaleLowerCase() : item;

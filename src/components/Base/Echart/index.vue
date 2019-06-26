@@ -23,6 +23,17 @@ export default {
             default: () => {
                 return {}
             }
+        },
+        action: {
+            type: Boolean,
+            default: false
+        },
+        path: String,       // 前提action动作为true, path: 路由地址
+        params: String      // 前提action动作为true, params: 取字段名
+    },
+    data() {
+        return {
+            myChart: null
         }
     },
     computed: {
@@ -34,16 +45,20 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.drawChart()
-        })
+        });
     },
     methods: {
         drawChart() {
             let option = this.dataBase.cloneDeep(this.optionObj);
-            let myChart = this.echartInit(this.chartId);
-            myChart.setOption(option, true)
-            this.$nextTick(() => {
-                window.addEventListener('resize', () => { myChart.resize() })
-            })
+            this.myChart = this.echartInit(this.chartId);
+            this.myChart.setOption(option, true);
+            let path = this.dataBase.cloneDeep(this.path);
+            let payload = this.dataBase.cloneDeep(this.params);
+            if(this.action && this.path) {
+                this.myChart.on('click', params => {
+                    this.$router.push({path: `${this.path}`, query: { obj: payload ? params[`${payload}`] : ''} })
+                });
+            };
         }
     },
     watch: {
