@@ -13,14 +13,35 @@ export default {
             component: r => require.ensure([], () => r(require('./exp/index.vue')), 'echarts'),
             meta: {
                 module: 'echarts'
-            },
+            }
         },
         {
             path: 'bar',
             component: r => require.ensure([], () => r(require('./bar/index.vue')), 'echarts'),
             meta: {
                 module: 'echarts'
-            },
+            }
+        },
+        {
+            path: 'line',
+            component: r => require.ensure([], () => r(require('./line/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
+        },
+        {
+            path: 'radar',
+            component: r => require.ensure([], () => r(require('./radar/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
+        },
+        {
+            path: 'pie',
+            component: r => require.ensure([], () => r(require('./pie/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
         }
     ],
 }

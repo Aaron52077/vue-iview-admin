@@ -1,6 +1,6 @@
 <template>
     <div class="gc-panel">
-        <div class="gc-panel__title">Echart bar 图表</div>
+        <div class="gc-panel__title">Echart line 图表</div>
         <sDivider></sDivider>
         <div class="gc-container">
             <div class="gc-container__title">通过Easy Mock接口方式用法</div>
@@ -8,12 +8,12 @@
             <sRow :gutter="16">
                 <sCol span="12">
                     <div class="echart-block">
-                        <mEchart v-if="barObj1.data" :optionObj="barObj1.option"></mEchart>
+                        <mEchart v-if="lineObj1.data" :optionObj="lineObj1.option"></mEchart>
                     </div>
                 </sCol>
                 <sCol span="12">
                     <div class="echart-block">
-                        <mEchart v-if="barObj2.data" :optionObj="barObj2.option"></mEchart>
+                        <mEchart v-if="lineObj2.data" :optionObj="lineObj2.option"></mEchart>
                     </div>
                 </sCol>
             </sRow>
@@ -22,26 +22,26 @@
 </template>
 
 <script>
-import { echartBarAPI } from '@/api/echarts';
-import { EchartsBar, EchartsBarOpt1 } from '@base/Echart/configs/bar';
+import { echartLineAPI } from '@/api/echarts';
+import { EchartsLine, EchartsLineOpt1 } from '@base/Echart/configs/line';
 
 export default {
     data () {
         return {
-            barObj1: {
+            lineObj1: {
                 data: false,
                 option: {}
             }, 
-            barObj2: {
+            lineObj2: {
                 data: false,
                 option: {}
             },
         }
     },
     created() {
-        echartBarAPI().then(res => {
-            this.barObj1 = EchartsBar(res.data);
-            this.barObj2 = EchartsBarOpt1(res.data);
+        echartLineAPI().then(res => {
+            this.lineObj1 = EchartsLine(res.data);
+            this.lineObj2 = EchartsLineOpt1(res.data);
         });
     }
 }

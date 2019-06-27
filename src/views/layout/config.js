@@ -48,7 +48,10 @@ export const menuList = [
         name: '可视化',
         children: [
             {name: 'Echart 图表', path: '/echarts/exp', icon: 'md-podium'},
-            {name: 'Bar', path: '/echarts/bar', icon: 'md-podium'}
+            {name: 'Bar', path: '/echarts/bar', icon: 'md-stats'},
+            {name: 'Line', path: '/echarts/line', icon: 'md-done-all'},
+            {name: 'Radar', path: '/echarts/radar', icon: 'md-wifi'},
+            {name: 'Pie', path: '/echarts/pie', icon: 'md-radio-button-off'}
         ]
     }
 ]
