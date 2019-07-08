@@ -6,11 +6,11 @@
 
 ## 文档
 
-[wuli-ui-vue 文档](https://aaron52077.github.io/wuli-ui-vue/) 
+[vue-wuli-ui 文档](https://aaron52077.github.io/vue-wuli-ui/#/) 
 
 ## 演示demo
 
-[vue-wuli-ui 文档](https://aaron52077.github.io/vue-wuli-ui/#/) 
+[DEMO](https://aaron52077.github.io/vue-iview-dev/#/)
 
 > 开发预览
 
