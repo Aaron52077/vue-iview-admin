@@ -4,4 +4,5 @@
 
 [演示demo](https://aaron52077.github.io/vue-iview-dev/)
 
+![](../../assets/index.png)
 <div align = right>文档更新时间： {docsify-updated}</div>
