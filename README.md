@@ -10,7 +10,7 @@
 
 ## 演示demo
 
-[DEMO](https://aaron52077.github.io/vue-iview-dev/#/)
+[vue-wuli-ui 文档](https://aaron52077.github.io/vue-wuli-ui/#/) 
 
 > 开发预览
 
