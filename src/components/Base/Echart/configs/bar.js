@@ -8,8 +8,9 @@
  * @returns {*}  无数据返回 / 有数据返回配置项
  */
 import echarts from "echarts";
+import { toolFormat } from '../util';
 
-export const EchartsBar = (chartData, zoomEnd = 25, color = ['#4FABE5','#F4A45C']) => {
+export const EchartsBar = (chartData, zoomEnd = 25, unit = '人', color = ['#4FABE5','#F4A45C']) => {
     let {title, legend, xAxis, series} = chartData;
 
     if (xAxis.length === 0) {
@@ -44,6 +45,9 @@ export const EchartsBar = (chartData, zoomEnd = 25, color = ['#4FABE5','#F4A45C'
                         lineStyle: {
                             color: '#57617B'
                         }
+                    },
+                    formatter: function(parma) {
+                        return toolFormat(parma, unit)
                     }
                 },
                 legend: {
@@ -109,7 +113,7 @@ export const EchartsBar = (chartData, zoomEnd = 25, color = ['#4FABE5','#F4A45C'
     }
 }
 
-export const EchartsBarOpt1 = (chartData, zoomEnd = 25, color = ['#209DFC', '#13BDE8']) => {
+export const EchartsBarOpt1 = (chartData, zoomEnd = 25, unit = '分', color = ['#209DFC', '#13BDE8']) => {
     let {title, legend, xAxis, series} = chartData;
 
     if (xAxis.length === 0) {
@@ -143,6 +147,9 @@ export const EchartsBarOpt1 = (chartData, zoomEnd = 25, color = ['#209DFC', '#13
                         lineStyle: {
                             color: '#57617B'
                         }
+                    },
+                    formatter: function(parma) {
+                        return toolFormat(parma, unit)
                     }
                 },
                 legend: {

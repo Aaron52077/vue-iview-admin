@@ -14,7 +14,7 @@ function resolve(dir) {
 
 module.exports = {
     publicPath: './',
-    // 生产环境下css 分离文件
+    // 生产环境下css 分离文件 设为false打包时不生成.map文件
     productionSourceMap: process.env.VUE_APP_ENV == 'prod', 
     // 打包生成目录，不同的环境打不同包名  
     outputDir: process.env.outputDir,  

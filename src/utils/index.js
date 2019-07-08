@@ -141,8 +141,7 @@ export function uniqueArrObj(array, key) {
 }
 
 // 生成字符串 mock token
-function mockToken() {
-    // 生成字符串 mock token
+export function mockToken() {
     let s = [];
     const hexDigits = "0123456789abcdef";
     for (let i = 0; i < 36; i++) {
@@ -155,7 +154,9 @@ function mockToken() {
     return uuid;
 }
 
-
+/**
+ * @returns {Array} 过滤数组无关数据
+ */
 function bouncer(arr) {
     // Don't show a false ID to this bouncer.
     // 过滤掉数组中false, null, 0, "", undefined, NaN
@@ -164,3 +165,69 @@ function bouncer(arr) {
     });
 }
 
+/**
+ * @returns {String} 当前浏览器名称
+ */
+export const getExplorer = () => {
+    const ua = window.navigator.userAgent
+    const isExplorer = (exp) => {
+      return ua.indexOf(exp) > -1
+    }
+    if (isExplorer('MSIE')) return 'IE'
+    else if (isExplorer('Firefox')) return 'Firefox'
+    else if (isExplorer('Chrome')) return 'Chrome'
+    else if (isExplorer('Opera')) return 'Opera'
+    else if (isExplorer('Safari')) return 'Safari'
+}
+
+/**
+ * @description 绑定事件 on(element, event, handler)
+ */
+export const on = (function () {
+    if (document.addEventListener) {
+      return function (element, event, handler) {
+        if (element && event && handler) {
+          element.addEventListener(event, handler, false)
+        }
+      }
+    } else {
+      return function (element, event, handler) {
+        if (element && event && handler) {
+          element.attachEvent('on' + event, handler)
+        }
+      }
+    }
+  })()
+
+  /**
+ * @description 解绑事件 off(element, event, handler)
+ */
+export const off = (function () {
+    if (document.removeEventListener) {
+      return function (element, event, handler) {
+        if (element && event) {
+          element.removeEventListener(event, handler, false)
+        }
+      }
+    } else {
+      return function (element, event, handler) {
+        if (element && event) {
+          element.detachEvent('on' + event, handler)
+        }
+      }
+    }
+  })()
+
+  /**
+ * @param {*} obj1 对象
+ * @param {*} obj2 对象
+ * @description 判断两个对象是否相等，这两个对象的值只能是数字或字符串
+ */
+export const objEqual = (obj1, obj2) => {
+    const keysArr1 = Object.keys(obj1)
+    const keysArr2 = Object.keys(obj2)
+    if (keysArr1.length !== keysArr2.length) return false
+    else if (keysArr1.length === 0 && keysArr2.length === 0) return true
+    /* eslint-disable-next-line */
+    else return !keysArr1.some(key => obj1[key] != obj2[key])
+  }
