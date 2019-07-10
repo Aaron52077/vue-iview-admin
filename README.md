@@ -31,4 +31,4 @@ npm run dev
 
 ## 截图
 
-![](https://github.com/Aaron52077/vue-wuli-ui/raw/master/docs/assets/inde.png) 
+![](https://github.com/Aaron52077/vue-wuli-ui/raw/master/docs/assets/index.png) 
