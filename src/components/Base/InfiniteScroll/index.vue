@@ -9,6 +9,8 @@
 
 <script>
 /* eslint-disable */
+import directives from '@/directive/install'
+
 export default {
 	data() {
 		return {
@@ -79,17 +81,17 @@ export default {
                     getHeight(); 
                 }, 200);
                 $(window).off('resize.infinite_id' + id).on('resize.infinite_id' + id, getHeight); // 已id方式注册事件
-            });
-        },
-        unbind: function(el,binding) { 
-            // 注销事件
-            const vm = binding.value;
-            vm.dataBase.load('jquery', () => {
-                const id = vm.dataBase.uuid();
-                $(window).off('resize.infinite_id' + id);
-            })
+                });
+            },
+            unbind: function(el,binding) { 
+                // 注销事件
+                const vm = binding.value;
+                vm.dataBase.load('jquery', () => {
+                    const id = vm.dataBase.uuid();
+                    $(window).off('resize.infinite_id' + id);
+                })
+            }
         }
-    }
   }
 }
 </script>

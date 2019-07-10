@@ -6,9 +6,30 @@
                 <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
                 <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
                 <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
-                    <sMenuItem v-for="item in navList" :name="item.name" :to="item.path" :key="item.id">
-                        <sIcon :type="item.icon" />{{item.name}}
-                    </sMenuItem>
+                    <template v-for="item in navList">
+                        <template v-if="item.childrens && item.childrens.length > 0">
+                             <submenu :name="item.name" :key="item.name">
+                                <template slot="title">
+                                    <sIcon :type="item.icon" />{{item.name}}
+                                </template>
+                                <sMenuGroup v-for="(p, index) in item.childrens" :title="p.title" :key="index">
+                                    <template v-if="p.title === '源码'">
+                                        <sMenuItem v-for="(m, idx) in p.list" :name="m.value" :key="idx * 2">
+                                            <a href="https://github.com/Aaron52077/vue-wuli-ui.git" target="_blank">地址</a>
+                                        </sMenuItem>
+                                    </template>
+                                    <template v-else>
+                                        <sMenuItem v-for="(m, idx) in p.list" :name="m.value" :key="idx * 2">{{m.key}}</sMenuItem>
+                                    </template>
+                                </sMenuGroup>
+                            </submenu>
+                        </template>
+                        <template v-else>
+                            <sMenuItem :name="item.name" :to="item.path" :key="item.id">
+                                <sIcon :type="item.icon" />{{item.name}}
+                            </sMenuItem>
+                        </template>
+                    </template>
                 </sMenu>
             </div>
         </header>
@@ -19,7 +40,7 @@
                     <sMenu :active-name="active" width="210px">
                         <sMenuGroup v-for="(item, index) in menuList" :key="index" :title="item.name">
                             <sMenuItem v-for="(m, idx) in item.children" :key="idx" :name="m.name" :to="m.path">
-                                <sIcon :type="m.icon" />{{m.name}}
+                                <sIcon :type="m.icon" />{{t(m.name)}}
                             </sMenuItem>
                         </sMenuGroup>
                     </sMenu>
@@ -33,6 +54,7 @@
 </template>
 <script>
 /* eslint-disable */
+import { locales } from '@/i18n';
 import {navList, menuList} from './config';
 
 export default {
@@ -105,10 +127,12 @@ export default {
                     this.active = 'Echart 图表'
                     break;
                 default:
+                    this.dataBase.setLang = name
                     break;
             }
         }
     },
+    locales: locales,
     watch: {
         '$route': 'getPathTitle'
     },

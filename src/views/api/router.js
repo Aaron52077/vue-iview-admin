@@ -61,6 +61,6 @@ export default {
             meta: {
                 module: 'api'
             },
-        },
+        }
     ]
 }

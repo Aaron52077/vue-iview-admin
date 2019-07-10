@@ -1,4 +1,5 @@
 @import '../common/_var';
+@import '../common/_mixins';
 
 .gc-panel {
     position: relative;
@@ -12,10 +13,9 @@
         left: 0;
         width: 200%;
         height: 200%;
-        transform: scale(.5);
+        .transform(scale(.5));
         transform-origin: 0 0;
         pointer-events: none;
-        box-sizing: border-box;
         border: 0 solid #e5e5e5;
         border-top-width: 1px;
         border-bottom-width: 1px;
@@ -34,5 +34,31 @@
     }
     &__without-border::after {
         border: 0 none;
+    }
+}
+
+.gc-waves {
+    position: absolute;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+    background-clip: padding-box;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    opacity: 1;
+    &.is-active {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        -ms-transform: scale(2);
+        transform: scale(2);
+        -webkit-transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;
+        transition: opacity 1.2s ease-out, -webkit-transform 0.6s ease-out;
+        transition: opacity 1.2s ease-out, transform 0.6s ease-out;
+        transition: opacity 1.2s ease-out, transform 0.6s ease-out, -webkit-transform 0.6s ease-out;
     }
 }

@@ -7,12 +7,43 @@
             <router-link to="/api/page/children1">页面1</router-link>
             <router-link to="/api/page/children2">页面2</router-link>
             <sDivider></sDivider>
-            <sTree ref="permissionTree" :data="treeData" show-checkbox multiple></sTree>
-            <div class="tree">
-                <sButton type="primary" class="tree-inline" @click="getNodeId">获取节点id</sButton><sButton type="primary" class="tree-inline" @click="getNodePid">获取节点所有父级id</sButton>
-            </div>
-            <div class="gc-container__title">勾选节点id：{{id}}</div>
-            <div class="gc-container__title">勾选节点id、当前节点父级id集合：{{parentIds}}</div>
+            <sRow :gutter="16">
+                <sCol span="8">
+                    <div class="gc-container__h1">系统级后台权限id获取</div>
+                    <sTree ref="permissionTree" :data="treeData" show-checkbox multiple></sTree>
+                    <div class="tree">
+                        <sButton type="primary" class="tree-inline" @click="getNodeId">获取节点id</sButton><sButton type="primary" class="tree-inline" @click="getNodePid">获取节点所有父级id</sButton>
+                    </div>
+                    <div class="gc-container__title">勾选节点id：{{id}}</div>
+                    <div class="gc-container__title">勾选节点id、当前节点父级id集合：{{parentIds}}</div>
+                </sCol>
+                <sCol span="8">
+                    <div class="gc-container__h1">指令-复制</div>
+                    <sInput v-model="inputVal" style="width: 60%; z-index: 0;">
+                        <sButton slot="append" v-clipboard="clipOptions">复制</sButton>
+                    </sInput>
+                    <div class="gc-container__h1" style="margin-top: 10px;">滚动加载实例</div>
+                    <sScroll class="gc-loadmore__wrapper" :on-reach-bottom="handleReachBottom">
+                        <mScrollbar class="gc-loadmore__wrapper"> 
+                            <sCard dis-hover v-for="(item, index) in list1" :key="index" style="margin: 10px 0">
+                                Content {{ item }}
+                            </sCard>
+                        </mScrollbar>
+                    </sScroll>
+                </sCol>
+                <sCol span="8">
+                    <div class="gc-container__h1">指令-水波纹</div>
+                    <sButton v-waves @click.native="clickHandle">Default</sButton>
+                    <sButton type="primary" v-waves class="inline" @click.native="clickHandle">Primary</sButton>
+                    <sButton type="dashed" v-waves class="inline" @click.native="clickHandle">Dashed</sButton>
+                    <sButton type="text" v-waves class="inline" @click.native="clickHandle">Text</sButton>
+                    <br><br>
+                    <sButton type="info" v-waves class="inline" @click.native="clickHandle">Info</sButton>
+                    <sButton type="success" v-waves class="inline" @click.native="clickHandle">Success</sButton>
+                    <sButton type="warning" v-waves class="inline" @click.native="clickHandle">Warning</sButton>
+                    <sButton type="error" v-waves class="inline" @click.native="clickHandle">Error</sButton>
+                </sCol>
+            </sRow>
         </div>
         <router-view class="gc-loyout" :key="active"></router-view>
     </div>
@@ -70,7 +101,10 @@ export default {
                 }
             ],
             parentIds: [],
-            id: []
+            id: [],
+            inputVal: '输入的内容',
+            list1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            loadFalg: false
         }
     },
     methods: {
@@ -120,6 +154,36 @@ export default {
             loop(data);
             return ids
         },
+        clickHandle() {
+            this.$Notice.info({
+                title: '水波纹指令',
+                desc: '触发水波纹'
+            });
+        },
+        handleReachBottom() {
+             return new Promise(resolve => {
+                setTimeout(() => {
+                    const last = this.list1[this.list1.length - 1];
+                    for (let i = 1; i < 11; i++) {
+                        this.list1.push(last + i);
+                    }
+                    resolve();
+                }, 50);
+            });
+        },
+    },
+    computed: {
+        clipOptions() {
+            return {
+                value: this.inputVal,
+                success: () => {
+                    this.$Message.success('复制成功')
+                },
+                error: () => {
+                    this.$Message.error('复制失败')
+                }
+            }
+        }
     },
     components: { mBreadcrumb }
 }
@@ -131,5 +195,13 @@ export default {
     &-inline {
         margin-right: 10px;
     }
+}
+.inline {
+    margin-left: 5px;
+}
+
+.gc-loadmore__wrapper {
+    width: 100%;
+    height: 300px;
 }
 </style>

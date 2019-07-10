@@ -6,7 +6,7 @@
             <div class="avatar-inner"><img :src="src" /></div>
         </template>
         <template v-else>
-            <div class="avatar-inner">{{firstName}} </div>
+            <div class="avatar-inner">{{firstName}}</div>
         </template>
 	</div>
 </template>

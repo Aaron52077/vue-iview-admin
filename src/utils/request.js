@@ -63,7 +63,6 @@ instance.interceptors.response.use(response => {
 * url       请求URL
 * type      请求类型 默认转为大写
 * data      参数
-* isForm    是否表单数据
 * isDown    是否下载文件流
 */
 export const request = async(url = '', type = 'GET', data = {}, isDown = false) => {

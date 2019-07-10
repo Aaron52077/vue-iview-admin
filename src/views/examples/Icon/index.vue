@@ -3,7 +3,7 @@
         <div class="gc-panel__title">Icon 图标  <span>iview内置图标拓展</span></div>
         <sDivider></sDivider>
         <div class="gc-icons">
-            <div class="gc-icon__item" v-for="item in iconList" :key="item">
+            <div class="gc-icon__item" v-for="item in iconList" :key="item" v-clipboard="clipOptions(item)">
                 <sTooltip :content="item" placement="top">
                     <mIcon iconClass="gc-icon" :iconName="item"></mIcon>
                 </sTooltip>
@@ -14,6 +14,12 @@
 </template>
 
 <script>
+// 指令单独调用实例
+// import directives from '@/directive/install'
+// directives: {
+//     clipboard: directives.clipboard
+// }
+
 export default {
     data () {
         return {
@@ -105,6 +111,19 @@ export default {
             ]
         }
     },
+    methods: {
+        clipOptions(item) {
+            return {
+                value: item,
+                success: () => {
+                    this.$Message.success('复制成功')
+                },
+                error: () => {
+                    this.$Message.error('复制失败')
+                }
+            }
+        }
+    }
 }
 </script>
 

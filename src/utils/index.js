@@ -199,7 +199,7 @@ export const on = (function () {
     }
   })()
 
-  /**
+/**
  * @description 解绑事件 off(element, event, handler)
  */
 export const off = (function () {
@@ -218,7 +218,7 @@ export const off = (function () {
     }
   })()
 
-  /**
+/**
  * @param {*} obj1 对象
  * @param {*} obj2 对象
  * @description 判断两个对象是否相等，这两个对象的值只能是数字或字符串

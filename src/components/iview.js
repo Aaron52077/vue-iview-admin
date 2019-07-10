@@ -47,7 +47,8 @@ import {
     Card,
     CheckboxGroup,
     Divider,
-    Upload
+    Upload,
+    Scroll 
 } from 'iview'
 
 // 全局注册组件
@@ -97,7 +98,8 @@ const components = {
     'sCard': Card,
     'sCheckboxGroup': CheckboxGroup,
     'sDivider': Divider,
-    'sUpload': Upload
+    'sUpload': Upload,
+    'sScroll': Scroll
 }
 
 // 全局注册按需iview组件

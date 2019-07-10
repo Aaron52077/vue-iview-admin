@@ -3,7 +3,7 @@ import Vue from 'vue'
 import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
-import { dateToStr, unixToStr } from '@/utils/filters'
+import { dateToStr, unixToStr } from '@/filters'
 import common from '@/common'
 
 // 流加载
@@ -16,6 +16,7 @@ let global = new Vue({
         apihost: process.env.VUE_APP_API,
         debug: (process.env.NODE_ENV || '').indexOf('development') > -1 || window.localStorage && window.localStorage.devOnline == 1,
         token: cache.getLocal('token') || '',
+        lang: cache.getLocal('lang') || 'zh-cn',
         dh: document.body.clientHeight,
         dw: document.body.clientWidth,
         ljs: window.ljs,
@@ -34,6 +35,17 @@ let global = new Vue({
                 this.token = val;
                 cache.setLocal('token', val);
                 if(val == '') cache.removeLocal('token');
+            }
+        },
+        setLang: {
+            get() {
+                return this.lang
+            },
+            set(val) {
+                let value = val || 'zh-cn'
+                this.$translate.setLang(value)
+                this.lang = value
+                cache.setLocal('lang', value)
             }
         },
     },
@@ -69,11 +81,15 @@ let global = new Vue({
         },
         init(vm) {
             window.DevVue = vm;
+            this.$translate.setLang(this.lang);
             // 动态获取视窗宽高
             window.onresize = () => {
                 this.dw = document.body.clientWidth;
                 this.dh = document.body.clientHeight;
             };
+            if(!this.$t) {
+                Vue.prototype.$t = vm.t;
+            }
         },
         load(...arr){
             var plugins = [];
