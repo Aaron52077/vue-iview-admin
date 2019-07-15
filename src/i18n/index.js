@@ -14,6 +14,7 @@ export const locales = {
         '线性图': '線性圖',
         '雷达图': '雷達圖',
         '饼图': '餅圖',
+        '地理坐标系': '地理坐標系',
         '最多输入{num}个字': '最多輸入{num}個字'
     },
     'en': {
@@ -31,6 +32,7 @@ export const locales = {
         '线性图': 'Line',
         '雷达图': 'Radar',
         '饼图': 'Pie',
+        '地理坐标系': 'Geo',
         '最多输入{num}个字': 'document_max_num'
     }
 }

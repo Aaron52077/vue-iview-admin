@@ -42,6 +42,13 @@ export default {
             meta: {
                 module: 'echarts'
             }
+        },
+        {
+            path: 'map',
+            component: r => require.ensure([], () => r(require('./map/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
         }
     ],
 }

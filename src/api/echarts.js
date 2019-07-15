@@ -23,3 +23,9 @@ export function echartPieAPI() {
     let res = request('/echart/pie')
     return res
 }
+
+// Map
+export function echartMapAPI() {
+    let res = request('/echart/map')
+    return res
+}

@@ -23,9 +23,9 @@ export default {
                 option: {}
             },
             radarData:  {
-                titleText: '各类收入比例',
-                legendData: ['工资收入', '其他收入', '报销收入'],
-                seriesData: [
+                title: '各类收入比例',
+                legend: ['工资收入', '其他收入', '报销收入'],
+                series: [
                     { name: '工资收入', value: 232 },
                     { name: '其他收入', value: 212 },
                     { name: '报销收入', value: 122 }
