@@ -16,7 +16,7 @@
     "clipboard": "^2.0.4",
     "echarts": "^4.2.1",
     "iview": "^3.3.0",
-    "lodash": "4.17.13",
+    "lodash": "4.17.14",
     "vue": "^2.6.6",
     "vue-cropper": "^0.4.9",
     "vue-router": "^3.0.1",
