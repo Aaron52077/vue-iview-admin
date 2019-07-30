@@ -1,4 +1,4 @@
-import { request } from '@/utils/request'
+import { fetch } from '@/utils/fetch'
 
 // Tip：
 // 1、instance方法适用于需要做特殊处理的请求，如：自定义Header、其他的http方法等
@@ -6,6 +6,6 @@ import { request } from '@/utils/request'
 
 // 登录
 export function userLogin(url, info) {
-    let res = request(`/${url}`, 'post', info)
+    let res = fetch(`/${url}`, 'post', info)
     return res
 }

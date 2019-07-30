@@ -3,7 +3,7 @@ import Vue from 'vue'
 import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
-import { dateToStr, unixToStr } from '@/filters'
+import { dateToStr, unixToStr, toFixed } from '@/filters'
 import common from '@/common'
 
 // 流加载
@@ -116,6 +116,7 @@ let global = new Vue({
         delValue: cache.removeLocal,
         dateToStr: dateToStr,
         unixToStr: unixToStr,
+        toFixed: toFixed,
         fileDownload(data, fileName) {
             // 后端接口文件流下载
             const blob = new Blob([data], {

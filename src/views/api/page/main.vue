@@ -4,7 +4,7 @@
         <mBreadcrumb separator=">"></mBreadcrumb>
         <div class="gc-container">
             <div class="gc-container__title">适用于处理同级页面类导航面包屑</div>
-            <router-link to="/api/page/children1">页面1</router-link>
+            <router-link to="/api/page/children1">页面1</router-link>&nbsp;&nbsp;&nbsp;
             <router-link to="/api/page/children2">页面2</router-link>
             <sDivider></sDivider>
             <sRow :gutter="16">
@@ -42,6 +42,15 @@
                     <sButton type="success" v-waves class="inline" @click.native="clickHandle">Success</sButton>
                     <sButton type="warning" v-waves class="inline" @click.native="clickHandle">Warning</sButton>
                     <sButton type="error" v-waves class="inline" @click.native="clickHandle">Error</sButton>
+                    <div class="gc-container__h1" style="margin-top: 10px;">保留2位或多位小数精度</div>
+                    <sRow>
+                        <sCol span="12">
+                            <div>处理前：1.25623, 1.581, 10.05</div>
+                        </sCol>
+                        <sCol span="12">
+                            <div>处理后：{{dataBase.toFixed(1.25623, 2)}}, {{dataBase.toFixed(1.581, 2)}}, {{dataBase.toFixed(10.05, 1)}}</div>
+                        </sCol>
+                    </sRow>
                 </sCol>
             </sRow>
         </div>

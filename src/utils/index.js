@@ -29,10 +29,10 @@ export const encryption = (params) => {
             const iv = key
             // 加密
             let encrypted = CryptoJS.AES.encrypt(data, key, {
-                    iv: iv,
-                    mode: CryptoJS.mode.CBC,
-                    padding: CryptoJS.pad.ZeroPadding
-                })
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.ZeroPadding
+            })
             result[ele] = encrypted.toString()
         })
     }
@@ -171,7 +171,7 @@ function bouncer(arr) {
 export const getExplorer = () => {
     const ua = window.navigator.userAgent
     const isExplorer = (exp) => {
-      return ua.indexOf(exp) > -1
+        return ua.indexOf(exp) > -1
     }
     if (isExplorer('MSIE')) return 'IE'
     else if (isExplorer('Firefox')) return 'Firefox'
@@ -185,38 +185,38 @@ export const getExplorer = () => {
  */
 export const on = (function () {
     if (document.addEventListener) {
-      return function (element, event, handler) {
-        if (element && event && handler) {
-          element.addEventListener(event, handler, false)
+        return function (element, event, handler) {
+            if (element && event && handler) {
+                element.addEventListener(event, handler, false)
+            }
         }
-      }
     } else {
-      return function (element, event, handler) {
-        if (element && event && handler) {
-          element.attachEvent('on' + event, handler)
+        return function (element, event, handler) {
+            if (element && event && handler) {
+                element.attachEvent('on' + event, handler)
+            }
         }
-      }
     }
-  })()
+})()
 
 /**
  * @description 解绑事件 off(element, event, handler)
  */
 export const off = (function () {
     if (document.removeEventListener) {
-      return function (element, event, handler) {
-        if (element && event) {
-          element.removeEventListener(event, handler, false)
+        return function (element, event, handler) {
+            if (element && event) {
+                element.removeEventListener(event, handler, false)
+            }
         }
-      }
     } else {
-      return function (element, event, handler) {
-        if (element && event) {
-          element.detachEvent('on' + event, handler)
+        return function (element, event, handler) {
+            if (element && event) {
+                element.detachEvent('on' + event, handler)
+            }
         }
-      }
     }
-  })()
+})()
 
 /**
  * @param {*} obj1 对象
@@ -230,4 +230,4 @@ export const objEqual = (obj1, obj2) => {
     else if (keysArr1.length === 0 && keysArr2.length === 0) return true
     /* eslint-disable-next-line */
     else return !keysArr1.some(key => obj1[key] != obj2[key])
-  }
+}

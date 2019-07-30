@@ -11,3 +11,12 @@ export const toolFormat = (parma, unit) => {
     }
     return obj
 }
+
+// echart 过滤回调实例
+// formatter: function(params) {
+//     return [
+//         params[0].name,
+//         params[0].marker + '消费金额：' + (params[0].value || 0) + '元',
+//         params[1].marker + '消费次数: ' + (params[1].value || 0) + '次'
+//     ].join('<br/>')
+// }

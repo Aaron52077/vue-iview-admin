@@ -73,7 +73,7 @@ export const menuList = [
     {
         name: 'API',
         children: [
-            {name: '面包屑', path: '/api', icon: 'md-filing'},
+            {name: '工具合集', path: '/api', icon: 'md-filing'},
             {name: '富文本1', path: '/api/umEditor', icon: 'ios-share'},
             {name: '富文本2', path: '/api/quillEditor', icon: 'ios-share'},
             {name: '富文本3', path: '/api/tinymce', icon: 'ios-share'},
@@ -88,6 +88,7 @@ export const menuList = [
             {name: '线性图', path: '/echarts/line', icon: 'md-done-all'},
             {name: '雷达图', path: '/echarts/radar', icon: 'md-wifi'},
             {name: '饼图', path: '/echarts/pie', icon: 'md-radio-button-off'},
+            {name: '漏斗图', path: '/echarts/funnel', icon: 'md-radio-button-off'},
             {name: '地理坐标系', path: '/echarts/map', icon: 'md-map'}
         ]
     }

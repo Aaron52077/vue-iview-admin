@@ -122,3 +122,13 @@ export function moneyFormat(num) {
     return strPrefix + strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, '零元')
 }
 
+// 保留2位小数精度问题
+export const toFixed = (num, n) => {
+    let flag = 1
+    if (num < 0) {
+       flag = -1
+       num *= -1
+    }
+    num = Math.round(num * Math.pow(10, n)) / Math.pow(10, n)+ Math.pow(10, -(n + 1));
+    return (num * flag).toFixed(n)
+}

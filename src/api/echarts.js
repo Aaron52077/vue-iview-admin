@@ -1,31 +1,37 @@
-import { request } from '@/utils/request'
+import { fetch } from '@/utils/fetch'
 
 // bar
 export function echartBarAPI() {
-    let res = request('/echart/bar')
+    let res = fetch('/echart/bar')
     return res
 }
 
 // line
 export function echartLineAPI() {
-    let res = request('/echart/line')
+    let res = fetch('/echart/line')
     return res
 }
 
 // Radar
 export function echartRadarAPI() {
-    let res = request('/echart/radar')
+    let res = fetch('/echart/radar')
     return res
 }
 
 // Pie
 export function echartPieAPI() {
-    let res = request('/echart/pie')
+    let res = fetch('/echart/pie')
     return res
 }
 
 // Map
 export function echartMapAPI() {
-    let res = request('/echart/map')
+    let res = fetch('/echart/map')
+    return res
+}
+
+// Funnel
+export function echartFunnelAPI() {
+    let res = fetch('/echart/funnel')
     return res
 }

@@ -44,6 +44,13 @@ export default {
             }
         },
         {
+            path: 'funnel',
+            component: r => require.ensure([], () => r(require('./funnel/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
+        },
+        {
             path: 'map',
             component: r => require.ensure([], () => r(require('./map/index.vue')), 'echarts'),
             meta: {

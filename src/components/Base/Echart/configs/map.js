@@ -30,14 +30,15 @@ export const EchartsMap = (chartData, unit = '') => {
                     },
                     padding: 15
                 },
+                color: ['#1D83DD'],
                 tooltip: {
                     trigger: 'item',
                     formatter: function(params) {
                         return [
                             params.name,
-                            params.marker + '招生人数：' + params.data.inperson + unit,
-                            params.marker + '报到人数: ' + params.data.comeperson + unit,
-                            params.marker + '报到率: ' + params.data.use + '%'
+                            params.marker + '录取人数：' + ((params.data || {}).plan || 0) + unit,
+                            params.marker + '报到人数: ' + ((params.data || {}).actual || 0) + unit,
+                            params.marker + '报到率: ' + ((params.data || {}).value || 0) + '%'
                         ].join('<br/>')
                     },
                 },
@@ -129,9 +130,9 @@ export const EchartsMapOpt1 = (chartData, unit = '') => {
                     formatter: function(params) {
                         return [
                             params.name,
-                            params.marker + '招生人数：' + params.data.inperson + unit,
-                            params.marker + '报到人数: ' + params.data.comeperson + unit,
-                            params.marker + '报到率: ' + params.data.use + '%'
+                            params.marker + '录取人数：' + ((params.data || {}).plan || 0) + unit,
+                            params.marker + '报到人数: ' + ((params.data || {}).actual || 0) + unit,
+                            params.marker + '报到率: ' + ((params.data || {}).value || 0) + '%'
                         ].join('<br />')
                     },
                 },

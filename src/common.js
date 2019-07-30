@@ -34,11 +34,6 @@ let common = new Vue({
                 let EchartQuery = await queryEChart({reportId: eid});
                 if(size(EchartQuery) > 0) {
                     let paramsKey = EchartQuery.map(m => m.paramName)
-                    // 过滤出筛选条件数组
-                    // let EchartQueryArr = EchartQuery.filter(item => item.paramDataType == 'MULTIPLE_SELECT')
-                    // if (size(EchartQueryArr) > 0) {
-                    //     filter = EchartQueryArr[0].paramDatasourceContent
-                    // } 
                     paramsKey.forEach(ele => {
                         payload.params[ele] = (query || {})[ele] || '';
                     });
