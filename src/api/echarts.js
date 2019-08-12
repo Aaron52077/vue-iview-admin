@@ -35,3 +35,15 @@ export function echartFunnelAPI() {
     let res = fetch('/echart/funnel')
     return res
 }
+
+// Gauge
+export function echartGaugeAPI() {
+    let res = fetch('/echart/gauge')
+    return res
+}
+
+// Treemap
+export function echartTreemapAPI() {
+    let res = fetch('/echart/treemap')
+    return res
+}

@@ -56,6 +56,20 @@ export default {
             meta: {
                 module: 'echarts'
             }
+        },
+        {
+            path: 'gauge',
+            component: r => require.ensure([], () => r(require('./gauge/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
+        },
+        {
+            path: 'treemap',
+            component: r => require.ensure([], () => r(require('./treemap/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
         }
     ],
 }
