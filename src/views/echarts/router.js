@@ -70,6 +70,20 @@ export default {
             meta: {
                 module: 'echarts'
             }
+        },
+        {
+            path: 'boxplot',
+            component: r => require.ensure([], () => r(require('./boxplot/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
+        },
+        {
+            path: 'scatter',
+            component: r => require.ensure([], () => r(require('./scatter/index.vue')), 'echarts'),
+            meta: {
+                module: 'echarts'
+            }
         }
     ],
 }

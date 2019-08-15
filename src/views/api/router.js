@@ -35,22 +35,8 @@ export default {
             ]
         },
         {
-            path: 'umEditor',
-            component: r => require.ensure([], () => r(require('./umEditor/main.vue')), 'api'),
-            meta: {
-                module: 'api'
-            },
-        },
-        {
-            path: 'quillEditor',
-            component: r => require.ensure([], () => r(require('./quillEditor/main.vue')), 'api'),
-            meta: {
-                module: 'api'
-            },
-        },
-        {
-            path: 'tinymce',
-            component: r => require.ensure([], () => r(require('./tinymce/main.vue')), 'api'),
+            path: 'editor',
+            component: r => require.ensure([], () => r(require('./editor/main.vue')), 'api'),
             meta: {
                 module: 'api'
             },

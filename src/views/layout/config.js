@@ -74,24 +74,24 @@ export const menuList = [
         name: 'API',
         children: [
             {name: '工具合集', path: '/api', icon: 'md-filing'},
-            {name: '富文本1', path: '/api/umEditor', icon: 'ios-share'},
-            {name: '富文本2', path: '/api/quillEditor', icon: 'ios-share'},
-            {name: '富文本3', path: '/api/tinymce', icon: 'ios-share'},
+            {name: '富文本', path: '/api/editor', icon: 'ios-share'},
             {name: '图片裁剪', path: '/api/cropper', icon: 'md-clipboard'}
         ]
     },
     {
-        name: '可视化',
+        name: '可视化 BI',
         children: [
             {name: '图表', path: '/echarts/exp', icon: 'md-podium'},
             {name: '柱状图', path: '/echarts/bar', icon: 'md-stats'},
             {name: '线性图', path: '/echarts/line', icon: 'md-pulse'},
             {name: '雷达图', path: '/echarts/radar', icon: 'md-wifi'},
-            {name: '饼图', path: '/echarts/pie', icon: 'md-pizza'},
+            {name: '饼图', path: '/echarts/pie', icon: 'md-pie'},
             {name: '漏斗图', path: '/echarts/funnel', icon: 'md-funnel'},
             {name: '仪表盘', path: '/echarts/gauge', icon: 'md-speedometer'},
             {name: '地理坐标系', path: '/echarts/map', icon: 'md-map'},
-            {name: '面积图', path: '/echarts/treemap', icon: 'md-square'}
+            {name: '面积图', path: '/echarts/treemap', icon: 'md-square'},
+            {name: '灯箱图', path: '/echarts/boxplot', icon: 'md-bulb'},
+            {name: '气泡图', path: '/echarts/scatter', icon: 'md-radio-button-off'}
         ]
     }
 ]

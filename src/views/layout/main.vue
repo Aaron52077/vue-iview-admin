@@ -118,13 +118,13 @@ export default {
             this.navActive = name;
             switch (name) {
                 case '组件类':
-                    this.active = 'Icon 图标'
+                    this.active = '图标'
                     break;
                 case 'api':
-                    this.active = 'Breadcrumb 面包屑'
+                    this.active = '工具合集'
                     break;
                 case '可视化':
-                    this.active = 'Echart 图表'
+                    this.active = '图表'
                     break;
                 default:
                     this.dataBase.setLang = name

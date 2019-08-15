@@ -47,3 +47,15 @@ export function echartTreemapAPI() {
     let res = fetch('/echart/treemap')
     return res
 }
+
+// Boxplot
+export function echartBoxplotAPI() {
+    let res = fetch('/echart/boxplot')
+    return res
+}
+
+// Scatter
+export function echartScatterAPI() {
+    let res = fetch('/echart/scatter')
+    return res
+}

@@ -43,16 +43,16 @@
                 @on-click="handle"></mTimePicker>
             <mTimePicker type="datetime" format="yyyy-MM-dd HH:mm" formater="yyyy-MM-dd hh:mm" :hasLabel="true" innerText="搜索" @on-click="handle">
                 <template v-slot:innerLeft>
-                    <span>开始时间</span>
+                    <span>开始时间：</span>
                 </template>
                 <template v-slot:innerRight>
-                    <span>结束时间</span>
+                    <span style="padding-left: 10px;">结束时间：</span>
                 </template>
             </mTimePicker>
         </div>
         <div class="gc-container">
             <sDivider></sDivider>
-            <div class="gc-container__title">设置开始时间和结束时间约束</div>
+            <div class="gc-container__title">设置开始时间和结束时间限制</div>
             <div style="margin-top: 10px;">
                 <sDatePicker type="date" :options="startTimeOptions" @on-change="startTimeChange" placeholder="开始时间" style="margin-right: 15px" v-model="starttime" transfer></sDatePicker>
                 <sDatePicker type="date" :options="endTimeOptions" @on-change="endTimeChange" placeholder="结束时间" v-model="endtime" transfer></sDatePicker>
