@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import cache from '@/utils/cache'
 import { LoadingBar } from 'iview'
+import { setTitle } from '@/utils'
 
 Vue.use(Router)
 
@@ -23,11 +24,12 @@ routerObj.beforeEach((to, from, next) => {
     }else {
         LoadingBar.start()
         next()
-        // next({ path:'/account' })
+        // next({ path:'/account', replace: true })
     }
 })
 
 routerObj.afterEach(to => {
+    setTitle(to, routerObj.app)
     LoadingBar.finish()
 })
 

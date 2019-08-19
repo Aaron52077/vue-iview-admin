@@ -48,7 +48,8 @@ import {
     CheckboxGroup,
     Divider,
     Upload,
-    Scroll 
+    Scroll,
+    Drawer 
 } from 'iview'
 
 // 全局注册组件
@@ -99,7 +100,8 @@ const components = {
     'sCheckboxGroup': CheckboxGroup,
     'sDivider': Divider,
     'sUpload': Upload,
-    'sScroll': Scroll
+    'sScroll': Scroll,
+    'sDrawer': Drawer
 }
 
 // 全局注册按需iview组件

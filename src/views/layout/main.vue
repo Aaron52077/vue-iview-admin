@@ -101,12 +101,6 @@ export default {
         this.MapInit();
     },
     methods: {
-        getPathTitle() {
-            const { title } = this.$route.meta;
-            if(title) {
-                document.title = `${title} wuli-ui`
-            }
-        },
         MapInit(ak = 'c939d01cf713a7826caf8421b9be8c81') {
             // 插入页面中
             var script = document.createElement("script");
@@ -132,10 +126,7 @@ export default {
             }
         }
     },
-    locales: locales,
-    watch: {
-        '$route': 'getPathTitle'
-    },
+    locales: locales
 }
 </script>
 <style lang="less">

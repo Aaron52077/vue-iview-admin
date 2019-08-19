@@ -13,7 +13,7 @@ export default {
             component: r => require.ensure([], () => r(require('./page/main.vue')), 'api'),
             meta: {
                 module: 'api',
-                title: '页面'
+                title: '工具合集'
             },
             children: [
                 {
@@ -38,14 +38,16 @@ export default {
             path: 'editor',
             component: r => require.ensure([], () => r(require('./editor/main.vue')), 'api'),
             meta: {
-                module: 'api'
+                module: 'api',
+                title: '富文本'
             },
         },
         {
             path: 'cropper',
             component: r => require.ensure([], () => r(require('./cropper/main.vue')), 'api'),
             meta: {
-                module: 'api'
+                module: 'api',
+                title: '图片裁剪'
             },
         }
     ]
