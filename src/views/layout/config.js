@@ -66,11 +66,13 @@ export const menuList = [
         children: [
             {name: '图标', path: '/icons', icon: 'md-heart-outline'},
             {name: '头像', path: '/avatar', icon: 'md-person'},
+            {name: '加载中', path: '/loading', icon: 'ios-loading'},
             {name: '无记录', path: '/noneTip', icon: 'md-paw'},
             {name: '时间控件', path: '/timePicker', icon: 'md-time'},
             {name: '树状下拉选择器', path: '/treeSelect', icon: 'ios-arrow-down'},
             {name: '拖拽列表', path: '/dragList', icon: 'md-infinite'},
-            {name: '拖拽抽屉', path: '/dragDrawer', icon: 'md-list'}
+            {name: '拖拽抽屉', path: '/dragDrawer', icon: 'md-list'},
+            {name: '骨架屏', path: '/skeleton', icon: 'md-flash'}
         ]
     },
     {

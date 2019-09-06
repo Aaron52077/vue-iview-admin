@@ -25,6 +25,14 @@ export default {
             },
         },
         {
+            path: 'loading',
+            component: r => require.ensure([], () => r(require('./loading/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '加载中'
+            },
+        },
+        {
             path: 'noneTip',
             component: r => require.ensure([], () => r(require('./noneTip/index.vue')), 'docs'),
             meta: {
@@ -62,6 +70,14 @@ export default {
             meta: {
                 module: 'docs',
                 title: '拖拽抽屉'
+            },
+        },
+        {
+            path: 'skeleton',
+            component: r => require.ensure([], () => r(require('./skeleton/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '骨架屏'
             },
         },
     ],

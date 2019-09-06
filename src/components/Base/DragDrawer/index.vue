@@ -8,13 +8,13 @@
             v-on="$listeners">
         <!-- 所有插槽内容显示在这里 ↓ -->
         <template v-for="(slots, slotsName) in $slots">
-        <template v-if="slotsName !== 'default'">
-            <renderDom v-for="(render, index) in slots"
-                :key="`b_drawer_${slotsName}_${index}`"
-                :render="() => render"
-                :slot="slotsName">
-            </renderDom>
-        </template>
+            <template v-if="slotsName !== 'default'">
+                <renderDom v-for="(render, index) in slots"
+                    :key="`b_drawer_${slotsName}_${index}`"
+                    :render="() => render"
+                    :slot="slotsName">
+                </renderDom>
+            </template>
         <template v-else>
             <div :class="`${prefix}-body-wrapper`"
                 :key="`b_drawer_${slotsName}`">

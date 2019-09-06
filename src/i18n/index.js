@@ -21,7 +21,11 @@ export const locales = {
         '气泡图': '氣泡圖',
         '树状下拉选择器': '樹狀下拉選擇器',
         '拖拽列表': '拖拽列表',
-        '拖拽抽屉': '拖拽抽屜'
+        '拖拽抽屉': '拖拽抽屜',
+        '骨架屏': '骨架屏',
+        '组件类': '組件類',
+        '可视化': '可視化',
+        '加载中': '加載中'
     },
     'en': {
         '图标': 'Icon',
@@ -45,6 +49,10 @@ export const locales = {
         '气泡图': 'Scatter',
         '树状下拉选择器': 'Tree selector',
         '拖拽列表': 'Drag list',
-        '拖拽抽屉': 'Drag drawer'
+        '拖拽抽屉': 'Drag drawer',
+        '骨架屏': 'Skeleton',
+        '组件类': 'Components',
+        '可视化': 'BI',
+        '加载中': 'Loading'
     }
 }

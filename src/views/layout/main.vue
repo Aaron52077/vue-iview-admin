@@ -26,7 +26,7 @@
                         </template>
                         <template v-else>
                             <sMenuItem :name="item.name" :to="item.path" :key="item.id">
-                                <sIcon :type="item.icon" />{{item.name}}
+                                <sIcon :type="item.icon" />{{t(item.name)}}
                             </sMenuItem>
                         </template>
                     </template>
@@ -98,7 +98,8 @@ export default {
         },
     },
     created() {
-        this.MapInit();
+        // 引入百度地图
+        // this.MapInit();
     },
     methods: {
         MapInit(ak = 'c939d01cf713a7826caf8421b9be8c81') {

@@ -8,6 +8,7 @@ import Echart from './Base/Echart'
 import Avatar from './Base/Avatar'
 import NoneTip from './Base/NoneTip'
 import TimePicker from './Base/TimePicker'
+import Skeleton from './Base/Skeleton'
 
 // 全局注册自定义组件
 const components = {
@@ -18,7 +19,8 @@ const components = {
     'mAvatar': Avatar,
     'mNoneTip': NoneTip,
     'mEchart': Echart,
-    'mTimePicker': TimePicker
+    'mTimePicker': TimePicker,
+    'mSkeleton': Skeleton
 }
 
 // 全局注册 公用组件

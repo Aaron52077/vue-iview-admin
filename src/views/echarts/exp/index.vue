@@ -21,28 +21,12 @@
             <sRow :gutter="16">
                 <sCol span="12">
                     <div class="echart-block">
-                        <mEchart v-if="chartObj" :optionObj="chartObj.demo4"></mEchart>
-                    </div>
-                </sCol>
-                <sCol span="12">
-                    <div class="echart-block">
                         <mEchart v-if="chartObj" :optionObj="chartObj.demo2"></mEchart>
                     </div>
                 </sCol>
-            </sRow>
-            <!-- 用法2 -->
-            <sDivider></sDivider>
-            <div class="gc-container__title">模拟接口方式用法</div>
-            <sDivider></sDivider>
-            <sRow :gutter="16">
                 <sCol span="12">
                     <div class="echart-block">
                         <mEchart v-if="lineObj.data" :optionObj="lineObj.option"></mEchart>
-                    </div>
-                </sCol>
-                <sCol span="12">
-                    <div class="echart-block">
-                        <!-- <mEchart v-if="chartObj" :optionObj="chartObj.demo2"></mEchart> -->
                     </div>
                 </sCol>
             </sRow>
@@ -54,7 +38,7 @@
 /* eslint-disable */
 require('echarts/extension/bmap/bmap');
 import { EchartsLine } from '@base/Echart/configs/line';
-import {demo1, demo2, demo3, demo4} from './config';
+import {demo1, demo2, demo3} from './config';
 
 export default {
     data () {
@@ -62,8 +46,7 @@ export default {
             chartObj: {
                 demo1,
                 demo2,
-                demo3,
-                demo4
+                demo3
             },
             lineObj: {
                 data: false,
