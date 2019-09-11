@@ -1,4 +1,5 @@
-var path = require('path')
+const path = require('path')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 /**
  * @example 
@@ -14,8 +15,8 @@ function resolve(dir) {
 
 module.exports = {
     publicPath: './',
-    // 生产环境下css 分离文件 设为false打包时不生成.map文件
-    productionSourceMap: process.env.VUE_APP_ENV == 'prod', 
+    // 生产环境下source map, 可以将其设置为 false 以加速生产环境构建
+    productionSourceMap: process.env.VUE_APP_ENV !== 'prod', 
     // 打包生成目录，不同的环境打不同包名  
     outputDir: process.env.outputDir,  
     // 开启less全局变量                      
@@ -45,12 +46,24 @@ module.exports = {
             }
         }
     },
+    configureWebpack: config => {    
+        // 覆盖webpack默认配置的都在这里   
+        if (process.env.NODE_ENV === 'production') {
+            // 为生产环境修改配置...
+            config.mode = 'production'
+            return {
+                plugins: [new CompressionPlugin({
+                    test: /.js$|.html$|.css/,   // 匹配文件名
+                    threshold: 10240,           // 对超过10k的数据进行压缩
+                    deleteOriginalAssets: false // 是否删除原文件
+                })]
+            }
+        }
+    },
     chainWebpack: config => {
-        // 覆盖webpack默认配置的都在这里, 配置解析别名  
-        // 别名@为 VUE 自带默认配置(指向src),无需配置
+        // 移除 prefetch 插件
         config.plugins.delete('prefetch')
-        // 配置解析别名
-        // config.resolve.alias.set('@', resolve('src'))
+        // 覆盖webpack默认配置的都在这里, 配置解析别名  
         config.resolve.alias
             .set("@base", resolve("src/components/Base"))
     }

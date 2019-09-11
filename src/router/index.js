@@ -7,11 +7,27 @@ import { setTitle } from '@/utils'
 
 Vue.use(Router)
 
-// 动态路由
+/** 动态路由配置
+ *  获取各个模块router.js配置上下文
+ */
 const routersContext = require.context('@/views', true, /router\.js$/)
-var routersArray = routersContext.keys().map(key => routersContext(key).default)
-routersArray.push({ path: '**',  redirect: '/' })
+// 自动引入modules目录下的所有模块
+let routersArray = routersContext.keys().map(key => routersContext(key).default)
+/** 404路由
+ *  最终无法匹配到相应路由，重定向到404
+ *  异步加载路由时，在生成完异步路由准备挂载时，需要将重定向404的匹配规则定义在最后面，否则刷新会出错
+ */
+routersArray.push({ 
+    path: '*',  
+    redirect: '/icons',
+    hidden: true,
+    meta: {
+        title: '404'
+    } 
+})
 const routerObj = new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
     routes: routersArray
 })
 

@@ -122,7 +122,7 @@ export function moneyFormat(num) {
     return strPrefix + strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, '零元')
 }
 
-// 保留2位小数精度问题
+// 保留2位小数精度问题 建议使用mathjs工具包
 export const toFixed = (num, n) => {
     let flag = 1
     if (num < 0) {

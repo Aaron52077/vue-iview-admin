@@ -7,7 +7,6 @@
             <sDivider></sDivider>
             <sButton type="info" @click="getData">请求接口</sButton>
             <sButton type="success" @click="handleLoading('loading')">加载中</sButton>
-            <sButton type="warning" @click="handleLoading('nothing')">无数据</sButton>
             <sButton type="error" @click="handleLoading('error')">服务端异常、网络超时异常</sButton>
             <mLoading :visible="loading" :reload="getData" />
         </div>
@@ -15,6 +14,7 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 /* eslint-disable */
 export default {
     data () {
@@ -27,8 +27,11 @@ export default {
             this.loading = type
         },
         getData() {
-            this.loading = '';
-            this.$Message.success('请求成功')
+            this.loading = 'loading';
+            this.$Message.success('请求成功');
+            setTimeout(() => {
+                this.loading = 'error';
+            }, 1000);
         }
     }
 }

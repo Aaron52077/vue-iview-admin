@@ -5,13 +5,10 @@
             <div class="gc-container__title">适用于处理同级页面类导航面包屑</div>
             <div>子页面1</div>
             <sDivider></sDivider>
-            <sRow :gutter="16">
-                <sCol span="12">
-                    <sTable :loading="loading" size="large" :columns="columns1" :data="data1" border draggable @on-drag-drop="draggableChange"></sTable>
+            <sRow>
+                <sCol span="24">
+                    <sTable :loading="loading" size="small" :columns="columns1" :data="data1" border draggable @on-drag-drop="draggableChange"></sTable>
                     <div style="margin-top: 10px">切换 Loading 状态 <sSwitch v-model="loading"></sSwitch></div>
-                </sCol>
-                <sCol span="12">
-                    <sTable size="small" :columns="columns1" :data="data1" highlight-row></sTable>
                 </sCol>
             </sRow>
         </div>

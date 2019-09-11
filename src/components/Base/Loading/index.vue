@@ -11,12 +11,6 @@
                 </div>
                 <div class="gc-loading__tip">{{loadingText}}</div>
             </template>
-            <template v-else-if="visible === 'nothing'">
-                <div class="gc-loading__box" >
-                    <sIcon type="ios-book" size="30" />
-                </div>
-                <div class="gc-loading__tip">{{nothingText}}</div>
-            </template>
             <template v-else-if="visible === 'error'">
                 <div class="gc-loading__box" @click="reload">
                     <sIcon type="ios-sync" size="30" />
@@ -33,7 +27,7 @@
  * @module components/loading
  * @desc 顶部导航
  * @param {String, Number} [size] - 图标大小
- * @param {string} [loadingText, nothingText, errorText] - 自定义提示文字
+ * @param {string} [loadingText, errorText] - 自定义提示文字
  * @param {string} [offsetTop] - 距离顶部距离
  * @param {function} [reload] - 重加载回调
  * @example
@@ -45,13 +39,9 @@ export default {
             type: String,
             default: '数据加载中...'
         },
-        nothingText: {
-            type: String,
-            default: '暂无数据'
-        },
         errorText: {
             type: String,
-            default: '请求错误，点击重新加载'
+            default: '请求超时，点击重新加载'
         },
         reload: Function,
         offsetTop: {

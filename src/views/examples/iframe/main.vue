@@ -1,21 +1,23 @@
 <template>
     <div class="container">
-        <mCalcHeight v-model="height">
-            <!-- <mNoneTip :type="1">无记录</mNoneTip> -->
-            <sButton @click.native="sendMessage">向iframe发送信息</sButton>
+        <sButton style="margin-bottom: 10px;" @click.native="sendMessage">向iframe发送信息</sButton>&nbsp;&nbsp;&nbsp;&nbsp;<span>子页面推送数据: {{iframeData}}</span>
+        <mInfiniteScroll v-model="height" :config="{ offset: 300 }">
             <iframe src="./iframe.html" width="100%" :height="height" frameborder="0" scrolling="auto" ref="iframe"></iframe>
-        </mCalcHeight>
+        </mInfiniteScroll>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
+import { mockToken } from '@/utils'
+
 export default {
     name: 'analysis',
     data () {
         return {
             height: '',
-            iframeWin: {}
+            iframeWin: {},
+            iframeData: {}
         }
     },
     mounted () {
@@ -33,11 +35,12 @@ export default {
             }
         },
         sendMessage() {
+            let token = mockToken();
             // 外部vue向iframe内部传数据
             this.iframeWin.postMessage({
                 cmd: 'getFormJson',
                 parmas: {
-                    token: ''
+                    token: token
                 }
             }, '*')
         },
@@ -48,11 +51,8 @@ export default {
                 case 'returnFormJson':
                     // 处理业务逻辑
                     console.log('子页面推送数据', data)
-                    this.modeFlag = data.params.mode;
-                    if(data.params.mode === 9527) {
-                        // t.setValue('mode', '');
-                        this.refresh();
-                    }
+                    this.iframeData = data
+                    // this.refresh();
                     break;
             }
         }

@@ -7,6 +7,21 @@
             <router-link to="/api/page/children1">页面1</router-link>&nbsp;&nbsp;&nbsp;
             <router-link to="/api/page/children2">页面2</router-link>
             <sDivider></sDivider>
+            <div class="gc-container__h1">Table 跨分页全选/多选</div>
+            <sTable size="default"
+                    ref="selection" 
+                    :columns="columns2" 
+                    :data="data2" 
+                    highlight-row 
+                    stripe 
+                    @on-select-all-cancel="handleCancelSelectAll"
+                    @on-select-all="handleSelectAll"
+                    @on-select="handleSelect"
+                    @on-select-cancel="handleCancel"></sTable>
+            <div class="gc-page">
+                <sPage :total="20" :current="1" size="small" show-elevator show-total @on-change="changePage"></sPage>
+            </div>
+            <sDivider></sDivider>
             <sRow :gutter="16">
                 <sCol span="8">
                     <div class="gc-container__h1">系统级后台权限id获取</div>
@@ -60,12 +75,15 @@
 
 <script>
 /* eslint-disable */
+import { remove, uniqBy, differenceBy } from 'lodash';
 import mBreadcrumb from '@base/Breadcrumb'
 import { uniqueArr } from '@/utils'
+import { tableTemp } from './table.js'
 
 export default {
     data () {
         return {
+            selectList: [],
             active: '1',
             treeData: [
                 {
@@ -113,7 +131,50 @@ export default {
             id: [],
             inputVal: '输入的内容',
             list1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            loadFalg: false
+            loadFalg: false,
+            data2: tableTemp.data1,
+            columns2: [
+                {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: 'Name',
+                    key: 'name'
+                },
+                {
+                    title: 'Status',
+                    key: 'status',
+                    render: (h, params) => {
+                        const row = params.row;
+                        const color = row.status === 1 ? 'primary' : row.status === 2 ? 'success' : 'error';
+                        const text = row.status === 1 ? 'Working' : row.status === 2 ? 'Success' : 'Fail';
+
+                        return h('sTag', {
+                            props: {
+                                type: 'dot',
+                                color: color
+                            }
+                        }, text);
+                    }
+                },
+                {
+                    title: 'Sampling Time',
+                    key: 'time',
+                    render: (h, params) => {
+                        return h('div', 'Almost' + params.row.time + '天');
+                    }
+                },
+                {
+                    title: 'Updated Time',
+                    key: 'update',
+                    render: (h, params) => {
+                        let date = this.dataBase.dateToStr(params.row.update, 'yyyy-MM-dd');
+                        return h('div', date);
+                    }
+                }
+            ]
         }
     },
     methods: {
@@ -180,6 +241,50 @@ export default {
                 }, 50);
             });
         },
+        changePage(page) {
+            // The simulated data is changed directly here, and the actual usage scenario should fetch the data from the server
+            if(page == 1) {
+                this.data2 = tableTemp.data1;
+            }else {
+                this.data2 = tableTemp.data2;
+            }
+            this.updateChecked();
+        },
+        handleCancel(selection, row) {
+            //从已选项中去除取消项
+            remove(this.selectList, n => {
+                return n.id === row.id;
+            });
+        },
+        handleSelect(selection, row) {
+            //添加到已选项
+            this.selectList.push(row);
+        },
+        handleSelectAll(selection) {
+            //数组合并，有可能用户先选择了某几项，已经被我们push进去，因此数组合并需要去重一下
+            this.selectList = uniqBy(this.selectList.concat(selection), "id");
+        },
+        handleCancelSelectAll(selection) {
+            //从已选项中移除当页数据
+            this.selectList = differenceBy(this.selectList, this.data2, "id");
+        },
+        updateChecked() {
+            // 把源数据加上_checked字段，遍历已选项数据，更新选中状态
+            const temp = this.dataBase.cloneDeep(this.data2);
+            let tempArr = temp.reduce((arr, val) => {
+                let tempObj = {_checked: false, ...val};
+                if (this.selectList.length > 0) {
+                    for (let key of this.selectList) {
+                        if (key.id == val.id) {
+                            tempObj._checked = true;
+                        }
+                    }
+                }
+                arr.push(tempObj);
+                return arr;
+            }, []);
+            this.data2 = tempArr;
+        }
     },
     computed: {
         clipOptions() {
@@ -212,5 +317,9 @@ export default {
 .gc-loadmore__wrapper {
     width: 100%;
     height: 300px;
+}
+.gc-page {
+    margin: 10px;
+    text-align: right;
 }
 </style>
