@@ -76,7 +76,7 @@ let global = new Vue({
             // 生成随机字符串 提供echart类动态id绘制图表类攻能
             return Number(Math.random().toString().substr(3, len) + Date.now()).toString(36)
         },
-        log(...arg){
+        log(...arg) {
             this.debug && console.log(...arg);
         },
         init(vm) {
@@ -91,8 +91,8 @@ let global = new Vue({
                 Vue.prototype.$t = vm.t;
             }
         },
-        load(...arr){
-            var plugins = [];
+        load(...arr) {
+            let plugins = [];
             const config = {
                 'jquery':['plugins/jquery.js'],
                 'superslide':['plugins/superslide/jquery.SuperSlide.js'],
@@ -103,9 +103,9 @@ let global = new Vue({
             }
             arr.map(item => {
                 let pluginName = (typeof item == 'string') ? item.toLocaleLowerCase() : item;
-                if(config[pluginName]){
+                if(config[pluginName]) {
                     plugins.push(...config[pluginName]);
-                }else{
+                } else {
                     plugins.push(pluginName);
                 }
             });
@@ -140,6 +140,11 @@ let global = new Vue({
                 window.URL.revokeObjectURL(blobURL)
             }
         },
+        print(obj){
+            global.load('jquery','plugins/printArea.js', () => {
+                if($(obj)&&$(obj).length) $(obj).printArea();
+            });
+        }
     }
 })
 Vue.global = global
