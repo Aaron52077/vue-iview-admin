@@ -38,7 +38,7 @@
             </div>
             <div slot="footer" class="gc-dia-foot">
                 <sButton size="large" class="gc-btn-text gc-btn-no" type="text" @click="visible1 = false">关闭</sButton>
-                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="printForm()">打印</sButton>
+                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="printForm1()">打印</sButton>
             </div>
         </sModal>
         <!-- 预览窗口 -->
@@ -49,7 +49,7 @@
             </div>
             <div slot="footer" class="gc-dia-foot">
                 <sButton size="large" class="gc-btn-text gc-btn-no" type="text" @click="visible2 = false">关闭</sButton>
-                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="printForm('#container2')">打印</sButton>
+                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="printForm2()">打印</sButton>
             </div>
         </sModal>
         <!-- 预览窗口 -->
@@ -60,7 +60,7 @@
             </div>
             <div slot="footer" class="gc-dia-foot">
                 <sButton size="large" class="gc-btn-text gc-btn-no" type="text" @click="visible3 = false">关闭</sButton>
-                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="printForm('#container3')">打印</sButton>
+                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="printForm3()">打印</sButton>
             </div>
         </sModal>
     </div>
@@ -91,9 +91,15 @@ export default {
         changeHandle() {
             this.context3 = this.$refs.umEditor.editor.getContent();
         },
-        printForm() {
+        printForm1() {
             this.dataBase.print('#container1');
         },
+        printForm2() {
+            this.dataBase.print('#container2');
+        },
+        printForm3() {
+            this.dataBase.print('#container3');
+        }
     },
     components: { quillEditor, umEditor, Tinymce }
 }

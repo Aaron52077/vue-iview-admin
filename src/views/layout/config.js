@@ -72,7 +72,11 @@ export const menuList = [
             {name: '树状下拉选择器', path: '/treeSelect', icon: 'ios-arrow-down'},
             {name: '拖拽列表', path: '/dragList', icon: 'md-infinite'},
             {name: '拖拽抽屉', path: '/dragDrawer', icon: 'md-list'},
-            {name: '骨架屏', path: '/skeleton', icon: 'md-flash'}
+            {name: '骨架屏', path: '/skeleton', icon: 'md-flash'},
+            {name: '虚拟列表', path: '/vlist', icon: 'ios-list'},
+            {name: '文件预览', path: '/docPreview', icon: 'md-book'},
+            {name: '视频预览', path: '/videoPreview', icon: 'md-videocam'},
+            {name: '地图检索', path: '/map', icon: 'md-compass'}
         ]
     },
     {

@@ -257,15 +257,15 @@ export default {
             });
         },
         handleSelect(selection, row) {
-            //添加到已选项
+            // 添加到已选项
             this.selectList.push(row);
         },
         handleSelectAll(selection) {
-            //数组合并，有可能用户先选择了某几项，已经被我们push进去，因此数组合并需要去重一下
+            // 数组合并，有可能用户先选择了某几项，已经被我们push进去，因此数组合并需要去重一下
             this.selectList = uniqBy(this.selectList.concat(selection), "id");
         },
         handleCancelSelectAll(selection) {
-            //从已选项中移除当页数据
+            // 从已选项中移除当页数据
             this.selectList = differenceBy(this.selectList, this.data2, "id");
         },
         updateChecked() {

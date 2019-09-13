@@ -31,7 +31,7 @@
                 change-on-select
                 @on-change="handleChange"></sCascader>
             <sButton class="tree-select__inline" type="primary" @click="handleReset">重置默认项</sButton>
-            <div class="gc-container__h1" style="margin-top: 10px;">选择数据源：{{deptArr}}, 默认层级节点数据：{{parentIds}}</div>
+            <div class="gc-container__h1" style="margin-top: 10px;">选择数据源：{{deptArr}}, 默认筛选父级得到层级节点数据：{{parentIds}}</div>
         </div>
     </div>
 </template>

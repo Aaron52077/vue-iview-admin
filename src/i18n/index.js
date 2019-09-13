@@ -25,7 +25,11 @@ export const locales = {
         '骨架屏': '骨架屏',
         '组件类': '組件類',
         '可视化': '可視化',
-        '加载中': '加載中'
+        '加载中': '加載中',
+        '虚拟列表': '虛擬列表',
+        '文件预览': '文件預覽',
+        '视频预览': '視頻預覽',
+        '地图检索': '地圖檢索'
     },
     'en': {
         '图标': 'Icon',
@@ -53,6 +57,10 @@ export const locales = {
         '骨架屏': 'Skeleton',
         '组件类': 'Components',
         '可视化': 'BI',
-        '加载中': 'Loading'
+        '加载中': 'Loading',
+        '虚拟列表': 'Virtual list',
+        '文件预览': 'File preview',
+        '视频预览': 'Video preview',
+        '地图检索': 'Map search'
     }
 }

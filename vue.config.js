@@ -15,8 +15,8 @@ function resolve(dir) {
 
 module.exports = {
     publicPath: './',
-    // 生产环境下source map, 可以将其设置为 false 以加速生产环境构建
-    productionSourceMap: process.env.VUE_APP_ENV !== 'prod', 
+    // 生产环境下source map, 可以将其设置为 false 以加速生产环境构建 process.env.VUE_APP_ENV !== 'prod'
+    productionSourceMap: false, 
     // 打包生成目录，不同的环境打不同包名  
     outputDir: process.env.outputDir,  
     // 开启less全局变量                      
@@ -48,10 +48,15 @@ module.exports = {
     },
     configureWebpack: config => {    
         // 覆盖webpack默认配置的都在这里   
+        // config.performance.hints = false
         if (process.env.NODE_ENV === 'production') {
             // 为生产环境修改配置...
             config.mode = 'production'
             return {
+                // 关闭 webpack 的性能提示
+                performance: {
+                    hints: false
+                },
                 plugins: [new CompressionPlugin({
                     test: /.js$|.html$|.css/,   // 匹配文件名
                     threshold: 10240,           // 对超过10k的数据进行压缩

@@ -91,17 +91,17 @@ let global = new Vue({
                 Vue.prototype.$t = vm.t;
             }
         },
-        load(...arr) {
+        load(...arg) {
             let plugins = [];
             const config = {
-                'jquery':['plugins/jquery.js'],
-                'superslide':['plugins/superslide/jquery.SuperSlide.js'],
-                'umeditor':['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-cn.js'],
-                'viewer':['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
-                'quill':['plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js'],
-                'tinymce':['plugins/tinymce/tinymce.min.js','plugins/tinymce/langs/zh_CN.js']
+                'jquery': ['plugins/jquery.js'],
+                'superslide': ['plugins/superslide/jquery.SuperSlide.js'],
+                'umeditor': ['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-cn.js'],
+                'viewer': ['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
+                'quill': ['plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js'],
+                'tinymce': ['plugins/tinymce/tinymce.min.js','plugins/tinymce/langs/zh_CN.js']
             }
-            arr.map(item => {
+            arg.map(item => {
                 let pluginName = (typeof item == 'string') ? item.toLocaleLowerCase() : item;
                 if(config[pluginName]) {
                     plugins.push(...config[pluginName]);
@@ -141,8 +141,14 @@ let global = new Vue({
             }
         },
         print(obj){
-            global.load('jquery','plugins/printArea.js', () => {
-                if($(obj)&&$(obj).length) $(obj).printArea();
+            this.load('jquery', '/plugins/printArea.js', () => {
+                if($(obj) && $(obj).length) {
+                    $(obj).printArea();
+                }else {
+                    this.$Notice.error({
+                        title: '打印失败'
+                    });
+                }
             });
         }
     }

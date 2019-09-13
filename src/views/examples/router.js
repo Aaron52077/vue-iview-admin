@@ -14,7 +14,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '图标'
-            },
+            }
         },
         {
             path: 'avatar',
@@ -22,7 +22,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '头像'
-            },
+            }
         },
         {
             path: 'loading',
@@ -30,7 +30,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '加载中'
-            },
+            }
         },
         {
             path: 'noneTip',
@@ -38,7 +38,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '无记录'
-            },
+            }
         },
         {
             path: 'timePicker',
@@ -46,7 +46,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '时间控件'
-            },
+            }
         },
         {
             path: 'treeSelect',
@@ -54,7 +54,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '树状下拉选择器'
-            },
+            }
         },
         {
             path: 'dragList',
@@ -62,7 +62,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '拖拽列表'
-            },
+            }
         },
         {
             path: 'dragDrawer',
@@ -70,7 +70,7 @@ export default {
             meta: {
                 module: 'docs',
                 title: '拖拽抽屉'
-            },
+            }
         },
         {
             path: 'skeleton',
@@ -78,7 +78,39 @@ export default {
             meta: {
                 module: 'docs',
                 title: '骨架屏'
-            },
+            }
+        },
+        {
+            path: 'vlist',
+            component: r => require.ensure([], () => r(require('./vlist/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '虚拟列表'
+            }
+        },
+        {
+            path: 'docPreview',
+            component: r => require.ensure([], () => r(require('./docPreview/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '文件预览'
+            }
+        },
+        {
+            path: 'videoPreview',
+            component: r => require.ensure([], () => r(require('./video/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '视频预览'
+            }
+        },
+        {
+            path: 'map',
+            component: r => require.ensure([], () => r(require('./map/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '地图检索'
+            }
         },
     ],
 }
