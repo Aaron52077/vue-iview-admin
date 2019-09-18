@@ -58,8 +58,8 @@ module.exports = {
                     hints: false
                 },
                 plugins: [new CompressionPlugin({
-                    test: /.js$|.html$|.css/,   // 匹配文件名
-                    threshold: 10240,           // 对超过10k的数据进行压缩
+                    test: /.js$|.html$|.css/,    // 匹配文件名
+                    threshold: 10240,            // 对超过10k的数据进行压缩 只处理大于此大小的资产。以字节为单位
                     deleteOriginalAssets: false // 是否删除原文件
                 })]
             }

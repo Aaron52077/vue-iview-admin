@@ -96,10 +96,10 @@ let global = new Vue({
             const config = {
                 'jquery': ['plugins/jquery.js'],
                 'superslide': ['plugins/superslide/jquery.SuperSlide.js'],
-                'umeditor': ['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-cn.js'],
-                'viewer': ['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
                 'quill': ['plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js'],
-                'tinymce': ['plugins/tinymce/tinymce.min.js','plugins/tinymce/langs/zh_CN.js']
+                'umeditor': ['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-CN.js'],
+                'viewer': ['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
+                'tinymce': ['plugins/tinymce/tinymce.min.js','plugins/tinymce/langs/zh-CN.js']
             }
             arg.map(item => {
                 let pluginName = (typeof item == 'string') ? item.toLocaleLowerCase() : item;
@@ -141,7 +141,7 @@ let global = new Vue({
             }
         },
         print(obj){
-            this.load('jquery', '/plugins/printArea.js', () => {
+            this.load('jquery', 'plugins/jqery.print.js', () => {
                 if($(obj) && $(obj).length) {
                     $(obj).printArea();
                 }else {

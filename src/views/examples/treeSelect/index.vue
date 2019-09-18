@@ -25,7 +25,7 @@
             <sCascader
                 v-model="deptArr"
                 style="width: 280px;" 
-                placeholder="请选择部门"  
+                placeholder="请选择部门"
                 :data="treeTemp"
                 transfer 
                 change-on-select
@@ -40,7 +40,6 @@
 /* eslint-disable */
 import mTreeSelect from '@base/TreeSelect'
 import { getTreeSelectData } from '@/api/index'
-import { uniqueArr } from '@/utils'
 import { treeTemp } from './tree.js'
 
 export default {
@@ -50,7 +49,7 @@ export default {
             treeSelected: [],
             treeData: [],
             treeTemp,
-            deptId: '205',
+            deptId: '402',
             deptArr: [],
             parentIds: []
         }
@@ -91,51 +90,45 @@ export default {
             });
         },
         handleReset() {
-            this.deptArr = [];
-            let deptIds = this.deptId.split(',');
-            this.getNodePid(deptIds);
+            this.getNodePid(this.deptId);
         },
-        getNodePid(arr = []) {
-            const checkedNodes = arr;
+        getNodePid(nodeId) {
             /* 获取选中项的所有父级 */
-            let tmpIds = [];  
-            checkedNodes.map(item => {
-                const parents = this.getParentIds(this.treeTemp, item);
-                tmpIds = tmpIds.concat(parents);
-            });
-            
-            checkedNodes.map(item => {
-                tmpIds.push(item);
-            });
-            
-            /* 去重，checkNodeIds即为选中所有节点的id集合 */
-            this.parentIds = uniqueArr(tmpIds);
-            this.deptArr = uniqueArr(tmpIds);
+            let tmpIds = this.getParentPids(this.treeTemp, nodeId);  
+            this.deptArr = tmpIds;
+            this.parentIds = tmpIds;
+        },
+        handleChange(data, selectedData) {
+            this.deptArr = data;
         },
         /**    
         * 获取某节点的所有父节点
         */
-        getParentIds(data, id) {
-            let ids = [];
-            function loop(json) {
-                for (const obj of json) {
-                    if (obj.children && obj.children.length > 0) {
-                        if (JSON.stringify(obj).match(id)) {
-                            ids.push(obj.value);
-                        }
-                        if(obj.parent_id !== id) {
-                            loop(obj.children);
-                        } else {
-                            break;
+        getParentPids(data, id) {
+            let pid = [];
+            let loop = (arr, nodeId) => {
+                for(const {children, parent_id, value} of arr) {
+                    if(!!parent_id && value == nodeId) {
+                        let parentId = parent_id.toString()
+                        pid.unshift(parentId)
+                        // 递归查找
+                        loop(data, parent_id);
+                        break;
+                    }else {
+                        if (!!children && children.length > 0) {
+                            // 递归往下找
+                            loop(children, nodeId);
+                        }else {
+                            // 跳出当前递归，返回上层递归
+                            continue;
                         }
                     }
                 }
+                return pid;
             };
-            loop(data);
-            return ids
-        },
-        handleChange(data) {
-            this.deptArr = data;
+            /* 去重，pid即为节点的id和父级pid的集合 */
+            pid = loop(data, id).concat(id);
+            return pid;
         }   
     },
     components: { mTreeSelect }

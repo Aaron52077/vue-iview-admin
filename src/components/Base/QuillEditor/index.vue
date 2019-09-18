@@ -6,7 +6,6 @@
 
 <script>
 /* eslint-disable */
-import Vue from 'vue';
 export default {
     name: 'quillEditor',
     props: {
@@ -26,13 +25,13 @@ export default {
         prop: 'value',
         event: 'input'
     },
-    computed:{
+    computed: {
         currentValue: {
-            get:function() {
-                return this.value;
+            get: function() {
+                return this.value
             },
-            set:function(val) {
-                this.$emit('input', val);
+            set: function(val) {
+                this.$emit('input', val)
             }
         }
     },
@@ -44,7 +43,7 @@ export default {
     },
     directives: {
         quillEditorArea: {
-            inserted: function (el, binding, vnode) {
+            inserted: function(el, binding, vnode) {
                 let vm = binding.value;
                 vm.dataBase.load('quill',() => {
                     vm.loaded = true;
@@ -73,7 +72,7 @@ export default {
                                     border: 'none',
                                     color: 'white'
                                 },
-                                modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+                                modules: ['Resize', 'DisplaySize', 'Toolbar']
                             }
                         }
                     }

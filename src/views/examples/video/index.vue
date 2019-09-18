@@ -18,7 +18,7 @@
                 width="970"
                 preload="auto"
                 playsinline 
-                :data-setup="config">
+                data-setup="{}">
                 <p class="vjs-no-js">
                     您的浏览器需要升级!<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                 </p>
@@ -44,7 +44,7 @@ export default {
     methods: {
         handleVideo() {
             // 参考https://www.cnblogs.com/afrog/p/6689179.html
-            this.dataBase.load('plugins/videojs/video-js.min.css', 'plugins/videojs/video.min.js', 'plugins/videojs/zh-CN.js' ,() => {
+            this.dataBase.load('plugins/videojs/videojs.min.css', 'plugins/videojs/video.min.js', 'plugins/videojs/zh_cn.js' ,() => {
                 setTimeout(() => {
                     delete window.videojs.getPlayers()['really-cool-video']
                     let player = window.videojs('really-cool-video', {
@@ -59,7 +59,7 @@ export default {
                             language: 'zh-CN'
                         });
                     player.src({ type: "video/mp4", src: 'http://vodasqwzlmd.vod.126.net/vodasqwzlmd/9f261a46-71a8-4d1c-bd63-0bc023359d38.mp4' });
-                }, 150);
+                }, 0);
             });
         }
     }
