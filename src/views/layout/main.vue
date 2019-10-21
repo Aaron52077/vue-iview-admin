@@ -5,7 +5,7 @@
             <div class="gc-head__bd">
                 <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
                 <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
-                <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
+                <sMenu class="gc-head__nav" v-if="!dataBase.h5" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
                     <template v-for="item in navList">
                         <template v-if="item.childrens && item.childrens.length > 0">
                              <submenu :name="item.name" :key="item.name">
@@ -35,21 +35,41 @@
         </header>
         <!-- 内容 -->
         <div class="gc-body">
-            <div class="gc-body__lt sidebar-container">
+            <div class="gc-body__lt sidebar-container" :style="{width: dataBase.h5 ? `${layoutWeb}px` : ''}"  :class="{'gc-h5': dataBase.h5}">
                 <mScrollbar hide>
-                    <sMenu :active-name="active" width="210px">
+                    <sMenu :active-name="active" :width="`${layoutWeb}px`">
                         <sMenuGroup v-for="(item, index) in menuList" :key="index" :title="item.name">
                             <sMenuItem v-for="(m, idx) in item.children" :key="idx" :name="m.name" :to="m.path">
-                                <sIcon :type="m.icon" />{{t(m.name)}}
+                                <sIcon :type="m.icon" /><span v-show="!dataBase.h5">{{t(m.name)}}</span>
                             </sMenuItem>
                         </sMenuGroup>
                     </sMenu>
                 </mScrollbar>
             </div>
-            <mInfiniteScroll class="gc-body__rt"> 
+            <mInfiniteScroll class="gc-body__rt" :style="{ paddingLeft: dataBase.h5 ? `${layoutWeb}px` : '' }"> 
                 <slot></slot>
             </mInfiniteScroll>
         </div>
+        <!-- h5底部导航 tabbar -->
+        <template v-if="!$route.meta.menuHide && dataBase.h5">
+            <van-tabbar
+                class="gc-tabbar"
+                v-model="active"
+                active-color="#3E6DE3"
+                inactive-color="#000" 
+                safe-area-inset-bottom
+                route>
+                <van-tabbar-item 
+                    v-for="(item,index) in navList.slice(0, 3)"
+                    :key="index" 
+                    replace 
+                    :to="item.path" 
+                    :name="item.name">
+                    <span>{{item.name}}</span>
+                    <sIcon slot="icon" :type="item.icon" />
+                </van-tabbar-item>
+            </van-tabbar>
+        </template>
     </div>
 </template>
 <script>
@@ -96,6 +116,9 @@ export default {
             let dataBase = this.dataBase;
             return [dataBase.token == '' ? 'gc-layout' : '']
         },
+        layoutWeb() {
+            return !this.$route.meta.menuHide && this.dataBase.h5 ? 75 : 210
+        }
     },
     created() {
         // 引入百度地图
@@ -203,6 +226,15 @@ export default {
             padding-left: 211px;
             width: 100%;
         }
+    }
+}
+.gc-h5 {
+    .ivu-menu-vertical .ivu-menu-item-group-title {
+        padding-left: 0;
+        text-align: center;
+    }
+    .ivu-menu-item-group > ul {
+        text-align: center;
     }
 }
 </style>

@@ -33,6 +33,18 @@
             <sButton class="tree-select__inline" type="primary" @click="handleReset">重置默认项</sButton>
             <div class="gc-container__h1" style="margin-top: 10px;">选择数据源：{{deptArr}}, 默认筛选父级得到层级节点数据：{{parentIds}}</div>
         </div>
+        <sDivider></sDivider>
+        <div class="gc-container tree-select">
+            <div class="gc-container__h1">场景2：多条件过滤筛选框的实现</div>
+            <sButton class="tree-select__inline" type="primary" @click="visible1 = true">教师筛选</sButton>
+            <sButton class="tree-select__inline" type="success" @click="visible2= true">学生筛选</sButton>
+            <div class="gc-container__h1" style="margin-top: 10px;">教师筛选类数据源：{{filterObj1}}</div>
+            <div class="gc-container__h1" style="margin-top: 10px;">学生筛选类数据源：{{filterObj2}}</div>
+        </div>
+        <!-- 分类筛选1 -->
+        <classifyTeacher v-model="visible1" :tree="TEACHER_DATA" @on-data="getFilterData1"></classifyTeacher>
+        <!-- 分类筛选2 -->
+        <classifyStudent v-model="visible2" :tree="STUDENT_DATA" @on-data="getFilterData2"></classifyStudent>
     </div>
 </template>
 
@@ -40,7 +52,10 @@
 /* eslint-disable */
 import mTreeSelect from '@base/TreeSelect'
 import { getTreeSelectData } from '@/api/index'
+import classifyStudent from './s_classify_filter.vue'
+import classifyTeacher from './t_classify_filter.vue'
 import { treeTemp } from './tree.js'
+import { TEACHER_DATA, STUDENT_DATA } from './treeTemp.js'
 
 export default {
     name: 'treeSelectPage',
@@ -49,13 +64,19 @@ export default {
             treeSelected: [],
             treeData: [],
             treeTemp,
+            TEACHER_DATA,
+            STUDENT_DATA,
             deptId: '402',
             deptArr: [],
-            parentIds: []
+            parentIds: [],
+            visible1: false,
+            visible2: false,
+            filterObj1: {},
+            filterObj2: {}
         }
     },
     created () {
-        this.getTreeList();
+        // this.getTreeList();
         this.handleReset();
     },
     methods: {
@@ -129,15 +150,26 @@ export default {
             /* 去重，pid即为节点的id和父级pid的集合 */
             pid = loop(data, id).concat(id);
             return pid;
-        }   
+        },
+        getFilterData1(data) {
+            this.filterObj1 = {...data};
+        },
+        getFilterData2(data) {
+            this.filterObj2 = {...data};
+        }    
     },
-    components: { mTreeSelect }
+    components: { mTreeSelect, classifyStudent, classifyTeacher }
 }
 </script>
 
 <style lang="less">
+@import './index.less';
 .ivu-tree {
     padding: 0 10px;
+}
+.ivu-checkbox-group-item {
+    margin-bottom: 5px;
+    min-width: 120px;
 }
 </style>
 

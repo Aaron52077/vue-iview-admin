@@ -38,7 +38,7 @@ export default {
     /**
      * 集中销毁实例
      */
-    destroyed () {
+    destroyed() {
         this._cacheEchartstanceArr.forEach((v, i) => {
             if (v && v.dispose) {
                 v.clear()

@@ -71,5 +71,6 @@ module.exports = {
         // 覆盖webpack默认配置的都在这里, 配置解析别名  
         config.resolve.alias
             .set("@base", resolve("src/components/Base"))
+            .set("@h5", resolve("src/components/H5"))
     }
 }

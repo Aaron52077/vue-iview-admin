@@ -62,6 +62,9 @@ export const EchartsBar = (chartData, zoomEnd = 25, unit = '人', color = ['#4FA
                 xAxis: [
                     {
                         type: 'category',
+                        axisLabel: {
+                            interval: 0
+                        },
                         data: xAxis
                     }
                 ],

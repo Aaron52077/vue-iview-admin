@@ -10,6 +10,7 @@ import directives from '@/directive'
 
 // 全局组件库
 import './components/iview'
+import './components/vant'
 import './components/index'
 
 import dataBase from './global'

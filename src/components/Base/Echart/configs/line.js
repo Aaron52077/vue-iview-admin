@@ -8,8 +8,8 @@ import echarts from 'echarts'
  * @param {Object} [option] - 配置项
  * @returns {*}  无数据返回 / 有数据返回配置项
  */
-
-export const EchartsLine = (chartData) => {
+import { toolFormatter } from '../util';
+export const EchartsLine = (chartData, coloums = []) => {
     let {title, legend, xAxis, series} = chartData;
     if (xAxis.length === 0) {
         return {
@@ -40,6 +40,9 @@ export const EchartsLine = (chartData) => {
                     trigger: 'axis',
                     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                         type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter: function(parma) {
+                        return toolFormatter(parma, coloums)
                     }
                 },
                 legend: {

@@ -36,7 +36,7 @@
 
 <script>
 /* eslint-disable */
-require('echarts/extension/bmap/bmap');
+// require('echarts/extension/bmap/bmap');
 import { EchartsLine } from '@base/Echart/configs/line';
 import {demo1, demo2, demo3} from './config';
 
@@ -82,7 +82,11 @@ export default {
         }
     },
     created() {
-        this.lineObj = EchartsLine(this.lineData)
+        const coloums = [
+            { key: '理科', unit: '元' },
+            { key: '文科', unit: '个' }
+        ];
+        this.lineObj = EchartsLine(this.lineData, coloums)
     }
 }
 </script>

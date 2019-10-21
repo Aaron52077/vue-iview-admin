@@ -3,7 +3,8 @@ export default {
     path: '/',
     meta: {
         module: 'docs',
-        title: '首页'
+        title: '首页',
+        menuHide: true
     },
     redirect: '/icons',
     component: r => require.ensure([], () => r(require('./main.vue')), 'docs'),

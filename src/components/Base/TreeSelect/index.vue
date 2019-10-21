@@ -17,8 +17,8 @@
 
 <script>
 /* eslint-disable */
-import { Select } from 'iview'
-import Emitter from 'iview/src/mixins/emitter.js'
+import { Select } from 'view-design'
+import Emitter from 'view-design/src/mixins/emitter.js'
 import selectTree from './treeNode.vue'
 
 export default {

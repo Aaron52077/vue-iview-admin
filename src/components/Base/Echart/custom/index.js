@@ -6,7 +6,20 @@
  * @returns {*}  无数据返回 / 有数据返回配置项
  */
 
-export const EchartsLineBar = (chartData, unit = '', zoomEnd = 25) => {
+/**
+ * echart 图标配置  
+ * @param [type][类型] 自定义系列  
+ * @param [desc] 自定义系列可以自定义系列中的图形元素渲染，从而能扩展出不同的图表
+ * @param [docs][文档] https://echarts.baidu.com/option.html#series-custom
+ * @returns {*}  无数据返回 / 有数据返回配置项
+ */
+import { toolTextFlow, toolFormatter } from '../util'
+/** 
+ * 线图和柱状图结合
+ * @param coloums [data] { key: '获奖数', unit: '次' }, { key: '国家级获奖数', unit: '次' }, { key: '国家级奖占比', unit: '%' }
+ * @param yConf [data]  left: { name: '获奖数', unit: '次' }, right: { name: '百分比', unit: '%' }
+*/
+export const EchartsLineAndBar = (chartData, coloums = [], yConf = {}, isFlow = true) => {
     let {title, legend, xAxis, series} = chartData;
     if (series.length === 0) {
         return {
@@ -14,27 +27,27 @@ export const EchartsLineBar = (chartData, unit = '', zoomEnd = 25) => {
             option: {}
         }
     } else {
-        let seriesData = series.map(item => {
-            if(item.type === 'bar') {
+        let seriesMap = series.map(item => {
+            if (item.type === 'bar') {
                 return {
                     name: item.name,
                     type: 'bar',
-                    barWidth: 30,
+                    barWidth: 15,
+                    barCategoryGap: 10,
                     data: item.data
                 }
             }
-            if(item.type === 'line') {
+            if (item.type === 'line') {
                 return {
                     name: item.name,
                     type: 'line',
                     data: item.data,
-                    smooth: true, 
-                    symbolSize:8,
+                    smooth: true,
+                    symbolSize: 6,
                     yAxisIndex: 1
                 }
             }
         });
-        
         return {
             data: true,
             option: {
@@ -47,106 +60,214 @@ export const EchartsLineBar = (chartData, unit = '', zoomEnd = 25) => {
                     },
                     padding: 15
                 },
-                color: ['#3AA0FF','#EEA989','#EC6F00','#b666f4','#cf9ff1'],
+                color: [
+                    '#3AA0FF', '#EEA989', '#EC6F00', '#b666f4', '#cf9ff1', '#4ee2b3', '#56e7ed', '#fdb300',
+                    '#fda5bb', '#f3709b', '#f97ae3', '#e75ec3', '#52b9f5', '#52a6f5', '#5085f3', '#9b8bff'
+                ],
                 grid: {
-                    top: '20%',
+                    top: 45,
                     left: '3%',
                     right: '4%',
-                    bottom: xAxisData.length >= 8 ? '12%' : '5%',
+                    bottom: 30,
                     containLabel: true
                 },
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params) {
-                        return [
-                            params[0].name,
-                            params[0].marker + '学生：' + ((params[0] || {}).value || 0) + unit,
-                            params[1].marker + '教师: ' + ((params[1] || {}).value || 0) + unit,
-                            params[2].marker + '师生比: ' + `1 : ${(params[1] || {}).value === 0 ? 0 : ((params[0] || {}).value / (params[1] || {}).value).toFixed(2)}`
-                        ].join('<br/>')
+                        return toolFormatter(params, coloums);
                     }
                 },
                 legend: {
-                    show: xAxis.length > 1 ? true : false,
-                    top: 20,
-                    right: 40,
+                    type: 'scroll',
+                    orient: 'horizontal',
                     itemWidth: 20,
                     itemHeight: 10,
-                    selectedMode: false,
-                    data: legend || []
+                    bottom: 5,
+                    data: legend
                 },
                 xAxis: [
                     {
                         type: 'category',
-                        data: xAxis,
-                        axisTick:{
-                            show:false
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 45,
+                            formatter: function (parma) {
+                                if(isFlow) {
+                                    return toolTextFlow(parma)
+                                }else {
+                                    return parma
+                                }
+                            }
                         },
-                        axisLine:{
-                            show:false
+                        axisTick: {
+                            show: false
                         },
+                        axisLine: {
+                            show: false
+                        },
+                        data: xAxis
                     }
                 ],
                 yAxis: [
                     {
                         type: 'value',
-                        position: 'right',
                         min: 0,
+                        name: ((yConf || {}).left || {}).name || '',
+                        position: 'left',
                         axisLabel: {
-                            formatter: '{value}'
+                            formatter: '{value}' + (((yConf || {}).left || {}).unit || '')
                         },
-                        axisTick:{
-                            show:false
+                        axisTick: {
+                            show: false
                         },
-                        axisLine:{
-                            show:false
-                        }
+                        axisLine: {
+                            show: false
+                        },
+                        splitLine: { show: true }
                     },
                     {
                         type: 'value',
-                        position: 'left',
+                        name: ((yConf || {}).right || {}).name || '',
                         min: 0,
+                        position: 'right',
                         axisLabel: {
-                            formatter: '{value}'
+                            formatter: '{value}' + (((yConf || {}).right || {}).unit || '')
                         },
-                        axisTick:{
-                            show:false
-                        },
-                        axisLine:{
-                            show:false
-                        },
-                        splitLine: {show: true}
-                    },
-                ],
-                dataZoom: [
-                    {
-                        show: xAxis.length >= 10 ? true : false,
-                        height: 15,
-                        xAxisIndex: [0],
-                        bottom: 10,
-                        start: 0,
-                        end: xAxis.length >= 7 ? zoomEnd : 100,
-                        zoomLock: false,
-                        showDetail: false,
-                        handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
-                        handleSize: '100%',
-                        handleStyle: {
-                            color: "#9FA2A8"
-                        },
-                        textStyle: {
-                            color: "#9FA2A8"
-                        },
-                        borderColor: "#90979c"
-                    }, 
-                    {
-                        type: "inside",
-                        show: true,
-                        height: 15,
-                        start: 1,
-                        end: 35
+                        axisTick: { show: false },
+                        axisLine: { show: false },
+                        splitLine: { show: true },
+                        inverse: true
                     }
                 ],
-                series: seriesData
+                series: seriesMap
+            }
+        }
+    }
+}
+
+// 针对Y轴数据，是否是反向坐标轴
+export const EchartsLineAndBarOpt1 = (chartData, coloums = [], yConf = {}, isFlow = true) => {
+    let {title, legend, xAxis, series} = chartData;
+    if (series.length === 0) {
+        return {
+            data: false,
+            option: {}
+        }
+    } else {
+        let seriesMap = series.map(item => {
+            if (item.type === 'bar') {
+                return {
+                    name: item.name,
+                    type: 'bar',
+                    barWidth: 15,
+                    barCategoryGap: 10,
+                    data: item.data
+                }
+            }
+            if (item.type === 'line') {
+                return {
+                    name: item.name,
+                    type: 'line',
+                    data: item.data,
+                    smooth: true,
+                    symbolSize: 6,
+                    yAxisIndex: 1
+                }
+            }
+        });
+        return {
+            data: true,
+            option: {
+                title: {
+                    text: title || '',
+                    textStyle: {
+                        color: '#1D83DD',
+                        fontWeight: 500,
+                        fontSize: 20
+                    },
+                    padding: 15
+                },
+                color: [
+                    '#3AA0FF', '#EEA989', '#EC6F00', '#b666f4', '#cf9ff1', '#4ee2b3', '#56e7ed', '#fdb300',
+                    '#fda5bb', '#f3709b', '#f97ae3', '#e75ec3', '#52b9f5', '#52a6f5', '#5085f3', '#9b8bff'
+                ],
+                grid: {
+                    top: 45,
+                    left: '3%',
+                    right: '4%',
+                    bottom: 30,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        return toolFormatter(params, coloums);
+                    }
+                },
+                legend: {
+                    type: 'scroll',
+                    orient: 'horizontal',
+                    itemWidth: 20,
+                    itemHeight: 10,
+                    bottom: 5,
+                    data: legend
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 45,
+                            formatter: function (parma) {
+                                if(isFlow) {
+                                    return toolTextFlow(parma)
+                                }else {
+                                    return parma
+                                }
+                            }
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            show: false
+                        },
+                        data: xAxis
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        min: 0,
+                        name: ((yConf || {}).left || {}).name || '',
+                        position: 'left',
+                        axisLabel: {
+                            formatter: '{value}' + (((yConf || {}).left || {}).unit || '')
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            show: false
+                        },
+                        splitLine: { show: true }
+                    },
+                    {
+                        type: 'value',
+                        name: ((yConf || {}).right || {}).name || '',
+                        min: 0,
+                        position: 'right',
+                        nameLocation: 'start',
+                        axisLabel: {
+                            formatter: '{value}' + (((yConf || {}).right || {}).unit || '')
+                        },
+                        axisTick: { show: false },
+                        axisLine: { show: false },
+                        splitLine: { show: true },
+                        inverse: true
+                    }
+                ],
+                series: seriesMap
             }
         }
     }

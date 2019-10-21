@@ -58,10 +58,33 @@
                 <sDatePicker type="date" :options="endTimeOptions" @on-change="endTimeChange" placeholder="结束时间" v-model="endtime" transfer></sDatePicker>
             </div>
         </div>
+        <div class="gc-container" v-if="!$route.meta.menuHide && dataBase.h5">
+            <sDivider></sDivider>
+            <van-field label="开始时间" :value="currentDate1" placeholder="开始时间" readonly clickable @click="startVisible = true" />
+            <van-field label="结束时间" :value="currentDate2" placeholder="结束时间" readonly clickable @click="endVisible = true" />
+            <!-- 开始时间 -->
+            <van-popup v-model="startVisible" position="bottom" :overlay="true">
+                <u-picker-date
+                    type="date"
+                    v-model="startVisible"
+                    :max-date="maxDate"
+                    @on-confirm="startConfirmHandle" />
+            </van-popup> 
+            <!-- 结束时间 -->
+            <van-popup v-model="endVisible" position="bottom" :overlay="true">
+                <u-picker-date
+                    type="date"
+                    v-model="endVisible"
+                    :min-date="minDate"
+                    @on-confirm="endConfirmHandle" />
+            </van-popup> 
+        </div>
     </div>
 </template>
 
 <script>
+import pickerDate from '@h5/PickerDate'
+
 export default {
     data () {
         return {
@@ -69,6 +92,12 @@ export default {
             endTimeOptions: {},     // 结束日期设置
             starttime: '',          // 开始日期
             endtime: '',            // 结束日期
+            startVisible: false,
+            endVisible: false,
+            currentDate1: '',       // 开始时间
+            currentDate2: '',       // 结束时间
+            minDate: undefined,     // 可选的最小时间
+            maxDate: undefined      // 可选的最大时间
         }
     },
     methods: {
@@ -99,6 +128,14 @@ export default {
                 }
             }
         },
+        startConfirmHandle(data) {
+            this.currentDate1 = data.time;
+            this.minDate = data.date;
+        },
+        endConfirmHandle(data) {
+            this.currentDate2 = data.time
+            this.maxDate = data.date;
+        }
     },
     computed: {
         confData() {
@@ -112,6 +149,9 @@ export default {
             return date
         }
     },
+    components: {
+        'uPickerDate': pickerDate
+    }
 }
 </script>
 

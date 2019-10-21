@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import cache from '@/utils/cache'
-import { LoadingBar } from 'iview'
+import { LoadingBar } from 'view-design'
 import { setTitle } from '@/utils'
 
 Vue.use(Router)

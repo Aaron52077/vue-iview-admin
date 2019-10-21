@@ -51,7 +51,7 @@ import {
     Upload,
     Scroll,
     Drawer 
-} from 'iview'
+} from 'view-design'
 
 // 全局注册组件
 const components = {

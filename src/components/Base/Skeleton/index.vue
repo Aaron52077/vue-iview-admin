@@ -119,7 +119,7 @@ export default {
         margin-top: 20px;
     }
     &__animate {
-        .animation(skeleton-blink 1.2s ease-in-out infinite);
+        .animation(skeleton-blink 1s ease-in-out infinite);
     }
 }
 

@@ -48,6 +48,9 @@ let global = new Vue({
                 cache.setLocal('lang', value)
             }
         },
+        h5() {
+            return this.dw < 800
+        }
     },
     methods: {
         //写入共享数据

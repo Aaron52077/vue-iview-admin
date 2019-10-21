@@ -22,7 +22,7 @@ export default {
     methods: {
         mockData() {
             let arr = [];
-            for(let i = 0; i < 10; i++) {
+            for(let i = 0; i < 99; i++) {
                 arr.push({ name:'8test'+(i+1), height:80 })
                 arr.push({ name:'4test'+(i+1), height:40 })
                 arr.push({ name:'2test'+(i+1), height:20 })

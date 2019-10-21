@@ -9,6 +9,7 @@
  */
 
 require('echarts/map/js/china')
+require('echarts/extension/bmap/bmap');
 
 export const EchartsMap = (chartData, unit = '') => {
     let { title, series } = chartData;

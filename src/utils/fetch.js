@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import qs from 'qs'
-import { Message } from 'iview'
+import { Message } from 'view-design'
 import cache from '@/utils/cache'
 
 const tokenValue = 'Y2FtcHVzOmNhbXB1cw=='
@@ -82,7 +82,7 @@ export const fetch = async (url = '', type = 'GET', data = {}, isDown = false) =
     }
 
     requestOptions['headers'] = {
-        'Content-Type': isDown ? 'application/vnd.ms-excel' : 'application/json'
+        'Content-Type': isDown ? 'application/vnd.ms-excel' : 'application/x-www-form-urlencoded'
     }
 
     if (type === 'GET') {
