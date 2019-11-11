@@ -5,7 +5,7 @@
             <div class="gc-dia-body gc-filter" style="min-height:400px;">
                  <sRow class="gc-filter__bd">
                     <sCol span="16" class="gc-filter__lt">
-                        <div class="lt-title">选择筛选条件</div>
+                        <div class="lt-title">筛选条件项</div>
                         <div class="lt-content">
                             <div class="lt-content__hd">
                                 <div class="lt-content__hd--items" v-for="(item, index) in filterList" :key="index">

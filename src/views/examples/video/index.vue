@@ -44,7 +44,7 @@ export default {
     methods: {
         handleVideo() {
             // 参考https://www.cnblogs.com/afrog/p/6689179.html
-            this.dataBase.load('plugins/videojs/videojs.min.css', 'plugins/videojs/video.min.js', 'plugins/videojs/zh-CN.js' ,() => {
+            this.dataBase.load('video', () => {
                 setTimeout(() => {
                     delete window.videojs.getPlayers()['really-cool-video']
                     let player = window.videojs('really-cool-video', {

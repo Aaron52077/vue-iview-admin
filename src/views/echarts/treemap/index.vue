@@ -3,7 +3,7 @@
         <div class="gc-panel__title">Echart treemap 图表</div>
         <sDivider></sDivider>
         <div class="gc-container">
-            <div class="gc-container__title">通过Easy Mock接口方式用法</div>
+            <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
                 <sCol span="12">

@@ -58,31 +58,37 @@
                 <sDatePicker type="date" :options="endTimeOptions" @on-change="endTimeChange" placeholder="结束时间" v-model="endtime" transfer></sDatePicker>
             </div>
         </div>
-        <div class="gc-container" v-if="!$route.meta.menuHide && dataBase.h5">
+        <div class="gc-container" style="margin-bottom: 25px">
             <sDivider></sDivider>
-            <van-field label="开始时间" :value="currentDate1" placeholder="开始时间" readonly clickable @click="startVisible = true" />
-            <van-field label="结束时间" :value="currentDate2" placeholder="结束时间" readonly clickable @click="endVisible = true" />
-            <!-- 开始时间 -->
-            <van-popup v-model="startVisible" position="bottom" :overlay="true">
-                <u-picker-date
-                    type="date"
-                    v-model="startVisible"
-                    :max-date="maxDate"
-                    @on-confirm="startConfirmHandle" />
-            </van-popup> 
-            <!-- 结束时间 -->
-            <van-popup v-model="endVisible" position="bottom" :overlay="true">
-                <u-picker-date
-                    type="date"
-                    v-model="endVisible"
-                    :min-date="minDate"
-                    @on-confirm="endConfirmHandle" />
-            </van-popup> 
+            <div class="gc-container__title">基于移动端的时间控件(请用打开手机预览模式)</div>
+            <template v-if="!$route.meta.menuHide && dataBase.h5">
+                <van-field label="开始时间" :value="currentDate1 || confData.start" placeholder="开始时间" readonly clickable @click="startVisible = true" />
+                <van-field label="结束时间" :value="currentDate2 || confData.end" placeholder="结束时间" readonly clickable @click="endVisible = true" />
+                <!-- 开始时间 -->
+                <van-popup v-model="startVisible" position="bottom" :overlay="true">
+                    <u-picker-date
+                        :type="dateType"
+                        v-model="startVisible"
+                        :max-date="maxDate"
+                        :date-value="currentDate1"
+                        @on-confirm="startConfirmHandle" />
+                </van-popup> 
+                <!-- 结束时间 -->
+                <van-popup v-model="endVisible" position="bottom" :overlay="true">
+                    <u-picker-date
+                        type="date"
+                        v-model="endVisible"
+                        :min-date="minDate"
+                        :date-value="currentDate2"
+                        @on-confirm="endConfirmHandle" />
+                </van-popup> 
+            </template>
         </div>
     </div>
 </template>
 
 <script>
+/* eslint-disable */
 import pickerDate from '@h5/PickerDate'
 
 export default {
@@ -113,6 +119,7 @@ export default {
             this.starttime = event;
             this.endTimeOptions = {
                 disabledDate: date => {
+                    // 时间戳转换比较
                     let startTime = this.starttime ? new Date(this.starttime).valueOf() : '';
                     return date && (date.valueOf() < startTime);
                 }

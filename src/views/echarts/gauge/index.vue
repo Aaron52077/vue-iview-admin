@@ -4,7 +4,7 @@
         <sDivider></sDivider>
         <sSpin size="large" fix v-if="spinShow"></sSpin>
         <div class="gc-container" v-show="!spinShow">
-            <div class="gc-container__title">通过Easy Mock接口方式用法</div>
+            <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
                 <sCol span="12">

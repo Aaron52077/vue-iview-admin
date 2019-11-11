@@ -132,3 +132,18 @@ export const toFixed = (num, n) => {
     num = Math.round(num * Math.pow(10, n)) / Math.pow(10, n)+ Math.pow(10, -(n + 1));
     return (num * flag).toFixed(n)
 }
+
+// 数据脱敏处理
+export const desensitization = (str, begin, end) => {
+    let tempStr = '';
+    if(typeof str === 'string' && !!str) {
+        let len = str.length;
+        var firstStr = str.substr(0, begin);
+        var lastStr = str.substr(end);
+        var middleStr = str.substring(begin, len - Math.abs(end)).replace(/[\s\S]/g, '*');
+        
+        tempStr = firstStr + middleStr + lastStr;
+        return tempStr;
+    }
+    return tempStr;
+}

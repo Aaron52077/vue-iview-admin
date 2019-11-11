@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { debounce } from '@/utils'
+import { debounce, on, off } from '@/utils'
 
 export default {
     data() {
@@ -22,18 +22,22 @@ export default {
                 this.myChart.resize()
             }
         }, 100)
-        window.addEventListener('resize', this._resizeHandler)
+        on(document, 'resize', this._resizeHandler)
+        // window.addEventListener('resize', this._resizeHandler)
     
         this.$_sidebarElm = document.getElementsByClassName('sidebar-container')[0]
-        this.$_sidebarElm && this.$_sidebarElm.addEventListener('transitionend', this.$_sidebarResizeHandler)
+        // this.$_sidebarElm && this.$_sidebarElm.addEventListener('transitionend', this.$_sidebarResizeHandler)
+        this.$_sidebarElm && on(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
     },
     /**
      * 图表销毁之前的处理
      */
     beforeDestroy() {
-        window.removeEventListener('resize', this._resizeHandler)
+        off(document, 'resize', this._resizeHandler)
+        // window.removeEventListener('resize', this._resizeHandler)
     
-        this.$_sidebarElm && this.$_sidebarElm.removeEventListener('transitionend', this.$_sidebarResizeHandler)
+        // this.$_sidebarElm && this.$_sidebarElm.removeEventListener('transitionend', this.$_sidebarResizeHandler)
+        this.$_sidebarElm && off(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
     },
     /**
      * 集中销毁实例

@@ -3,7 +3,7 @@
         <div class="gc-panel__title">Echart line 图表</div>
         <sDivider></sDivider>
         <div class="gc-container">
-            <div class="gc-container__title">通过Easy Mock接口方式用法</div>
+            <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
                 <sCol span="12">
@@ -40,7 +40,11 @@ export default {
     },
     created() {
         echartLineAPI().then(res => {
-            this.lineObj1 = EchartsLine(res.data);
+            const coloums = [
+                { key: '理科', unit: '人' },
+                { key: '文科', unit: '人' }
+            ];
+            this.lineObj1 = EchartsLine(res.data, coloums);
             this.lineObj2 = EchartsLineOpt1(res.data);
         });
     }

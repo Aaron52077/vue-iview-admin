@@ -10,7 +10,8 @@
 
 ## 演示demo
 
-[DEMO](https://aaron52077.github.io/vue-iview-dev/#/)
+[demo地址1](https://aaron52077.github.io/vue-iview-dev/#/)
+[demo地址2](http://112.124.28.207/prod-dist/#/)
 
 > 开发预览
 

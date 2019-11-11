@@ -3,7 +3,7 @@
         <div class="gc-panel__title">DragList 拖拽列表组件</div>
         <sDivider></sDivider>
         <div class="gc-container darg-list">
-            <div class="gc-container__title">通过Easy Mock接口方式用法</div>
+            <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
                 <sCol span="10">
@@ -66,7 +66,7 @@ export default {
             handleList: []
         }
     },
-    created () {
+    created() {
         this.getDragList();
     },
     methods: {

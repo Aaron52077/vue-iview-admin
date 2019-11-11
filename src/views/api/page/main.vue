@@ -7,6 +7,12 @@
             <router-link to="/api/page/children1">页面1</router-link>&nbsp;&nbsp;&nbsp;
             <router-link to="/api/page/children2">页面2</router-link>
             <sDivider></sDivider>
+            <div class="gc-container__h1">Table 自定义表头筛选、合并单元格实例</div>
+            <div class="gc-container__title">tips: 年龄列列为自定义实例，地址列为官方实例</div>
+            <sDivider></sDivider>
+            <!-- tooltip-theme="light" -->
+            <sTable max-height="300" border :columns="columns1" :data="data1" :span-method="handleSpan"></sTable>
+            <sDivider></sDivider>
             <div class="gc-container__h1">Table 跨分页全选/多选</div>
             <sTable size="default"
                     ref="selection" 
@@ -77,8 +83,11 @@
 /* eslint-disable */
 import { remove, uniqBy, differenceBy } from 'lodash';
 import mBreadcrumb from '@base/Breadcrumb'
+import { mockTable } from '@/api'
 import { uniqueArr } from '@/utils'
 import { tableTemp } from './table.js'
+
+const headCustom = () => import(/* webpackChunkName: "layout" */'./filter_custom.vue')
 
 export default {
     data () {
@@ -174,10 +183,81 @@ export default {
                         return h('div', date);
                     }
                 }
-            ]
+            ],
+            columns1: [
+                {
+                    title: '名字',
+                    key: 'name'
+                },
+                {
+                    title: '年龄',
+                    key: 'age',
+                    renderHeader: (h, params) => {
+                        const _this = this;
+                        //  style: { whiteSpace: 'normal', wordBreak: 'break-all' } 
+                       return h('div', [
+                            h('span', {
+                                style: {
+                                    marginRight: '5px'
+                                }
+                            }, '年龄'),
+                            h(headCustom, {
+                                props: {
+                                    tree: [{
+                                        id: 'A',
+                                        name: '阿西吧'
+                                    },
+                                    {
+                                        id: 'B',
+                                        name: '逼逼叨'
+                                    }]
+                                },
+                                on: {
+                                    onClick(val) {
+                                        _this.$Message.info(val);
+                                    }
+                                }
+                            }, '') 
+                       ]) 
+                    },
+                    className: 'table-custom1'
+                },
+                {
+                    title: '地址',
+                    key: 'address',
+                    tooltip: true,
+                    filters: [
+                        {
+                            label: '大于18岁',
+                            value: 1
+                        },
+                        {
+                            label: '小于18岁',
+                            value: 2
+                        }
+                    ],
+                    filterMultiple: false,
+                    filterMethod(value, row) {
+                        if (value === 1) {
+                            return row.age > 18;
+                        } else if (value === 2) {
+                            return row.age <= 18;
+                        }
+                    }
+                }
+            ],
+            data1: []
         }
     },
+    created() {
+        this.getMockTable();
+    },
     methods: {
+        getMockTable() {
+            mockTable().then(res => {
+                this.data1 = res.data
+            });
+        },
         getNodeId() {
             const checkedNodes = this.$refs.permissionTree.getCheckedNodes();
             let tmpIds = [];  
@@ -271,19 +351,62 @@ export default {
         updateChecked() {
             // 把源数据加上_checked字段，遍历已选项数据，更新选中状态
             const temp = this.dataBase.cloneDeep(this.data2);
-            let tempArr = temp.reduce((arr, val) => {
-                let tempObj = {_checked: false, ...val};
-                if (this.selectList.length > 0) {
-                    for (let key of this.selectList) {
-                        if (key.id == val.id) {
-                            tempObj._checked = true;
-                        }
+            // 方式1 利用 reduce
+            // let tempArr = temp.reduce((arr, val) => {
+            //     let tempObj = {_checked: false, ...val};
+            //     if (this.selectList.length > 0) {
+            //         for (let key of this.selectList) {
+            //             if (key.id == val.id) {
+            //                 tempObj._checked = true;
+            //             }
+            //         }
+            //     }
+            //     arr.push(tempObj);
+            //     return arr;
+            // }, []);
+            // 方式2 利用 includes
+            const tempArr = temp.map((n) => Object.assign({}, n, {
+				_checked: this.selectList.map(item => item.id).includes(n.id)
+			}));
+            this.data2 = tempArr;
+        },
+        initMerageTD(key) {
+            // 处理合并单元格逻辑
+            let colspanTd = [];
+            let rowspanTd = 0;
+            const tableData = this.dataBase.cloneDeep(this.data1);
+            tableData.forEach((m, n) => {
+                if(n === 0) {
+                    // 保证有数据源前提
+                    colspanTd.push(1);
+                    rowspanTd = 0;
+                }else {
+                    if(tableData[n][key] === tableData[n - 1][key]) {
+                        colspanTd[rowspanTd] += 1;
+                        colspanTd.push(0);
+                    }else {
+                        colspanTd.push(1);
+                        rowspanTd = n;
                     }
                 }
-                arr.push(tempObj);
-                return arr;
-            }, []);
-            this.data2 = tempArr;
+            });
+            return {
+                colspanTd: colspanTd,
+                rowspanTd: rowspanTd
+            }
+        },
+        handleSpan({ row, column, rowIndex, columnIndex }) {
+            // console.log('当前行', row, '当前列', column, '当前行索引', rowIndex, '当前列索引', columnIndex)
+            if(columnIndex === 0) {
+                // 合并单元格处理
+                let merageTd = this.initMerageTD('name');
+                const rowSpan = merageTd.colspanTd[rowIndex];
+                const colSpan = rowSpan > 0 ? 1 : 0; // 如果被合并了rowSpan = 0 则它这个列需要取消
+                return {
+                    rowspan: rowSpan,
+                    colspan: colSpan
+                }
+            }
         }
     },
     computed: {
@@ -299,7 +422,7 @@ export default {
             }
         }
     },
-    components: { mBreadcrumb }
+    components: { mBreadcrumb, headCustom }
 }
 </script>
 
@@ -321,5 +444,12 @@ export default {
 .gc-page {
     margin: 10px;
     text-align: right;
+}
+</style>
+
+<style>
+.ivu-table td.table-custom1 {
+    background-color: #2db7f5;
+    color: #fff;
 }
 </style>

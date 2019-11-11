@@ -12,6 +12,11 @@ export function getDragListData() {
     return res
 }
 
+// table
+export function mockTable() {
+    let res = fetch('/table')
+    return res
+}
 
 /**
  * 上传excel模版

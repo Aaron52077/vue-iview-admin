@@ -317,3 +317,20 @@ export const forEach = (arr, fn) => {
         fn(item, i, arr)
     }
 }
+
+
+/* eslint-disable */ 
+// 解析时间方式2 ps:另外一种在全局过滤器中
+const dateToStrParser = (date) => {
+    let _date = new Date(date);
+    // IE patch start (#1422)
+    if (isNaN(_date.getTime()) && typeof date === 'string'){
+        _date = date.split('-').map(Number);
+        _date[1] += 1;
+        _date = new Date(..._date);
+    }
+    // IE patch end
+
+    if (isNaN(_date.getTime())) return null;
+    return _date;
+};

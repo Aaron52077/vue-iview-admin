@@ -13,14 +13,12 @@
                 <sCol span="12">
                     <div class="gc-container__h1">树节点右键操作</div>
                     <div class="gc-demo__block">
-                        <!-- @contextmenu.prevent.native="contextMenu($event, index)" 自定义右键指令demo -->
                         <sTag v-for="(item, index) in data1"
                             ref="tags"
                             type="dot"
                             color="primary"
                             :key="index"
-                            :name="item.name"
-                            v-contextmenu="menudata">{{item.name}}</sTag>
+                            :name="item.name">{{item.name}}</sTag>
                     </div>
                 </sCol>
             </sRow>
@@ -31,7 +29,6 @@
 <script>
 /* eslint-disable */
 import mBreadcrumb from '@base/Breadcrumb'
-import directives from '@/directive/install'
 
 export default {
     data () {
@@ -106,7 +103,6 @@ export default {
             this.$Message.info('22222')
         }
     },
-    directives: { contextmenu: directives.contextmenu },
     components: { mBreadcrumb }
 }
 </script>
@@ -114,23 +110,5 @@ export default {
 <style lang="less">
 .gc-demo__block {
     position: relative;
-}
-.contextmenu {
-    position: absolute;
-    margin: 0;
-    padding: 5px 0;
-    background: #fff;
-    z-index: 1000;
-    list-style-type: none;
-    border-radius: 4px;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .1);
-    li {
-        margin: 0;
-        padding: 5px 15px;
-        cursor: pointer;
-        &:hover {
-            background: #eee;
-        }
-    }
 }
 </style>

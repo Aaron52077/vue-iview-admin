@@ -27,9 +27,6 @@
 import draggable from 'vuedraggable'
 export default {
     name: 'DragList',
-    components: {
-        draggable
-    },
     props: {
         list1: {
             type: Array,
@@ -44,13 +41,14 @@ export default {
             default: () => ({})
         }
     },
+    components: { draggable },
     data () {
         return {
             options: { group: 'dragList' }
         }
     },
     methods: {
-        handleListChange (value, type) {
+        handleListChange(value, type) {
             if (type === 'left') this.$emit('update:list1', value)
             else this.$emit('update:list2', value)
         },

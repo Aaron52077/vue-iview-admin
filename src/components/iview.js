@@ -50,6 +50,9 @@ import {
     Divider,
     Upload,
     Scroll,
+    Cell,
+    CellGroup,
+    Badge,
     Drawer 
 } from 'view-design'
 
@@ -103,6 +106,9 @@ const components = {
     'sDivider': Divider,
     'sUpload': Upload,
     'sScroll': Scroll,
+    'sCell': Cell,
+    'sCellGroup': CellGroup,
+    'sBadge': Badge,
     'sDrawer': Drawer
 }
 

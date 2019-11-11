@@ -76,7 +76,7 @@ export default {
         }
     },
     created () {
-        // this.getTreeList();
+        this.getTreeList();
         this.handleReset();
     },
     methods: {

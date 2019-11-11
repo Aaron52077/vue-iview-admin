@@ -8,7 +8,7 @@
                 <sMenu class="gc-head__nav" v-if="!dataBase.h5" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
                     <template v-for="item in navList">
                         <template v-if="item.childrens && item.childrens.length > 0">
-                             <submenu :name="item.name" :key="item.name">
+                             <submenu :name="item.name" :key="item.name" v-waves>
                                 <template slot="title">
                                     <sIcon :type="item.icon" />{{item.name}}
                                 </template>
@@ -25,7 +25,7 @@
                             </submenu>
                         </template>
                         <template v-else>
-                            <sMenuItem :name="item.name" :to="item.path" :key="item.id">
+                            <sMenuItem :name="item.name" :to="item.path" :key="item.id" v-waves> 
                                 <sIcon :type="item.icon" />{{t(item.name)}}
                             </sMenuItem>
                         </template>
@@ -39,7 +39,7 @@
                 <mScrollbar hide>
                     <sMenu :active-name="active" :width="`${layoutWeb}px`">
                         <sMenuGroup v-for="(item, index) in menuList" :key="index" :title="item.name">
-                            <sMenuItem v-for="(m, idx) in item.children" :key="idx" :name="m.name" :to="m.path">
+                            <sMenuItem v-for="(m, idx) in item.children" :key="idx" :name="m.name" :to="m.path" v-waves>
                                 <sIcon :type="m.icon" /><span v-show="!dataBase.h5">{{t(m.name)}}</span>
                             </sMenuItem>
                         </sMenuGroup>

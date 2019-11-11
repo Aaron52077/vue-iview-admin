@@ -3,7 +3,7 @@
         v-bind="$attrs"
         :type="type"
         :title="title"
-        :value="new Date()"
+        :value="currentDate"
         :min-date="minDate"
         :max-date="maxDate"
         :formatter="formatter"
@@ -21,6 +21,7 @@
  * @example
  */
 const currentYear = new Date().getFullYear();
+// const isEmptyArray = val => val.reduce((isEmpty, str) => isEmpty && !str || (typeof str === 'string' && str.trim() === ''), true);
 
 export default {
     name: 'mPickerDate',
@@ -30,6 +31,7 @@ export default {
         event: 'change'
     },
     props: {
+        dateValue: [Date, String],
         type: {
             type: String,
             default: 'date'
@@ -48,11 +50,6 @@ export default {
             default: ''
         }
     },
-    data() {
-        return {
-            
-        }
-    },
     computed: {
         formatterMap() {
             const formatter = {
@@ -62,6 +59,9 @@ export default {
                 'year-month': 'yyyy-MM'
             };
             return formatter[this.type] || 'yyyy-MM-dd hh:mm'
+        },
+        currentDate() {
+            return this.parseDate(this.dateValue)
         },
         currentValue: {
             get() {
@@ -73,9 +73,33 @@ export default {
         }
     },
     methods: {
+        /**
+         * 过滤时间
+         */
+        parseDate(val) {
+            let timestamp, value;
+            const t = this.dataBase;
+            let formater = this.formatterMap;
+            if (val && !(val instanceof Date)) {
+                /** 
+                 * 时间戳(Timestamp)转时间(Date)
+                 * 方式1 +new Date(val)
+                 * 方式2 val.getTime()
+                 * 方式3 val.valueOf()
+                 */
+                timestamp = +new Date(val);
+                value = new Date(timestamp);
+            } else {
+                value = val ? new Date(val) : new Date();
+            }
+            this.$nextTick(() => {
+                this.$emit('input', value);
+            });
+            return value
+        },
         cancelHandle() {
-            this.currentValue = false
-            this.$emit('on-cancel')
+            this.$emit('on-cancel');
+            this.currentValue = false;
         },
         confirmHandle(value) {
             const t = this.dataBase;

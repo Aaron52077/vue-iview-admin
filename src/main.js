@@ -20,6 +20,18 @@ import './assets/font/iconfont.js'
 // 自定义过滤
 import * as filters from './filters' // global filters
 
+/**
+ * If you don't want to use mock-server
+ * you want to use MockJs for mock api
+ * you can execute: import 'mock'
+ *
+ * Currently MockJs will be used in the production environment,
+ * please remove it before going online! ! !
+ */
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
+    require('@/mock')
+}
+
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
 })

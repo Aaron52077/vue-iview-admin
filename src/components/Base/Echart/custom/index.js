@@ -83,6 +83,7 @@ export const EchartsLineAndBar = (chartData, coloums = [], yConf = {}, isFlow = 
                     itemWidth: 20,
                     itemHeight: 10,
                     bottom: 5,
+                    selectedMode: true,
                     data: legend
                 },
                 xAxis: [
