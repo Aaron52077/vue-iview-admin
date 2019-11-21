@@ -8,8 +8,10 @@
  * @returns {*}  无数据返回 / 有数据返回配置项
  */
 
-require('echarts/map/js/china')
+import echarts from "echarts";
+require('echarts/map/js/china');
 require('echarts/extension/bmap/bmap');
+import guangxi from 'echarts/map/json/province/guangxi.json'
 
 export const EchartsMap = (chartData, unit = '') => {
     let { title, series } = chartData;
@@ -64,12 +66,6 @@ export const EchartsMap = (chartData, unit = '') => {
                     top: 135,
                     bottom: 100,
                     containLabel: true
-                },
-                xAxis: {
-                    show: false
-                },
-                yAxis: {
-                    show: false
                 },
                 geo: {
                     type: 'map',
@@ -288,6 +284,151 @@ export const EchartsMapOpt1 = (chartData, unit = '') => {
                     },
                     data: series.slice(0, 9)
                 }]
+            }
+        } 
+    }
+}
+
+export const EchartsMapOpt2 = (chartData, unit = '') => {
+    let { title, series } = chartData;
+    if (series.length === 0) {
+        return {
+            data: false,
+            option: {}
+        }
+    } else {
+        echarts.registerMap('guangxi', guangxi);
+        // 中心点
+        const center = [108.61, 21.96];
+        // 数据转换到坐标点
+        let convertData = (data) => {
+            let dataPoint = data.map(item => {
+                return [{
+                    coord: center
+                }, {
+                    coord: item.point
+                }]
+            });
+            return dataPoint;
+        };
+        let seriesMap = [];
+        seriesMap.push({
+            name: '钦州',
+            type: 'lines',
+            zlevel: 1,
+            effect: {
+                show: true,
+                period: 6,
+                trailLength: 0.7,
+                color: '#fff',
+                symbolSize: 3
+            },
+            lineStyle: {
+                normal: {
+                    color: '#ffcb3e',
+                    width: 0,
+                    curveness: 0.2
+                }
+            },
+            data: convertData(series)
+        },
+        {
+            name: '钦州',
+            type: 'lines',
+            zlevel: 2,
+            effect: {
+                show: true,
+                period: 6,
+                trailLength: 0,
+                symbol: 'path://M.6,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705',
+                symbolSize: 15
+            },
+            lineStyle: {
+                normal: {
+                    color: '#ffcb3e',
+                    width: 1,
+                    opacity: 0.4,
+                    curveness: 0.2
+                }
+            },
+            data: convertData(series)
+        },
+        {
+            name: '南宁',
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'right',
+                    formatter: '{b}'
+                }
+            },
+            symbolSize: function(val) {
+                return val[2] / 16;
+            },
+            itemStyle: {
+                normal: {
+                    color: '#ffcb3e'
+                }
+            },
+            data: series.map(item => {
+                return {
+                    name: item.name,
+                    value: [...item.point, item.value]
+                }
+            })
+        });
+        return {
+            data: true, 
+            option: {
+                title: {
+                    text: title || '',
+                    textStyle: {
+                        color: '#1D83DD',
+                        fontWeight: 500,
+                        fontSize: 20
+                    },
+                    padding: 15
+                },
+                color: ['#1D83DD'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        return [
+                            params.marker + params.name + '：' + ((params.data.value || [])[2] || 0) + unit
+                        ].join('<br/>')
+                    },
+                },
+                geo: {
+                    type: 'map',
+                    map: 'guangxi',
+                    roam: false,
+                    zoom: 1.1,
+                    aspectScale: 1,
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#1D83DD',
+                            borderColor: '#ffffff'
+                        },
+                        emphasis: {
+                            areaColor: '#3AA0FF'
+                        }
+                    }
+                },
+                series: seriesMap
             }
         } 
     }

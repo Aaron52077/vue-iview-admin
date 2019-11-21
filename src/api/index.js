@@ -1,8 +1,14 @@
 import { fetch } from '@/utils/fetch'
 
-// tree
+// tree1
 export function getTreeSelectData() {
     let res = fetch('/comp/tree')
+    return res
+}
+
+// tree2
+export function getTreeCustomData() {
+    let res = fetch('/custom/tree')
     return res
 }
 

@@ -48,3 +48,23 @@ Mock.mock(BASE_URL + '/table', {
         "address": "@city(true)"
     }]
 });
+
+// 自定义tree数据
+Mock.mock(BASE_URL + '/custom/tree', {
+    data: {
+        "data|3-10": [{
+            "id|+1": 1,
+            "title": "@ctitle(3, 5)",
+            "expand": false,
+            "children|1-5": [{
+                "id|+1": 11,
+                "title": "@ctitle(3, 7)",
+                "expand": false,
+                "children|1-3": [{
+                    "id|+1": 111,
+                    "title": "@ctitle(3, 7)"
+                }]
+            }]
+        }]
+    }
+});

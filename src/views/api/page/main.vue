@@ -83,7 +83,7 @@
 /* eslint-disable */
 import { remove, uniqBy, differenceBy } from 'lodash';
 import mBreadcrumb from '@base/Breadcrumb'
-import { mockTable } from '@/api'
+import { mockTable, getTreeCustomData } from '@/api'
 import { uniqueArr } from '@/utils'
 import { tableTemp } from './table.js'
 
@@ -94,48 +94,7 @@ export default {
         return {
             selectList: [],
             active: '1',
-            treeData: [
-                {
-                    id: -1,
-                    title: 'parent 1',
-                    expand: true,
-                    selected: true,
-                    children: [
-                        {
-                            id: 1,
-                            title: 'parent 1-1',
-                            expand: true,
-                            children: [
-                                {
-                                    id: 11,
-                                    title: 'leaf 1-1-1',
-                                    disabled: true
-                                },
-                                {
-                                    id: 12,
-                                    title: 'leaf 1-1-2'
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            title: 'parent 1-2',
-                            expand: true,
-                            children: [
-                                {
-                                    id: 21,
-                                    title: 'leaf 1-2-1',
-                                    checked: true
-                                },
-                                {
-                                    id: 22,
-                                    title: 'leaf 1-2-1'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
+            treeData: [],
             parentIds: [],
             id: [],
             inputVal: '输入的内容',
@@ -256,6 +215,15 @@ export default {
         getMockTable() {
             mockTable().then(res => {
                 this.data1 = res.data
+            });
+            getTreeCustomData().then(res => {
+                let treeMap = res.data.data.map((ele, index) => {
+                    if(index === 0) {
+                        ele.expand = true
+                    }
+                    return ele
+                });
+                this.treeData = treeMap
             });
         },
         getNodeId() {

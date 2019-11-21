@@ -17,13 +17,20 @@
                     </div>
                 </sCol>
             </sRow>
+            <sRow :gutter="16">
+                <sCol span="12">
+                    <div class="echart-block">
+                        <mEchart v-if="mapObj3.data" :optionObj="mapObj3.option"></mEchart>
+                    </div>
+                </sCol>
+            </sRow>
         </div>
     </div>
 </template>
 
 <script>
-import { echartMapAPI } from '@/api/echarts';
-import { EchartsMap, EchartsMapOpt1 } from '@base/Echart/configs/map';
+import { echartMapAPI, echartMapAreaAPI } from '@/api/echarts';
+import { EchartsMap, EchartsMapOpt1, EchartsMapOpt2 } from '@base/Echart/configs/map';
 
 export default {
     data () {
@@ -35,6 +42,14 @@ export default {
             mapObj2: {
                 data: false,
                 option: {}
+            },
+            mapObj3: {
+                data: false,
+                option: {}
+            },
+            mapObj4: {
+                data: false,
+                option: {}
             }
         }
     },
@@ -42,6 +57,9 @@ export default {
         echartMapAPI().then(res => {
             this.mapObj1 = EchartsMap(res.data, '人');
             this.mapObj2 = EchartsMapOpt1(res.data, '人');
+        });
+        echartMapAreaAPI().then(res => {
+            this.mapObj3 = EchartsMapOpt2(res.data, '人');
         });
     }
 }

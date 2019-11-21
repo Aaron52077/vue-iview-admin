@@ -30,6 +30,12 @@ export function echartMapAPI() {
     return res
 }
 
+// MapArea
+export function echartMapAreaAPI() {
+    let res = fetch('/echart/area')
+    return res
+}
+
 // Funnel
 export function echartFunnelAPI() {
     let res = fetch('/echart/funnel')

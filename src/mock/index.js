@@ -444,6 +444,33 @@ Mock.mock(BASE_URL + '/echart/map', {
 	}
 });
 
+// 区域地图
+Mock.mock(BASE_URL + '/echart/area', {
+	data: {
+		title: '广西省全日制招生',
+		series: [{
+			name: '钦州',
+			'value|200-500': 100,
+			point: [108.61, 21.96]
+		},
+		{
+			name: '柳州',
+			'value|50-100': 50,
+			point: [109.4, 24.33]
+		},
+		{
+			name: '南宁',
+			'value|50-100': 50,
+			point: [108.479, 23.1152]
+		},
+		{
+			name: '桂林',
+			'value|50-100': 55,
+			point: [110.28, 25.29]
+		}]
+	}
+});
+
 // 漏斗图
 Mock.mock(BASE_URL + '/echart/funnel', {
 	data: {

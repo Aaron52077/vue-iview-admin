@@ -19,30 +19,31 @@ module.exports = {
     productionSourceMap: false, 
     // 打包生成目录，不同的环境打不同包名  
     outputDir: process.env.outputDir,  
+    // assetsDir: 'plugins',
+    lintOnSave: process.env.NODE_ENV === 'development',
     // 开启less全局变量                      
     css: {
         loaderOptions: {
             less: {
                 javascriptEnabled: true
             }
-        }
+        },
+        extract: false
     },
     devServer: {
-        // 配置服务器                    
-        // 处理host不识别
-        disableHostCheck: false,     
-        https: false,
         // 配置自动启动浏览器
         open: true,                 
         overlay: {
-            warnings: true,
+            warnings: false,
             errors: true
         },
         proxy: {
             '/api': {
                 target: process.env.VUE_APP_API || 'http://172.20.14.123:9999',
-                ws: true,
-                changeOrigin: true
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': ''
+                }
             }
         }
     },
@@ -60,14 +61,15 @@ module.exports = {
                 plugins: [new CompressionPlugin({
                     test: /.js$|.html$|.css/,    // 匹配文件名
                     threshold: 10240,            // 对超过10k的数据进行压缩 只处理大于此大小的资产。以字节为单位
-                    deleteOriginalAssets: false // 是否删除原文件
+                    deleteOriginalAssets: false  // 是否删除原文件
                 })]
             }
         }
     },
     chainWebpack: config => {
-        // 移除 prefetch 插件
-        config.plugins.delete('prefetch')
+        // 移除 prefetch、preload 插件
+        config.plugins.delete('preload') // TODO: need test
+        config.plugins.delete('prefetch') // TODO: need test
         // 覆盖webpack默认配置的都在这里, 配置解析别名  
         config.resolve.alias
             .set("@base", resolve("src/components/Base"))
