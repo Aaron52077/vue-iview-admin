@@ -304,7 +304,7 @@ export const showTitle = (item, vm) => {
 export const setTitle = (routeItem, vm) => {
     const handledRoute = getRouteTitleHandled(routeItem)
     const pageTitle = showTitle(handledRoute, vm)
-    window.document.title = `${pageTitle} wuli-ui`
+    window.document.title = `${pageTitle} wuli-admin`
 }
 
 // 简单函数回调封装
@@ -317,7 +317,6 @@ export const forEach = (arr, fn) => {
         fn(item, i, arr)
     }
 }
-
 
 /* eslint-disable */ 
 // 解析时间方式2 ps:另外一种在全局过滤器中

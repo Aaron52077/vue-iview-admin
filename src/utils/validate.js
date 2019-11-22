@@ -25,11 +25,19 @@ export function validatAlphabets(str) {
 }
 
 /**
- * @param ${} 匹配变量
+ * @param ${} 匹配变量替换
  * @returns {String}
  */
-export const regxVar = (value, newValue) => {
-  const re = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g
-  return value.replace(re, newValue)
+export const regVar = (val1, val2) => {
+  const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g
+  return val1.replace(reg, val2)
 }
 
+/**
+ * @param ${} 是否存在匹配变量
+ * @returns {String}
+ */
+export const hasRegVar = (value) => {
+    const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g
+    return reg.test(value)
+}

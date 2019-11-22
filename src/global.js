@@ -96,13 +96,15 @@ let global = new Vue({
         },
         load(...arg) {
             let plugins = [];
+            /**
+             * @returns {*} 根据项目进行定制化引入
+             * 'superslide': ['plugins/superslide/jquery.SuperSlide.js']
+             * 'quill': ['plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js']
+             * 'umeditor': ['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-CN.js']
+             * 'viewer': ['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
+             */
             const config = {
                 'jquery': ['plugins/jquery.js'],
-                'superslide': ['plugins/superslide/jquery.SuperSlide.js'],
-                'quill': ['plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js'],
-                'umeditor': ['plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-CN.js'],
-                'viewer': ['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
-                'tinymce': ['plugins/tinymce/tinymce.min.js','plugins/tinymce/langs/zh-CN.js'],
                 'video': ['plugins/videojs/video.min.js','plugins/videojs/videojs.min.css','plugins/videojs/zh-CN.js']
             }
             arg.map(item => {

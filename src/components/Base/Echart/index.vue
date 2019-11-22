@@ -43,20 +43,24 @@ export default {
         }
     },
     mounted() {
-        this.$nextTick(() => {
-            this.drawChart()
-        });
+        this.drawChart();
+    },
+    beforeDestroy() {
+        if (!this.myChart) {
+            return
+        } 
+        // 销毁实例
+        this.myChart.dispose()
+        this.myChart = null
     },
     methods: {
         drawChart() {
-            let option = this.dataBase.cloneDeep(this.optionObj);
+            let option = Object.assign({}, this.optionObj);
             this.myChart = this.echartInit(this.chartId);
             this.myChart.setOption(option, true);
-            let path = this.dataBase.cloneDeep(this.path);
-            let payload = this.dataBase.cloneDeep(this.params);
             if(this.action && this.path) {
                 this.myChart.on('click', params => {
-                    this.$router.push({path: `${this.path}`, query: { obj: payload ? params[`${payload}`] : ''} })
+                    this.$router.push({path: `${this.path}`, query: { obj: params[this.params] || ''} })
                 });
             };
         }
@@ -64,7 +68,7 @@ export default {
     watch: {
         optionObj: {
             handler(val, oldVal) {
-                this.drawChart()
+                val && this.drawChart()
             },
             deep: true
         }

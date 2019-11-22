@@ -23,7 +23,7 @@
     "vue-cropper": "^0.4.9",
     "vue-router": "^3.0.1",
     "vuedraggable": "^2.16.0",
-    "vuex": "^3.0.1"
+    "vuex": "3.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
@@ -31,13 +31,13 @@
     "@vue/cli-service": "^3.5.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-import": "^1.12.1",
-    "compression-webpack-plugin": "^3.0.0",
     "crypto-js": "^3.1.9-1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "script-ext-html-webpack-plugin": "^2.1.4",
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
@@ -66,6 +66,10 @@
     "plugins": {
       "autoprefixer": {}
     }
+  },
+  "engines": {
+    "node": ">=8.9",
+    "npm": ">= 3.0.0"
   },
   "browserslist": [
     "> 1%",

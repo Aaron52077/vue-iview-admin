@@ -3,10 +3,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axios from 'axios'
 import echarts from 'echarts'
 
 import directives from '@/directive'
+
+import './router/permission' // permission control
 
 // 全局组件库
 import './components/iview'
@@ -15,10 +16,9 @@ import './components/index'
 
 import dataBase from './global'
 // 字体图标
-import './assets/font/iconfont.js'
+import './assets/font/iconfont'
 
-// 自定义过滤
-import * as filters from './filters' // global filters
+import * as filters from './filters'
 
 /**
  * If you don't want to use mock-server
@@ -32,13 +32,13 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'producti
     require('@/mock')
 }
 
+// register global utility filters.
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
 })
 
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
-Vue.prototype.$http = axios
 
 /**
  * 注册指令

@@ -45,7 +45,7 @@ export default {
         quillEditorArea: {
             inserted: function(el, binding, vnode) {
                 let vm = binding.value;
-                vm.dataBase.load('quill',() => {
+                vm.dataBase.load('plugins/quill/quill.min.js','plugins/quill/quill.snow.css','plugins/quill/image-resize.min.js','plugins/quill/image-drop.min.js',() => {
                     vm.loaded = true;
                     var defaultConfig = {
                         theme: 'snow',

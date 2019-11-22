@@ -1,13 +1,4 @@
 const path = require('path')
-const CompressionPlugin = require('compression-webpack-plugin')
-
-/**
- * @example 
- * .env                # 在所有的环境中被载入
- * .env.local          # 在所有的环境中被载入，但会被 git 忽略
- * .env.[mode]         # 只在指定的模式中被载入
- * .env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
- */
 
 function resolve(dir) {
     return path.join(__dirname, dir)
@@ -15,11 +6,11 @@ function resolve(dir) {
 
 module.exports = {
     publicPath: './',
-    // 生产环境下source map, 可以将其设置为 false 以加速生产环境构建 process.env.VUE_APP_ENV !== 'prod'
+    // 生产环境下source map, 可以将其设置为 false 以加速生产环境构建
     productionSourceMap: false, 
     // 打包生成目录，不同的环境打不同包名  
     outputDir: process.env.outputDir,  
-    // assetsDir: 'plugins',
+    assetsDir: 'static',
     lintOnSave: process.env.NODE_ENV === 'development',
     // 开启less全局变量                      
     css: {
@@ -31,15 +22,15 @@ module.exports = {
         extract: false
     },
     devServer: {
-        // 配置自动启动浏览器
         open: true,                 
         overlay: {
             warnings: false,
             errors: true
         },
+        // detail: https://cli.vuejs.org/config/#devserver-proxy
         proxy: {
             '/api': {
-                target: process.env.VUE_APP_API || 'http://172.20.14.123:9999',
+                target: process.env.VUE_APP_API,
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''
@@ -47,32 +38,60 @@ module.exports = {
             }
         }
     },
-    configureWebpack: config => {    
-        // 覆盖webpack默认配置的都在这里   
-        // config.performance.hints = false
-        if (process.env.NODE_ENV === 'production') {
-            // 为生产环境修改配置...
-            config.mode = 'production'
-            return {
-                // 关闭 webpack 的性能提示
-                performance: {
-                    hints: false
-                },
-                plugins: [new CompressionPlugin({
-                    test: /.js$|.html$|.css/,    // 匹配文件名
-                    threshold: 10240,            // 对超过10k的数据进行压缩 只处理大于此大小的资产。以字节为单位
-                    deleteOriginalAssets: false  // 是否删除原文件
-                })]
+    configureWebpack: {    
+        // provide the app's title in webpack's name field, so that
+        // it can be accessed in index.html to inject the correct title.
+        name: process.env.VUE_APP_TITLE,
+        performance: {
+            hints: false
+        },
+        // 配置解析别名  
+        resolve: {
+            alias: {
+                '@base': resolve('src/components/Base'),
+                '@h5': resolve('src/components/H5'),
             }
         }
     },
     chainWebpack: config => {
-        // 移除 prefetch、preload 插件
-        config.plugins.delete('preload') // TODO: need test
+        // detail: https://github.com/PanJiaChen/vue-element-admin/blob/master/vue.config.js
+        config.plugins.delete('preload')  // TODO: need test
         config.plugins.delete('prefetch') // TODO: need test
-        // 覆盖webpack默认配置的都在这里, 配置解析别名  
-        config.resolve.alias
-            .set("@base", resolve("src/components/Base"))
-            .set("@h5", resolve("src/components/H5"))
+        // building config. webpack 4.0
+        config.when(process.env.NODE_ENV === 'development',
+            config => config.devtool('cheap-source-map')
+        )
+        config.when(process.env.NODE_ENV !== 'development',
+          config => {
+            config
+                .plugin('ScriptExtHtmlWebpackPlugin')
+                .after('html')
+                .use('script-ext-html-webpack-plugin', [{
+                // `runtime` must same as runtimeChunk name. default is `runtime`
+                inline: /runtime\..*\.js$/
+                }])
+                .end()
+            config
+            .optimization.splitChunks({
+              chunks: 'all',
+              cacheGroups: {
+                libs: {
+                  name: 'chunk-libs',
+                  test: /[\\/]node_modules[\\/]/,
+                  priority: 10,
+                  chunks: 'initial' // only package third parties that are initially dependent
+                },
+                commons: {
+                  name: 'chunk-commons',
+                  test: resolve('src/components'), // can customize your rules
+                  minChunks: 3, // minimum common number
+                  priority: 5,
+                  reuseExistingChunk: true
+                }
+              }
+            })
+          config.optimization.runtimeChunk('single')
+        }
+      )
     }
 }

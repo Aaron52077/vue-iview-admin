@@ -1,9 +1,6 @@
 /* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
-// import cache from '@/utils/cache'
-import { LoadingBar } from 'view-design'
-import { setTitle } from '@/utils'
 
 Vue.use(Router)
 
@@ -25,28 +22,19 @@ routersArray.push({
         title: '404'
     } 
 })
-const routerObj = new Router({
+
+const createRouter = () => new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: routersArray
 })
 
-// 全局路由登录验证，权限验证路由拦截
-routerObj.beforeEach((to, from, next) => {
-    // 免登录或已登录
-    if(to.matched.some(record => record.meta.noAuth)) {
-        LoadingBar.start()
-        next()
-    }else {
-        LoadingBar.start()
-        next()
-        // next({ path:'/account', replace: true })
-    }
-})
+const router = createRouter()
 
-routerObj.afterEach(to => {
-    setTitle(to, routerObj.app)
-    LoadingBar.finish()
-})
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
+}
 
-export default routerObj
+export default router

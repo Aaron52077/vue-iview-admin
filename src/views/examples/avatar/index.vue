@@ -10,7 +10,7 @@
             <mAvatar class="gc-block" name="李四" :color="1" :size="48"></mAvatar>
             <mAvatar class="gc-block" name="王五" :color="2" :size="48"></mAvatar>
             <mAvatar class="gc-block" name="赵六" :color="3" :size="48"></mAvatar>
-            <mAvatar class="gc-block" src="plugins/images/pic.png" name="赵六" :color="0" :size="48"></mAvatar>
+            <mAvatar class="gc-block" src="plugins/pic.png" name="赵六" :color="0" :size="48"></mAvatar>
         </div>
         <div class="gc-container">
             <div class="gc-container__title">样式2</div>
@@ -21,7 +21,7 @@
             <mAvatar class="gc-block" name="王五" :color="1" :size="48" shape="square"></mAvatar>
             <mAvatar class="gc-block" name="赵六" :color="0" :size="48" shape="square"></mAvatar>
             <mAvatar class="gc-block" name="赵六" :color="0" :size="48" shape="square"></mAvatar>
-            <mAvatar class="gc-block" src="plugins/images/pic.png" name="赵六" :color="0" :size="48" shape="square"></mAvatar>
+            <mAvatar class="gc-block" src="plugins/pic.png" name="赵六" :color="0" :size="48" shape="square"></mAvatar>
         </div>
     </div>
 </template>
