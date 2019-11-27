@@ -6,7 +6,7 @@ export const navList = [
     {
         icon: 'md-cube',
         name: '组件类',
-        path: '/',
+        path: '/icons',
         childrens: []
     },
     {
@@ -24,7 +24,7 @@ export const navList = [
     {
         icon: 'logo-github',
         name: 'language',
-        path: '/',
+        path: '',
         childrens: [
             {
                 title: '语言',

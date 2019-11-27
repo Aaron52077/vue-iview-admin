@@ -47,20 +47,18 @@ export default {
         }
     },
     methods: {
-        handleChange (selected) {
+        handleChange(selected) {
             if (!this.isChangedByTree) this.$emit('input', selected)
             this.isChangedByTree = false
         },
-        handleTreeCheck (selectedArray) {
+        handleTreeCheck(selectedArray) {
             this.isChangedByTree = true
             this.$emit('input', selectedArray.map(item => item.id))
         },
-        handleClear () {
+        handleClear() {
             this.$refs.select.reset()
         }
     },
-    components: {
-       Select, selectTree
-    },
+    components: { Select, selectTree }
 }
 </script>

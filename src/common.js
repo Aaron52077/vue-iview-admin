@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Vue from 'vue'
-import router from '@/router'
+import router, { resetRouter } from '@/router'
 import cache from '@/utils/cache'
 import dataBase from '@/global'
 import { size } from 'lodash'
@@ -14,9 +14,10 @@ let common = new Vue({
             cache.setLocal('mode', '');
             dataBase.setToken = '';
             cache.delValue('user');
-            setTimeout(() => {
-                router.replace({path: '/account'});
-            }, 0);
+            resetRouter();
+            // setTimeout(() => {
+            //     router.replace({path: '/account'});
+            // }, 0);
         },
         /**
          * @param {*} eid echart 图表id

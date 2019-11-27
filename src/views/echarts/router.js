@@ -6,7 +6,7 @@ export default {
         title: '首页'
     },
     redirect: '/echarts/exp',
-    component: r => require.ensure([], () => r(require('./main.vue')), 'echarts'),
+    component: r => require.ensure([], () => r(require('../layout/index.vue')), 'echarts'),
     children: [
         {
             path: 'exp',

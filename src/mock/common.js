@@ -3,15 +3,19 @@ import Mock from 'mockjs'
 
 const BASE_URL = process.env.VUE_APP_API
 
-// 带随机数据的 mock
-Mock.mock(BASE_URL + '/mock', {
+// mock user login
+Mock.mock(BASE_URL + '/user/login', {
     data: {
-        "test|3-10": [{
-            "name": "@cname",
-            "age|1-100": 100
-        }]
-    },
-    "token": "@guid"
+        roles: ['admin'],
+        access_token: "@guid",
+        avatar: "@image('80x80', '#2d8cf0', '#FFF', 'admin')",
+        name: "Super Admin"
+    }
+});
+
+// mock user logout
+Mock.mock(BASE_URL + '/user/logout', {
+    data: 'success'
 });
 
 // 图片接口

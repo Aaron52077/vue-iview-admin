@@ -29,7 +29,10 @@ export const locales = {
         '虚拟列表': '虛擬列表',
         '文件预览': '文件預覽',
         '视频预览': '視頻預覽',
-        '地图检索': '地圖檢索'
+        '地图检索': '地圖檢索',
+        '帐号': '帳號',
+        '密码': '地圖檢索',
+        '任意类型': '任意類型'
     },
     'en': {
         '图标': 'Icon',
@@ -61,6 +64,9 @@ export const locales = {
         '虚拟列表': 'Virtual list',
         '文件预览': 'File preview',
         '视频预览': 'Video preview',
-        '地图检索': 'Map search'
+        '地图检索': 'Map search',
+        '帐号': 'Username',
+        '密码': 'Password',
+        '任意类型': 'any'
     }
 }

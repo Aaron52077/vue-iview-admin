@@ -1,17 +1,12 @@
 <template>
-	<!-- 视图 -->
-    <mLayoutMain>
-        <transition name="el-fade-in-linear" mode="out-in"> 
-            <router-view></router-view>
-        </transition>
-    </mLayoutMain>
+	<div id="app">
+        <router-view />
+    </div>
 </template>
 
 <script>
-import mLayoutMain from '@/views/layout/main.vue'
 export default {
-	name: 'App',
-	components: { mLayoutMain }
+	name: 'App'
 }
 </script>
 

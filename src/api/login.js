@@ -5,7 +5,13 @@ import { fetch } from '@/utils/fetch'
 // 2、使用解构参数，方便阅读和管理。
 
 // 登录
-export function userLogin(url, info) {
-    let res = fetch(`/${url}`, 'post', info)
+export function login(parmas) {
+    let res = fetch('/user/login', 'post', parmas)
+    return res
+}
+
+// 登出
+export function logout(parmas) {
+    let res = fetch('/user/logout', 'post', parmas)
     return res
 }

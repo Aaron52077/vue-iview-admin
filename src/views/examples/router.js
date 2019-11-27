@@ -1,13 +1,13 @@
 /* eslint-disable */
 export default {
-    path: '/',
+    path: '',
     meta: {
         module: 'docs',
         title: '首页',
         menuHide: true
     },
-    redirect: '/icons',
-    component: r => require.ensure([], () => r(require('./main.vue')), 'docs'),
+    redirect: 'icons',
+    component: r => require.ensure([], () => r(require('../layout/index.vue')), 'docs'),
     children: [
         {
             path: 'icons',

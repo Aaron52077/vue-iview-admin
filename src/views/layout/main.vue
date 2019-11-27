@@ -1,11 +1,19 @@
 <template>
-    <div id="app" :class="layoutClass" class="gc-main container" :page="pageType">
+    <div :class="layoutClass" class="gc-main container" :page="pageType">
         <!-- 顶部导航 -->
         <header class="gc-head" id="navTop">
             <div class="gc-head__bd">
                 <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
                 <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
-                <sMenu class="gc-head__nav" v-if="!dataBase.h5" mode="horizontal" theme="light" :active-name="navActive" @on-select="pathHandle">
+                <sDropdown class="gc-head__info" transfer @on-click="handleInfo($event)">
+                    <mAvatar :src="avatar" />
+                    <div class="gc-head__info--name">{{name}}</div>
+                    <sDropdownMenu slot="list">
+                        <sDropdownItem name="admin">个人中心</sDropdownItem>
+                        <sDropdownItem name="logout" divided>退出登录</sDropdownItem>
+                    </sDropdownMenu>
+                </sDropdown>
+                <sMenu class="gc-head__nav" v-if="!dataBase.h5" mode="horizontal" theme="light" :active-name="navActive" @on-select="onPathHandle">
                     <template v-for="item in navList">
                         <template v-if="item.childrens && item.childrens.length > 0">
                              <submenu :name="item.name" :key="item.name" v-waves>
@@ -47,7 +55,10 @@
                 </mScrollbar>
             </div>
             <mInfiniteScroll class="gc-body__rt" :style="{ paddingLeft: dataBase.h5 ? `${layoutWeb}px` : '' }"> 
-                <slot></slot>
+                <!-- 移除slot插槽方式，采用页面跳转 -->
+                <transition name="el-fade-in-linear" mode="out-in"> 
+                    <router-view :key="viewKey" />
+                </transition>
             </mInfiniteScroll>
         </div>
         <!-- h5底部导航 tabbar -->
@@ -74,8 +85,9 @@
 </template>
 <script>
 /* eslint-disable */
+import { mapGetters, mapActions } from 'vuex'
 import { locales } from '@/i18n';
-import {navList, menuList} from './config';
+import { navList, menuList } from './config'
 
 export default {
     name: 'layout-main',
@@ -88,6 +100,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters([
+            'name',
+            'avatar'
+        ]),
         pageType() {
             // 识别当前所在页面模块 meta.module字段
             let path = (this.$route.meta || {}).module || '';
@@ -118,6 +134,9 @@ export default {
         },
         layoutWeb() {
             return !this.$route.meta.menuHide && this.dataBase.h5 ? 75 : 210
+        },
+        viewKey() {
+            return this.$route.fullPath
         }
     },
     created() {
@@ -129,10 +148,10 @@ export default {
             // 插入页面中
             var script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "http://api.map.baidu.com/api?v=2.0&ak="+ak+"&callback=init";
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
             document.head.appendChild(script);
         },
-        pathHandle(name) {
+        onPathHandle(name) {
             this.navActive = name;
             switch (name) {
                 case '组件类':
@@ -148,6 +167,26 @@ export default {
                     this.dataBase.setLang = name
                     break;
             }
+        },
+        async logout() {
+            await this.$store.dispatch('accountOut')
+            this.$router.push(`/account?redirect=${this.$route.fullPath}`)
+        },
+        handleInfo(name) {
+            if(name === 'logout') {
+                this.logout();
+            }
+            if(name === 'admin') {
+                this.$Modal.info({
+                    title: '系统提示',
+                    content: '<p>当前功能在计划中，敬请期待</p>'
+                });
+            }
+        },
+        openUrl() {
+            // 跳转新链接方式
+            let routeUrl = this.$router.resolve({path: '/bi'});
+            window.open(routeUrl.href, '_blank');
         }
     },
     locales: locales
@@ -197,14 +236,24 @@ export default {
         &__bd {
             margin: 0 auto;
             width: 95%;
-            height: 65px;
+            height: 60px;
             .clearfix();
         }
         &__inner {
             float: left;
             padding-left: 20px;
             height: 60px;
-            line-height: 65px;
+            line-height: 60px;
+        }
+        &__info {
+            float: right;
+            max-width: 140px;
+            height: 60px;
+            line-height: 60px;
+            &--name {
+                display: inline-block;
+                margin-left: 5px;
+            }
         }
     }
     .gc-body {

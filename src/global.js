@@ -49,7 +49,8 @@ let global = new Vue({
             }
         },
         h5() {
-            return this.dw < 800
+            // refer to Bootstrap's responsive design
+            return this.dw < 992
         }
     },
     methods: {

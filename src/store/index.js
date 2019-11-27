@@ -1,59 +1,98 @@
 /* eslint-disable */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { userLogin } from '@/api/login'
+import { login, logout } from '@/api/login'
 import cache from '@/utils/cache'
+import { resetRouter } from '@/router'
 
 Vue.use(Vuex)
 
 const state = {
     datas: {},
-    token: '',
+    token: cache.getLocal('token'),
     logs: [],               // 错误日志
-    userInfo: '',
+    roles: [],
+    name: cache.getLocal('user_name'),
+    avatar: cache.getLocal('user_avatar')
 }
 
 const getters = {
     token: state => state.token,
-    userInfo: state => state.userInfo
+    userInfo: state => state.userInfo,
+    avatar: state => state.avatar,
+    name: state => state.name,
+    roles: state => state.roles,
+    logs: state => state.logs
 }
 
 const mutations = {
-    setData(state, data) {
+    setData: (state, data) => {
         state.datas = data
     },
-    setToken(state, token) {
+    setToken: (state, token) => {
         state.token = token
     },
-    loginOut(state) {
-        state.userInfo = {}
-        cache.removeLocal('token')
+    setName: (state, name) => {
+        state.name = name
     },
-    setLogs(state, val) {
+    setAvatar: (state, avatar) => {
+        state.avatar = avatar
+    },
+    setRoles: (state, roles) => {
+        state.roles = roles
+    },
+    setLogs: (state, val) => {
         state.logs.push(val)
-    },
+    }
 }
 
 const actions = {
     setData({ commit }, data) {
         commit('setData', data)
     },
-    // 获取登录数据
-    GetLoginData({ commit }, params) {
-        // async 
-        const { url, data } = params
+    // 账户登录
+    accountIn({ commit }, params) {
+        const { data } = params
         return new Promise((resolve, reject) => {
-            userLogin(url, data).then(res => {
-                const { access_token, username } = res
+            login(data).then(res => {
+                const { data } = res
+                if (!data) {
+                    reject('Verification failed, please Login again.')
+                }
+                const { access_token, name, avatar } = data
+                // roles must be a non-empty array  !roles || roles.length == 0
+                if (!!data && data === '用户角色不存在') {
+                    reject(data || '用户角色不存在')
+                }
+                // commit('setRoles', roles)
                 commit('setToken', access_token)
+                commit('setName', name)
+                commit('setAvatar', avatar)
                 cache.setLocal('token', access_token)
-                state.userInfo = username
-                resolve(res)
+                cache.setLocal('user_name', name)
+                cache.setLocal('user_avatar', avatar)
+                resolve(data)
             }).catch(error => {
                 reject(error)
             })
         })
-    }
+    },
+    // 帐号登出
+    accountOut({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            logout(state.token).then(() => {
+                commit('setToken', '')
+                // commit('setRoles', [])
+                cache.removeLocal('token')
+                cache.removeLocal('user_name')
+                cache.removeLocal('user_avatar')
+                resetRouter()
+                resolve()
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    },
 }
 export default new Vuex.Store({
     state,

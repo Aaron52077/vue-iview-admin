@@ -6,7 +6,7 @@ export default {
         title: 'API'
     },
     redirect: '/api/page',
-    component: r => require.ensure([], () => r(require('./main.vue')), 'api'),
+    component: r => require.ensure([], () => r(require('../layout/index.vue')), 'api'),
     children: [
         {
             path: 'page',

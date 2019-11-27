@@ -10,7 +10,7 @@
 
 <script>
 /* eslint-disable */
-import Emitter from 'view-design/src/mixins/emitter.js'
+import Emitter from 'view-design/src/mixins/emitter.js' // 引用官方实例
 
 const arrayEqual = (arr1, arr2) => {
     // 判断数组的长度
@@ -96,7 +96,7 @@ export default {
             this.$emit('on-check', selectArray)
             this.parent.$emit('on-change', selectArray)
         },
-        checkData (data, emit, expandAll) {
+        checkData(data, emit, expandAll) {
             data.forEach(item => {
                 if(this.selectedArray.includes(item.id)) {
                     this.$set(item, 'checked', true)
@@ -109,7 +109,7 @@ export default {
                 }
             })
         },
-        loadDataCallback (item, callback) {
+        loadDataCallback(item, callback) {
             this.loadData(item, data => {
                 return (() => {
                     callback(data)

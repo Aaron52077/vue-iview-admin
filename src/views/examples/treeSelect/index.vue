@@ -93,16 +93,16 @@ export default {
             this.getTreeList();
         },
         handleTreeSelectChange(list) {
-            console.log('select change', list);
+            // console.log('select change', list);
         },
         handleTreeSelectExpand(item) {
-            console.log('toggle expand', item);
+            // console.log('toggle expand', item);
         },
         handleTreeSelectCheckChange(selectedArray, item) {
-            console.log(selectedArray, item);
+            // console.log(selectedArray, item);
         },
         handleTreeSelectClick(selectArray, item) {
-            console.log(selectArray, item);
+            // console.log(selectArray, item);
         },
         loadData(item, callback) {
             getTreeSelectData().then(res => {
