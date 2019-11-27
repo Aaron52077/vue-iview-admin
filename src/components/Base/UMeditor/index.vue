@@ -38,7 +38,7 @@ export default {
         editorArea: {
             inserted: function (el, binding) {
                 var vm = binding.value;
-                vm.dataBase.load('jquery','plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.js','plugins/editor/lang/zh-cn/zh-CN.js',() => {
+                vm.dataBase.load('jquery', 'plugins/editor/themes/default/css/umeditor.css','plugins/editor/third-party/template.min.js','plugins/editor/umeditor.config.js','plugins/editor/umeditor.min.js','plugins/editor/lang/zh-cn/zh-CN.js',() => {
                     const cus_toolbar = vm.config.conf && vm.config.conf.toolbars;
                     window.UMEDITOR_CONFIG.toolbar = cus_toolbar ? cus_toolbar[0] :[
                             'undo redo | forecolor backcolor | removeformat ',

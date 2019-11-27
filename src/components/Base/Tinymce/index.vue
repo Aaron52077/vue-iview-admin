@@ -68,7 +68,7 @@ export default {
 	methods: {
 		initTinymce() {
 			const _this = this;
-			this.dataBase.load('plugins/tinymce/tinymce.min.js', 'plugins/tinymce/langs/zh-CN.js' ,() => {
+			this.dataBase.load('plugins/tinymce/tinymce.min.js', 'plugins/tinymce/langs/zh_cn.js' ,() => {
 				window.tinymce.init({
 					language: 'zh_CN',
 					selector: `#${this.tinymceId}`,

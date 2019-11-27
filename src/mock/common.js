@@ -18,6 +18,14 @@ Mock.mock(BASE_URL + '/user/logout', {
     data: 'success'
 });
 
+// 富文本编辑器
+Mock.mock(BASE_URL + '/editor', {
+    data: {
+        description: "@cparagraph",
+        images: "@image('120x120', '#50B347', '#FFF', 'mockjs')",
+    }
+});
+
 // 图片接口
 Mock.mock(BASE_URL + '/images', {
     data: {

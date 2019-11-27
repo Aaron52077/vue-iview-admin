@@ -68,6 +68,7 @@
 
 <script>
 /* eslint-disable */
+import { getEditortData } from '@/api'
 import quillEditor from '@base/QuillEditor'
 import umEditor from '@base/UMeditor'
 import Tinymce from '@base/Tinymce'
@@ -80,12 +81,19 @@ export default {
                 heigth: 200
             },
             context1: '<p><strong><em>Click on the Image Below to resize!</em></strong></p><img src="https://file.iviewui.com/dist/e1cf12c07bf6458992569e67927d767e.png" />',
-            context2: '<p><strong><em>Click on the Image Below to resize!</em></strong></p><img src="https://file.iviewui.com/dist/e1cf12c07bf6458992569e67927d767e.png" />',
-            context3: '<p><strong><em>Click on the Image Below to resize!</em></strong></p><img src="https://file.iviewui.com/dist/e1cf12c07bf6458992569e67927d767e.png" />',
+            context2: '',
+            context3: '',
             visible1: false,
             visible2: false,
             visible3: false
         }
+    },
+    created() {
+        getEditortData().then(res => {
+            const htmlValue = `<p><strong><em>${res.data.description}</em></strong></p><img src="${res.data.images}" />`
+            this.context2 = htmlValue;
+            this.context3 = htmlValue;
+        });
     },
     methods:{
         changeHandle() {

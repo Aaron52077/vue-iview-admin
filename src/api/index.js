@@ -24,6 +24,12 @@ export function mockTable() {
     return res
 }
 
+// editor
+export function getEditortData() {
+    let res = fetch('/editor')
+    return res
+}
+
 /**
  * 上传excel模版
  * @param file
