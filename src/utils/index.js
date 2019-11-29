@@ -211,6 +211,24 @@ export const off = (function () {
 })()
 
 /**
+ * 过滤对象中为空的属性
+ * @param obj
+ * @returns {*}
+ */
+export const filterObj = (obj) => {
+    if (!(typeof obj == 'object')) {
+        return;
+    }
+
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key) && (obj[key] == null || obj[key] == undefined || obj[key] === '')) {
+            delete obj[key];
+        }
+    }
+    return obj;
+}
+
+/**
  * @param {*} obj1 对象
  * @param {*} obj2 对象
  * @description 判断两个对象是否相等，这两个对象的值只能是数字或字符串

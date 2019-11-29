@@ -73,7 +73,7 @@ export default {
 					language: 'zh_CN',
 					selector: `#${this.tinymceId}`,
 					height: this.height,
-					body_class: 'panel-body ',
+					body_class: 'panel-body',
 					object_resizing: false,
 					toolbar: this.toolbar.length > 0 ? this.toolbar : toolbar,
 					menubar: this.menubar,
@@ -97,6 +97,10 @@ export default {
 							this.hasChange = true
 							this.$emit('input', editor.getContent())
 						})
+					},
+					images_upload_handler: (blobInfo, success) => {
+						const img = 'data:image/jpeg;base64,' + blobInfo.base64()
+						success(img)
 					},
 					setup(editor) {
 						editor.on('FullscreenStateChanged', (e) => {

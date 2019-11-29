@@ -34,15 +34,14 @@ export default {
     },
     watch: {
         echartData: {
-            handler (val, oldVal) {
+            handler(val, oldVal) {
                 this.drawChart()
             },
             deep: true
         }
     },
     methods: {
-        drawChart () {
-            let {titleText, legendData, xAxisData, seriesData} = this.chartData;
+        drawChart() {
             let myChart = this.echartInit(this.chartId);
             // 指定图表的配置项和数据
             var option = {
@@ -51,7 +50,7 @@ export default {
                 },
                 tooltip: {},
                 legend: {
-                    data:['销量']
+                    data: ['销量']
                 },
                 xAxis: {
                     data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]

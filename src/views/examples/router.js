@@ -7,18 +7,21 @@ export default {
         menuHide: true
     },
     redirect: 'icons',
-    component: r => require.ensure([], () => r(require('../layout/index.vue')), 'docs'),
+    component: r => require.ensure([], () => r(require('../../layout/index.vue')), 'docs'),
     children: [
         {
             path: 'icons',
+            name: 'compicons',
             component: r => require.ensure([], () => r(require('./icon/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
-                title: '图标'
+                title: '图标',
+                affix: true
             }
         },
         {
             path: 'avatar',
+            name: 'compavatar',
             component: r => require.ensure([], () => r(require('./avatar/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -27,6 +30,7 @@ export default {
         },
         {
             path: 'loading',
+            name: 'comploading',
             component: r => require.ensure([], () => r(require('./loading/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -35,6 +39,7 @@ export default {
         },
         {
             path: 'noneTip',
+            name: 'compnoneTip',
             component: r => require.ensure([], () => r(require('./noneTip/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -43,6 +48,7 @@ export default {
         },
         {
             path: 'timePicker',
+            name: 'comptimePicker',
             component: r => require.ensure([], () => r(require('./timePicker/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -51,6 +57,7 @@ export default {
         },
         {
             path: 'treeSelect',
+            name: 'comptreeSelect',
             component: r => require.ensure([], () => r(require('./treeSelect/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -59,6 +66,7 @@ export default {
         },
         {
             path: 'dragList',
+            name: 'compdragList',
             component: r => require.ensure([], () => r(require('./dragList/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -67,6 +75,7 @@ export default {
         },
         {
             path: 'dragDrawer',
+            name: 'compdragDrawer',
             component: r => require.ensure([], () => r(require('./dragDrawer/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -75,6 +84,7 @@ export default {
         },
         {
             path: 'skeleton',
+            name: 'compskeleton',
             component: r => require.ensure([], () => r(require('./skeleton/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -83,6 +93,7 @@ export default {
         },
         {
             path: 'vlist',
+            name: 'compvlist',
             component: r => require.ensure([], () => r(require('./vlist/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -91,6 +102,7 @@ export default {
         },
         {
             path: 'docPreview',
+            name: 'compdocPreview',
             component: r => require.ensure([], () => r(require('./docPreview/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -99,6 +111,7 @@ export default {
         },
         {
             path: 'videoPreview',
+            name: 'compvideoPreview',
             component: r => require.ensure([], () => r(require('./video/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
@@ -107,6 +120,7 @@ export default {
         },
         {
             path: 'map',
+            name: 'compmap',
             component: r => require.ensure([], () => r(require('./map/index.vue')), 'docs'),
             meta: {
                 module: 'docs',

@@ -1,102 +1,43 @@
 /* eslint-disable */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { login, logout } from '@/api/login'
-import cache from '@/utils/cache'
-import { resetRouter } from '@/router'
+import getters from './getters'
 
 Vue.use(Vuex)
 
 const state = {
-    datas: {},
-    token: cache.getLocal('token'),
-    logs: [],               // 错误日志
-    roles: [],
-    name: cache.getLocal('user_name'),
-    avatar: cache.getLocal('user_avatar')
-}
-
-const getters = {
-    token: state => state.token,
-    userInfo: state => state.userInfo,
-    avatar: state => state.avatar,
-    name: state => state.name,
-    roles: state => state.roles,
-    logs: state => state.logs
+    datas: {}
 }
 
 const mutations = {
-    setData: (state, data) => {
+    SET_DATA: (state, data) => {
         state.datas = data
-    },
-    setToken: (state, token) => {
-        state.token = token
-    },
-    setName: (state, name) => {
-        state.name = name
-    },
-    setAvatar: (state, avatar) => {
-        state.avatar = avatar
-    },
-    setRoles: (state, roles) => {
-        state.roles = roles
-    },
-    setLogs: (state, val) => {
-        state.logs.push(val)
     }
 }
 
 const actions = {
     setData({ commit }, data) {
-        commit('setData', data)
-    },
-    // 账户登录
-    accountIn({ commit }, params) {
-        const { data } = params
-        return new Promise((resolve, reject) => {
-            login(data).then(res => {
-                const { data } = res
-                if (!data) {
-                    reject('Verification failed, please Login again.')
-                }
-                const { access_token, name, avatar } = data
-                // roles must be a non-empty array  !roles || roles.length == 0
-                if (!!data && data === '用户角色不存在') {
-                    reject(data || '用户角色不存在')
-                }
-                // commit('setRoles', roles)
-                commit('setToken', access_token)
-                commit('setName', name)
-                commit('setAvatar', avatar)
-                cache.setLocal('token', access_token)
-                cache.setLocal('user_name', name)
-                cache.setLocal('user_avatar', avatar)
-                resolve(data)
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    },
-    // 帐号登出
-    accountOut({ commit, state }) {
-        return new Promise((resolve, reject) => {
-            logout(state.token).then(() => {
-                commit('setToken', '')
-                // commit('setRoles', [])
-                cache.removeLocal('token')
-                cache.removeLocal('user_name')
-                cache.removeLocal('user_avatar')
-                resetRouter()
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    },
+        commit('SET_DATA', data)
+    }
 }
+
+// https://webpack.js.org/guides/dependency-management/#requirecontext
+const modulesFiles = require.context('./modules', false, /\.js$/)
+
+// you do not need `import app from './modules/app'`
+// it will auto require all vuex module from modules file
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+  // set './app.js' => 'app'
+  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+  const value = modulesFiles(modulePath)
+  modules[moduleName] = value.default
+  return modules
+}, {})
+
 export default new Vuex.Store({
     state,
     getters,
     mutations,
-    actions
+    actions,
+    modules
 })

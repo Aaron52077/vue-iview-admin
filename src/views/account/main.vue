@@ -3,7 +3,7 @@
         <!-- 粒子动画组件 -->
         <pointwave :color="0x097bdb" />
         <div class="gc-login__bd">
-            <div class="gc-login__title">wuli-admin</div>
+            <div class="gc-login__title">wuli-admin-pro</div>
             <div class="gc-login__setting">
                 <a class="gc-login__setting--item" href="https://github.com/Aaron52077/vue-wuli-ui.git" target="_blank">
                     <sIcon type="logo-github" :size="30" />
@@ -44,7 +44,6 @@
 
 <script>
 /* eslint-disable */
-import cache from '@/utils/cache'
 import { locales } from '@/i18n'
 import { encryption } from "@/utils"
 import { userLogin } from "@/api/login"
@@ -86,14 +85,6 @@ export default {
             ]
         }
     },
-    watch: {
-        $route: {
-            handler: function(route) {
-                this.redirect = route.query && route.query.redirect
-            },
-            immediate: true
-        }
-    },
     methods: {
         handlePassword() {
             if (this.passwordType === 'password') {
@@ -116,7 +107,7 @@ export default {
             };
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$store.dispatch('accountIn', formData).then(res => {
+                    this.$store.dispatch('user/accountIn', formData).then(res => {
                         this.loading = false
                         this.$router.push({ path: this.redirect || '/' })
                     }).catch(err => {

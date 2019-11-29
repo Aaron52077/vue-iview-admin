@@ -1,5 +1,5 @@
 <template>
-    <div class="gc-auth">
+    <div class="gc-oauth">
         <!-- <sButton type="primary" @click="thirdAccout">第三方登录</sButton> -->
         <mDocPreview src="http://authserver.lzzy.net/authserver/login?service=http://10.88.83.111:3033/sso/login" />
 	</div>
@@ -48,8 +48,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.gc-auth {
+<style lang="less">
+.gc-oauth {
     width: 100%;
     min-height: 100vh;
     background-color: #fff;

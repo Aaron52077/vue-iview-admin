@@ -6,6 +6,7 @@
             <!-- 用法1 -->
             <div class="gc-container__title">基础用法</div>
             <sDivider></sDivider>
+            <div class="gc-container__h1">通用说明：以下图例会根据归类好的分类配置展示不同实例，具体参考：<linkDiy to="https://github.com/Aaron52077/vue-wuli-ui/tree/master/src/components/Base/Echart/configs">查看</linkDiy></div>
             <sRow :gutter="16">
                 <sCol span="12">
                     <div class="echart-block">
@@ -37,8 +38,9 @@
 <script>
 /* eslint-disable */
 // require('echarts/extension/bmap/bmap');
-import { EchartsLine } from '@base/Echart/configs/line';
-import {demo1, demo2, demo3} from './config';
+import { EchartsLine } from '@base/Echart/configs/line'
+import linkDiy from '@base/Link'
+import {demo1, demo2, demo3} from './config'
 
 export default {
     data () {
@@ -87,7 +89,8 @@ export default {
             { key: '文科', unit: '个' }
         ];
         this.lineObj = EchartsLine(this.lineData, coloums)
-    }
+    },
+    components: { linkDiy }
 }
 </script>
 

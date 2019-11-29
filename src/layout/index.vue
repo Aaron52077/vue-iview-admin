@@ -4,7 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import mAccount from '../account/main.vue'
+import mAccount from '@/views/account/main.vue'
 import mLayoutMain from './main.vue'
 
 export default {

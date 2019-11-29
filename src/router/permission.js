@@ -1,4 +1,5 @@
 import routerObj from '@/router'
+import store from '@/store'
 import { LoadingBar } from 'view-design'
 import dataBase from '@/global'
 import cache from '@/utils/cache'
@@ -7,7 +8,7 @@ import { setTitle } from '@/utils'
 const whiteList = ['/account', '/auth'] // no redirect whitelist
 
 // 全局路由登录验证，权限验证路由拦截
-routerObj.beforeEach((to, from, next) => {
+routerObj.beforeEach(async (to, from, next) => {
     // start progress bar
     LoadingBar.start()
     // 免登录或已登录
@@ -18,14 +19,32 @@ routerObj.beforeEach((to, from, next) => {
             // if is logged in, redirect to the home page
             next({ path: '/' })
         } else {
-            try {
+            const hasRoles = store.getters.roles && store.getters.roles.length > 0
+            if (hasRoles) {
                 next()
-            } catch (error) {
-                // remove token and go to login page to re-login
-                dataBase.common.quit()
-                next(`/account?redirect=${to.path}`)
-                LoadingBar.finish()
-            }
+            } else {
+                try {
+                    // get user info
+                    // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
+                    const { roles } = await store.dispatch('user/accountIn')
+            
+                    // generate accessible routes map based on roles
+                    store.dispatch('permission/generateRoutes', roles)
+                    // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+            
+                    // dynamically add accessible routes
+                    // routerObj.addRoutes(accessRoutes)
+            
+                    // hack method to ensure that addRoutes is complete
+                    // set the replace: true, so the navigation will not leave a history record
+                    next({ ...to, replace: true })
+                } catch (error) {
+                    // remove token and go to login page to re-login
+                    dataBase.common.quit()
+                    next(`/account?redirect=${to.path}`)
+                    LoadingBar.finish()
+                }
+            } 
         }
     } else {
         /* has no token*/

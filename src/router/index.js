@@ -12,13 +12,13 @@ const routersContext = require.context('@/views', true, /router\.js$/)
 let routersArray = routersContext.keys().map(key => routersContext(key).default)
 
 /* Layout */
-import Layout from '@/views/layout/main.vue'
+import Layout from '@/layout/main.vue'
 
 /** 404路由
  *  最终无法匹配到相应路由，重定向到404
  *  异步加载路由时，在生成完异步路由准备挂载时，需要将重定向404的匹配规则定义在最后面，否则刷新会出错
  */
-const constantRoutes = [
+export const constantRoutes = [
     {
         path: '',
         redirect: 'icons'
@@ -29,13 +29,13 @@ const constantRoutes = [
         children: [
             {
                 path: '/redirect/:path*',
-                component: () => import('@/views/layout/redirect')
+                component: () => import('@/layout/redirect')
             }
         ]
     },
     {
         path: '/account',
-        name: 'account',
+        name: 'accountin',
         meta: {
             menuHide: true,
             module: 'account'
@@ -43,7 +43,7 @@ const constantRoutes = [
         component: () => import('@/views/account/main')
     },
     {
-        path: '/auth',
+        path: '/oauth',
         name: 'auth',
         meta: {
             menuHide: true,
@@ -62,7 +62,7 @@ const createRouter = () => new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes.concat(routersArray)
-})
+});
 
 const router = createRouter()
 

@@ -1,15 +1,5 @@
 <template>
     <div class="gc-panel">
-        <div class="gc-panel__title">QuillEditor 富文本编辑器</div>
-        <sDivider></sDivider>
-        <div class="gc-container">
-            <quillEditor v-model="context1" :height="300"></quillEditor>
-        </div>
-        <div class="gc-container">
-            <sButton type="primary" @click="visible1 = true">QuillEditor 内容预览/打印</sButton>
-        </div>
-        <div class="gc-container" id="container1" v-html="context1"></div>
-        <sDivider></sDivider>
         <div class="gc-panel__title">Tinymce 富文本编辑器</div>
         <sDivider></sDivider>
         <div class="gc-container">
@@ -19,6 +9,16 @@
             <sButton type="primary" @click="visible2 = true">Tinymce 内容预览/打印</sButton>
         </div>
         <div class="gc-container" id="container2" v-html="context2"></div>
+        <sDivider></sDivider>
+        <div class="gc-panel__title">QuillEditor 富文本编辑器</div>
+        <sDivider></sDivider>
+        <div class="gc-container">
+            <quillEditor v-model="context1" :height="300"></quillEditor>
+        </div>
+        <div class="gc-container">
+            <sButton type="primary" @click="visible1 = true">QuillEditor 内容预览/打印</sButton>
+        </div>
+        <div class="gc-container" id="container1" v-html="context1"></div>
         <sDivider></sDivider>
         <div class="gc-panel__title">umEditor 富文本编辑器</div>
         <sDivider></sDivider>

@@ -4,7 +4,8 @@ import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
 import { dateToStr, unixToStr, toFixed } from '@/filters'
-import common from '@/common'
+// 公共工具集函数挂载，根据项目需求插入即可
+// import common from '@/common'
 
 // 流加载
 import './utils/ljs'
@@ -21,7 +22,7 @@ let global = new Vue({
         dw: document.body.clientWidth,
         ljs: window.ljs,
         data: {},
-        common: common
+        // common: common  
     },
     computed: {
         getData() {

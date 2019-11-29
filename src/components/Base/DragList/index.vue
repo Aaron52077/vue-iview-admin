@@ -3,7 +3,7 @@
         <sCol span="12">
             <slot name="leftTitle"></slot>
             <mScrollbar class="drag-inline">
-                <draggable :class="dropConClass.left" :options="options" :value="list1" @input="handleListChange($event, 'left')" @end="handleEnd($event, 'left')">
+                <draggable :class="dropConClass.left" v-bind="options" :value="list1" @input="handleListChange($event, 'left')" @end="handleEnd($event, 'left')">
                     <div class="drag-list-item" v-for="(itemLeft, index) in list1" :key="`drag_li1_${index}`">
                         <slot name="left" :itemLeft="itemLeft">{{ itemLeft }}</slot>
                     </div>
@@ -13,7 +13,7 @@
         <sCol span="12">
             <slot name="rightTitle"></slot>
             <mScrollbar class="drag-inline">
-                <draggable :class="dropConClass.right" :options="options" :value="list2" @input="handleListChange($event, 'right')" @end="handleEnd($event, 'right')">
+                <draggable :class="dropConClass.right" v-bind="options" :value="list2" @input="handleListChange($event, 'right')" @end="handleEnd($event, 'right')">
                     <div class="drag-list-item" v-for="(itemRight, index) in list2" :key="`drag_li2_${index}`">
                         <slot name="right" :itemRight="itemRight">{{ itemRight }}</slot>
                     </div>

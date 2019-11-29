@@ -6,53 +6,17 @@ export const navList = [
     {
         icon: 'md-cube',
         name: '组件类',
-        path: '/icons',
-        childrens: []
+        path: '/icons'
     },
     {
         icon: 'md-build',
         name: 'api',
-        path: '/api',
-        childrens: []
+        path: '/api'
     },
     {
         icon: 'ios-podium',
         name: '可视化',
-        path: '/echarts',
-        childrens: []
-    },
-    {
-        icon: 'logo-github',
-        name: 'language',
-        path: '',
-        childrens: [
-            {
-                title: '语言',
-                list: [
-                    {
-                        key: '中文',
-                        value: 'zh-cn'
-                    },
-                    {
-                        key: '繁体',
-                        value: 'zh-tw'
-                    },
-                    {
-                        key: 'English',
-                        value: 'en'
-                    }
-                ]
-            },
-            {
-                title: '源码',
-                list: [
-                    {
-                        key: '地址',
-                        value: 'https://github.com/Aaron52077/vue-wuli-ui.git'
-                    }
-                ]
-            }
-        ]
+        path: '/echarts'
     }
 ]
 
