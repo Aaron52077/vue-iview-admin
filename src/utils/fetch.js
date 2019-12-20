@@ -7,9 +7,13 @@ import cache from '@/utils/cache'
 const tokenValue = 'Y2FtcHVzOmNhbXB1cw=='
 let axiosSource = axios.CancelToken.source()
 
-// 创建axios实例对象
+/**
+ * 创建axios实例对象
+ * withCredentials: true
+ * send cookies when cross-domain requests
+ */       
 export const instance = axios.create({
-    baseURL: process.env.VUE_APP_API,      // api的base_url
+    baseURL: process.env.VUE_APP_API,       // api的base_url
     timeout: 5 * 1000,                      // 请求超时时间
     retry: 4,
     retryDelay: 500

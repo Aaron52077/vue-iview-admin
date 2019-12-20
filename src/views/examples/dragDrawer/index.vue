@@ -6,7 +6,7 @@
             <div class="gc-container__title">在支持drawer所有api的基础上，支持可拖动和footer底部插槽</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="inner-text">
                         <span>方向</span>
                         <sSwitch v-model="placement">
@@ -46,9 +46,6 @@
                                 <p v-for="n in list2" :key="n.id">{{ n.name }}</p>
                             </mDragDrawer>
                     </div>
-                </sCol>
-                <sCol span="12">
-                    
                 </sCol>
             </sRow>
         </div>

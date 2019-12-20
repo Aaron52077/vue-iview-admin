@@ -42,9 +42,9 @@
             <div class="gc-container__h1" style="margin-top: 10px;">学生筛选类数据源：{{filterObj2}}</div>
         </div>
         <!-- 分类筛选1 -->
-        <classifyTeacher v-model="visible1" :tree="TEACHER_DATA" @on-data="getFilterData1"></classifyTeacher>
+        <classifyTeacher v-model="visible1" :tree="TEACHER_DATA" @on-data="getFilterData1" />
         <!-- 分类筛选2 -->
-        <classifyStudent v-model="visible2" :tree="STUDENT_DATA" @on-data="getFilterData2"></classifyStudent>
+        <classifyStudent v-model="visible2" :tree="STUDENT_DATA" @on-data="getFilterData2" />
     </div>
 </template>
 

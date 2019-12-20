@@ -1,7 +1,6 @@
 import routerObj from '@/router'
 import store from '@/store'
 import { LoadingBar } from 'view-design'
-import dataBase from '@/global'
 import cache from '@/utils/cache'
 import { setTitle } from '@/utils'
 
@@ -40,7 +39,6 @@ routerObj.beforeEach(async (to, from, next) => {
                     next({ ...to, replace: true })
                 } catch (error) {
                     // remove token and go to login page to re-login
-                    dataBase.common.quit()
                     next(`/account?redirect=${to.path}`)
                     LoadingBar.finish()
                 }

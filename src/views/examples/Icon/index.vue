@@ -5,7 +5,7 @@
         <div class="gc-icons">
             <div class="gc-icon__item" v-for="item in iconList" :key="item" v-clipboard="clipOptions(item)">
                 <sTooltip :content="item" placement="top">
-                    <mIcon iconClass="gc-icon" :iconName="item"></mIcon>
+                    <mIcon iconClass="gc-icon" :iconName="item" />
                 </sTooltip>
                 <p>{{item}}</p>
             </div>

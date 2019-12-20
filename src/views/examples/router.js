@@ -3,7 +3,7 @@ export default {
     path: '',
     meta: {
         module: 'docs',
-        title: '首页',
+        title: '组件栏',
         menuHide: true
     },
     redirect: 'icons',

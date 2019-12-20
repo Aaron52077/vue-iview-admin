@@ -6,7 +6,7 @@
             <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="scatterObj1.data" :optionObj="scatterObj1.option"></mEchart>
                     </div>

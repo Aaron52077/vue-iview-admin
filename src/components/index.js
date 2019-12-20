@@ -20,7 +20,8 @@ const components = {
     'mSkeleton': 'Skeleton',
     'mVlist': 'VList',
     'mDocPreview': 'DocPreview',
-    'mVideo': 'Video'
+    'mVideo': 'Video',
+    'mScreenfull': 'Screenfull'
 }
 
 // 全局注册 公用组件 异步加载方式

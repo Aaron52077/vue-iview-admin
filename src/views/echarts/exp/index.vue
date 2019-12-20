@@ -6,26 +6,27 @@
             <!-- 用法1 -->
             <div class="gc-container__title">基础用法</div>
             <sDivider></sDivider>
-            <div class="gc-container__h1">通用说明：以下图例会根据归类好的分类配置展示不同实例，具体参考：<linkDiy to="https://github.com/Aaron52077/vue-wuli-ui/tree/master/src/components/Base/Echart/configs">查看</linkDiy></div>
+            <div class="gc-container__h1">通用说明：以下图例会根据归类好的分类配置展示不同实例，具体参考：<linkDiy to="https://github.com/Aaron52077/vue-wuli-ui/tree/master/src/components/Base/Echart/configs">传送门</linkDiy></div>
+            <div class="gc-container__h1">在使用 echarts 生成图表时，经常需要做繁琐的数据类型转化、修改复杂的配置项，v-charts 的出现正是为了解决这个痛点。基于 Vue2.0 和 echarts 封装的 v-charts 图表组件，只需要统一提供一种对前后端都友好的数据格式设置简单的配置项，便可轻松生成常见的图表，这里我推荐<linkDiy to="https://v-charts.js.org/#/">v-charts传送门</linkDiy></div>
             <sRow :gutter="16">
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="chartObj" :optionObj="chartObj.demo1"></mEchart>
                     </div>
                 </sCol>
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="chartObj" :optionObj="chartObj.demo3"></mEchart>
                     </div>
                 </sCol>
             </sRow>
             <sRow :gutter="16">
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="chartObj" :optionObj="chartObj.demo2"></mEchart>
                     </div>
                 </sCol>
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="lineObj.data" :optionObj="lineObj.option"></mEchart>
                     </div>

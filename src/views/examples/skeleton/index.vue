@@ -23,7 +23,7 @@
                     <img src="~@/assets/img/logo.png">
                     <div class="demo-content">
                         <h3>关于 wuli ui</h3>
-                        <p>wuli ui 是一套轻量的 Vue 组件库，提供了丰富的基础组件和业务组件，帮助开发者快速搭建移动应用。</p>
+                        <p>wuli ui 是一套轻量的 Vue 组件库，提供了丰富的基础组件和业务组件，帮助开发者快速搭建中后台应用。</p>
                     </div>
                 </div>
             </mSkeleton>

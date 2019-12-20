@@ -3,7 +3,7 @@ export default {
     path: '/echarts',
     meta: {
         module: 'echarts',
-        title: '首页'
+        title: '可视化 BI'
     },
     redirect: '/echarts/exp',
     component: r => require.ensure([], () => r(require('../../layout/index.vue')), 'echarts'),

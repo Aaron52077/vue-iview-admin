@@ -46,7 +46,6 @@
 /* eslint-disable */
 import { locales } from '@/i18n'
 import { encryption } from "@/utils"
-import { userLogin } from "@/api/login"
 import pointwave from './pointwave.vue'
 
 export default {
@@ -97,7 +96,7 @@ export default {
             // 密码加密算法
             let userInfo = encryption({
                 data: this.formData,
-                key: "1234567812345678",
+                key: "123456789",
                 param: ["password"]
             });
             // 加密登录信息

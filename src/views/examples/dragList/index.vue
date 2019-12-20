@@ -6,7 +6,7 @@
             <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="10">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="darg-list__inline">
                         <!-- 切记设置list1和list2属性时，一定要添加.sync修饰符 -->
                         <mDragList :list1.sync="list1" :list2.sync="list2" :dropConClass="dropConClass" @on-change="handleChange">
@@ -21,21 +21,15 @@
                         </mDragList>
                     </div>
                 </sCol>
-                <sCol span="14">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="darg-list__inline">
                         <sRow :gutter="5">
-                            <!-- <sCol span="6">
-                                <h3>操作记录</h3>
-                                <mScrollbar class="darg-list__inline">
-                                    <p v-for="(item, index) in handleList" :key="`handle_item_${index}`">{{ item }}</p>
-                                </mScrollbar>
-                            </sCol> -->
-                            <sCol span="12">
+                            <sCol :xs="24" :sm="24" :lg="12">
                                 <mScrollbar class="darg-list__inline">
                                     <pre>{{ list1 }}</pre>
                                 </mScrollbar>
                             </sCol>
-                            <sCol span="12">
+                            <sCol :xs="24" :sm="24" :lg="12">
                                 <mScrollbar class="darg-list__inline">
                                     <pre>{{ list2 }}</pre>
                                 </mScrollbar>

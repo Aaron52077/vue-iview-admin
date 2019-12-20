@@ -6,12 +6,12 @@
             <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="radarObj1.data" :optionObj="radarObj1.option"></mEchart>
                     </div>
                 </sCol>
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="radarObj2.data" :optionObj="radarObj2.option"></mEchart>
                     </div>

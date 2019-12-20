@@ -8,6 +8,7 @@ const getters = {
     language: state => state.app.language,
     navbar: state => state.app.navbar,
     device: state => state.app.device,
+    permission_routes: state => state.permission.routes
 }
 
 export default getters

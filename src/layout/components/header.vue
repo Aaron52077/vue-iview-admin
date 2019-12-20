@@ -3,7 +3,11 @@
     <header class="gc-head" id="navTop">
         <div class="gc-head__bd">
             <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
-            <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
+            <template v-if="!dataBase.h5">
+                <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
+                <mGlobalSearch id="global-search" class="gc-head__inner" />
+                <mScreenfull class="gc-head__screen" v-model="isFullscreen" />
+            </template>
             <sDropdown class="gc-head__info" transfer @on-click="handleInfo($event)">
                 <mAvatar :src="avatar" />
                 <div class="gc-head__info--name">{{name}}</div>
@@ -29,6 +33,7 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex'
+import GlobalSearch from '@base/GlobalSearch'
 import { navList } from '../config'
 
 export default {
@@ -36,7 +41,8 @@ export default {
     data() {
         return {
             navList,
-            navActive: '组件类'
+            navActive: '组件类',
+            isFullscreen: false
         }
     },
     computed: {
@@ -70,7 +76,8 @@ export default {
                 });
             }
         }
-    }
+    },
+    components: { 'mGlobalSearch': GlobalSearch }
 }
 </script>
 <style lang="less">
@@ -108,7 +115,6 @@ export default {
     }
     &__nav {
         float: right;
-        margin-left: 42px;
     }
     &__bd {
         margin: 0 auto;
@@ -131,6 +137,10 @@ export default {
             display: inline-block;
             margin-left: 5px;
         }
+    }
+    &__screen {
+        float: right;
+        margin-left: 15px;
     }
 }
 </style>

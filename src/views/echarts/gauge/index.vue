@@ -7,12 +7,12 @@
             <div class="gc-container__title">通过Mock接口方式用法</div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="gaugeObj1.data" :optionObj="gaugeObj1.option"></mEchart>
                     </div>
                 </sCol>
-                <sCol span="12">
+                <sCol :xs="24" :sm="24" :lg="12">
                     <div class="echart-block">
                         <mEchart v-if="gaugeObj2.data" :optionObj="gaugeObj2.option"></mEchart>
                         <div class="echart-block__inner">
