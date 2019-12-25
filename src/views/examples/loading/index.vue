@@ -21,7 +21,7 @@
             </div>
             <sDivider></sDivider>
             <div ref="treeWrapper" 
-                class="gc-container__wrapper">
+                class="gc-container__wrapper gc-tree">
                 <sTree :data="treeData" :render="nodeRender"></sTree>
             </div>
         </div>

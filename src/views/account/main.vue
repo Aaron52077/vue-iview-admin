@@ -134,7 +134,7 @@ export default {
     background-color: #283443;
     overflow: hidden;
     &__bg {
-        background: url(~@/assets/img/bg.png) no-repeat;
+        background: url(~@/assets/img/bg.jpg) no-repeat;
         background-size: cover;
         background-position: 50%;
     }

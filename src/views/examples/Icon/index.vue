@@ -128,7 +128,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@/assets/css/common/_mixins.less';
 .gc-icons {
     .clearfix();
     .gc-icon {
@@ -140,7 +139,6 @@ export default {
             width: 145px;
             height: 100px;
             text-align: center;
-            color: #5c6b77;
             padding-top: 10px;
             list-style: none;
             transition: all .2s ease;

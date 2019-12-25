@@ -82,9 +82,6 @@ export default {
 </script>
 
 <style lang="less">
-@import '~@/assets/css/common/_var.less';
-@import '~@/assets/css/common/_mixins.less';
-
 .gc-skeleton {
     .display-flex();
     padding: 0 16px;

@@ -29,10 +29,10 @@ const mutations = {
 }
 
 const actions = {
-    accountIn({ commit }, params) {
+    accountIn({ commit, dispatch }, params) {
         // 账户登录
         return new Promise((resolve, reject) => {
-            login(params).then(res => {
+            login(params).then(async res => {
                 const { data } = res
                 if (!data) {
                     reject('Verification failed, please Login again.')
@@ -49,6 +49,8 @@ const actions = {
                 cache.setLocal('token', access_token)
                 cache.setLocal('user_name', name)
                 cache.setLocal('user_avatar', avatar)
+                // 用户登录后从持久化数据加载一系列的设置
+                await dispatch('load')
                 resolve(data)
             }).catch(error => {
                 reject(error)
@@ -69,6 +71,16 @@ const actions = {
             }).catch(error => {
                 reject(error)
             })
+        })
+    },
+    /**
+     * @description 用户登录后从持久化数据加载一系列的设置
+     * @param {Object} context
+     */
+    load({ dispatch }) {
+        return new Promise(async resolve => {
+            await dispatch('theme/load', null, { root: true })
+            resolve()
         })
     }
 }

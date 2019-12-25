@@ -80,22 +80,22 @@
     // 该特殊边框的大小必须小于其他边框大小的四倍，否则IE6会有问题 
     @special: @x solid @c;
     .border();
-    .border() when (@type =bottom) {
+    .border() when (@type = bottom) {
         border-bottom: @special;
         border-left: @transparent;
         border-right: @transparent;
     }
-    .border() when (@type =top) {
+    .border() when (@type = top) {
         border-top: @special;
         border-left: @transparent;
         border-right: @transparent;
     }
-    .border() when (@type =left) {
+    .border() when (@type = left) {
         border-left: @special;
         border-top: @transparent;
         border-bottom: @transparent;
     }
-    .border() when (@type =right) {
+    .border() when (@type = right) {
         border-right: @special;
         border-top: @transparent;
         border-bottom: @transparent;

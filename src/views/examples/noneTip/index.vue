@@ -35,7 +35,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@/assets/css/common/_mixins.less';
 .gc-block {
     display: inline-block;
     & + .gc-block {

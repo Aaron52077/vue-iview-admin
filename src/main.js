@@ -2,6 +2,7 @@
 import '@babel/polyfill'
 
 import Vue from 'vue'
+import axios from 'axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -76,4 +77,31 @@ new Vue({
     },
     render: h => h(App)
 }).$mount('#app')
+
+// 获取服务端动态配置地址方式
+// function getServerConfig() {
+//     return axios.get('./serverConfig.json').then((result) => {
+//         let config = result.data;
+//         axios.defaults.baseURL = config.VUE_APP_API
+//         Vue.prototype.baseURL = config.VUE_APP_API
+//         console.log('baseURL', Vue.prototype.baseURL, 'axios.defaults.baseURL', axios.defaults.baseURL)  // 验证是否已经把属性挂在了Vue上
+//     }).catch((error) => {
+//         console.log(error);
+//     })
+// }
+
+// async function init() {
+//     await getServerConfig();
+//     new Vue({
+//         router,
+//         store,
+//         created() {
+//             dataBase.init(this)
+//         },
+//         render: h => h(App)
+//     }).$mount('#app')
+// }
+  
+// init()
+
 

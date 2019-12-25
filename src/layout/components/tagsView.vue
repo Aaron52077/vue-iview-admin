@@ -5,13 +5,13 @@
                 v-for="tag in visitedViews"
                 ref="tag"
                 :key="tag.path"
-                :class="isActive(tag) ? 'active' : ''"
+                :class="isActive(tag) ? 'is-active' : ''"
                 :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
                 class="tags-view-item"
                 @click.middle.native="closeSelectedTag(tag)"
                 @contextmenu.prevent.native="openMenu(tag, $event)">
                 {{tag.meta.title}}
-                <sIcon v-if="!tag.meta.affix" type="ios-close" :size="16" @click.prevent.stop="closeSelectedTag(tag)" />
+                <sIcon v-if="!tag.meta.affix" type="ios-close-circle-outline" :size="16" @click.prevent.stop="closeSelectedTag(tag)" />
             </router-link>
         </scroll-pane>
         <!-- 右键操作项 -->
@@ -50,7 +50,7 @@ export default {
     watch: {
         $route() {
             this.addTags()
-            // this.moveToCurrentTag()
+            this.moveToCurrentTag()
         },
         visible(value) {
             if (value) {
@@ -189,46 +189,50 @@ export default {
 <style lang="less">
 .tags-view-container {
     position: relative;
-    height: 34px;
+    padding-top: 5px;
+    height: 40px;
     width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #d8dce5;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+    z-index: 11;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        transform: scale(.5);
+        transform-origin: 0 0;
+        pointer-events: none;
+        border: 0 solid #cfd7e5;
+        border-bottom-width: 2px; 
+        right: 0;
+        z-index: -1;
+    }
     .tags-view-wrapper {
+        overflow: hidden;
+        margin-bottom: -1px;
+        position: relative;
         .tags-view-item {
             display: inline-block;
             position: relative;
             cursor: pointer;
-            height: 28px;
-            line-height: 28px;
-            border: 1px solid #d8dce5;
-            color: #495060;
-            background: #fff;
-            padding: 0 8px;
+            height: 35px;
+            line-height: 35px;
+            color: #606266;
+            padding: 0 20px;
             font-size: 14px;
-            margin-left: 5px;
-            margin-top: 5px;
+            margin-right: 5px;
+            border: 1px solid #cfd7e5;
+            border-bottom-color: transparent;
+            background-color: hsla(0, 0%, 100%, .5);
+            border-radius: 4px 4px 0 0;
+            transition: color .3s cubic-bezier(.645, .045, .355, 1);
             &:first-of-type {
-                margin-left: 15px;
+                margin-left: 5px;
             }
-            &:last-of-type {
-                margin-right: 15px;
-            }
-            &.active {
-                background-color: #2d8cf0;
-                color: #fff;
-                border-color: #2d8cf0;
-                &::before {
-                    content: '';
-                    position: relative;
-                    background: #fff;
-                    display: inline-block;
-                    width: 8px;
-                    height: 8px;
-                    margin-right: 2px;
-                    vertical-align: 1px;
-                    border-radius: 50%;
-                }
+            &.is-active {
+                background-color: #fff;
+                color: #2f74ff !important;
             }
         }
     }

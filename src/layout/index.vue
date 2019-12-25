@@ -8,7 +8,7 @@ import mAccount from '@/views/account/main.vue'
 import mLayoutMain from './main.vue'
 
 export default {
-    name: 'page-loyout',
+    name: 'page-layout',
     data() {
         return {
             hasToken: 'mLayoutMain'

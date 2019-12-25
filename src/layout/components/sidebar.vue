@@ -1,5 +1,5 @@
 <template>
-    <mScrollbar hide>
+    <mScrollbar :config="{offset: offsetTop + 60}" hide>
         <sMenu :active-name="navbar" :width="`${layoutWeb}px`">
             <sMenuGroup v-for="(item, index) in menuList" :key="index" :title="item.name">
                 <sMenuItem v-for="(m, idx) in item.children" :key="idx" :name="m.name" :to="m.path" v-waves>
@@ -23,7 +23,8 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'navbar'
+            'navbar',
+            'offsetTop'
         ]),
         layoutWeb() {
             return this.dataBase.h5 ? 75 : 210

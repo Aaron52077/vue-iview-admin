@@ -16,27 +16,7 @@ export default {
                 module: 'api',
                 title: '工具合集',
                 affix: true
-            },
-            children: [
-                {
-                    path: 'children1',
-                    name: 'api-page1',
-                    component: r => require.ensure([], () => r(require('./page/children1.vue')), 'api'),
-                    meta: {
-                        module: 'api',
-                        title: '子页面1'
-                    },
-                },
-                {
-                    path: 'children2',
-                    name: 'api-page2',
-                    component: r => require.ensure([], () => r(require('./page/children2.vue')), 'api'),
-                    meta: {
-                        module: 'api',
-                        title: '子页面2'
-                    },
-                }
-            ]
+            }
         },
         {
             path: 'editor',

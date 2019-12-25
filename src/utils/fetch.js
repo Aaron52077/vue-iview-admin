@@ -27,9 +27,10 @@ instance.interceptors.request.use(config => {
         'Content-Type': 'application/x-www-form-urlencoded',    // application/json
         'Authorization': `Basic ${tokenValue}`
     }
-    if (store.getters.token || cache.getLocal('token')) {
-        config.headers['Authorization'] = `Bearer ${store.getters.token || cache.getLocal('token')}` // 让每个请求携带token -- ['AUTH_TOKEN']为自定义key
-        cache.setLocal('token', cache.getLocal('token'))
+    let hasToken = store.getters.token
+    if (hasToken) {
+        config.headers['Authorization'] = `Bearer ${hasToken}` // 让每个请求携带token -- ['AUTH_TOKEN']为自定义key
+        cache.setLocal('token', hasToken)
     }
     return config
 }, error => {

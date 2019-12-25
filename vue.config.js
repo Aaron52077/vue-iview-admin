@@ -21,6 +21,15 @@ module.exports = {
         },
         extract: false
     },
+    pluginOptions: {
+        'style-resources-loader': {
+            preProcessor: 'less',
+            patterns: [
+                resolve('src/assets/css/common/_var.less'),
+                resolve('src/assets/css/common/_mixins.less')
+            ] // 引入全局样式变量
+        }
+    },
     devServer: {
         open: true,                 
         overlay: {
@@ -55,9 +64,16 @@ module.exports = {
     },
     chainWebpack: config => {
         // detail: https://github.com/PanJiaChen/vue-element-admin/blob/master/vue.config.js
-        config.plugins.delete('preload')  // TODO: need test
-        config.plugins.delete('prefetch') // TODO: need test
-        // building config. webpack 4.0
+        /**
+         * 删除懒加载模块的 prefetch preload，降低带宽压力
+         * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
+         * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
+         * 而且预渲染时生成的 prefetch 标签是 modern 版本的，低版本浏览器是不需要的
+         */
+        config.plugins.delete('prefetch').delete('preload')
+        // 解决 cli3 热更新失效 https://github.com/vuejs/vue-cli/issues/1559
+        config.resolve.symlinks(true)
+        // building config. webpack 4.0, 开发环境 sourcemap 不包含列信息
         config.when(process.env.NODE_ENV === 'development',
             config => config.devtool('cheap-source-map')
         )

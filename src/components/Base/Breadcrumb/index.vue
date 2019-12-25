@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .gc-breadcrumb {
     margin: 15px 0;
     padding: 0 20px;

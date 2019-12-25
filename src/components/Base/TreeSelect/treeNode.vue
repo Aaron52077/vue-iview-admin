@@ -1,11 +1,13 @@
 <template>
-    <sTree
-        :data="data"
-        v-on="parent.$listeners"
-        v-bind="parent.$attrs"
-        :load-data="loadDataCallback"
-        show-checkbox
-        @on-check-change="handleCheckSelect"></sTree>
+    <div class="gc-tree">
+        <sTree
+            :data="data"
+            v-on="parent.$listeners"
+            v-bind="parent.$attrs"
+            :load-data="loadDataCallback"
+            show-checkbox
+            @on-check-change="handleCheckSelect" />
+    </div>
 </template>
 
 <script>

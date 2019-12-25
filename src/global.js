@@ -4,6 +4,7 @@ import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
 import { dateToStr, unixToStr, toFixed } from '@/filters'
+import { desensitization, desensitizationName } from '@/utils/lib'
 // 公共工具集函数挂载，根据项目需求插入即可
 // import common from '@/common'
 
@@ -125,6 +126,8 @@ let global = new Vue({
         dateToStr: dateToStr,
         unixToStr: unixToStr,
         toFixed: toFixed,
+        desensitization: desensitization,
+        desensitizationName: desensitizationName,
         fileDownload(data, fileName) {
             // 后端接口文件流下载
             const blob = new Blob([data], {

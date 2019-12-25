@@ -8,7 +8,6 @@
         <div class="gc-container">
             <sButton type="primary" @click="visible2 = true">Tinymce 内容预览/打印</sButton>
         </div>
-        {{context2}}
         <div class="gc-container" id="container2" v-html="context2"></div>
         <sDivider></sDivider>
         <div class="gc-panel__title">QuillEditor 富文本编辑器</div>

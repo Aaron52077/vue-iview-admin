@@ -6,6 +6,7 @@ const state = {
         opened: cache.getCookie('sidebarStatus') ? !!+cache.getCookie('sidebarStatus') : true,
         withoutAnimation: false
     },
+    offsetTop: 0,
     language: dataBase.lang,
     tabbar: '组件类',
     navbar: '图标'
@@ -20,6 +21,9 @@ const mutations = {
         } else {
             cache.setCookie('sidebarStatus', 0)
         }
+    },
+    SET_OFFSET_TOP: (state, value) => {
+        state.offsetTop = value
     },
     CLOSE_SIDEBAR: (state, withoutAnimation) => {
         cache.setCookie('sidebarStatus', 0)

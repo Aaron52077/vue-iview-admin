@@ -2,11 +2,16 @@
     <!-- 顶部导航 -->
     <header class="gc-head" id="navTop">
         <div class="gc-head__bd">
-            <router-link to="/" class="gc-head__logo"><img src="~@/assets/img/logo.png" /></router-link>
+            <router-link to="/" class="gc-head__logo">
+                <img :src="`theme/${themeActive.name}/preview@2x.png`">
+            </router-link>
             <template v-if="!dataBase.h5">
-                <div class="gc-head__inner">基于iview的自定义组件项目拓展</div>
-                <mGlobalSearch id="global-search" class="gc-head__inner" />
-                <mScreenfull class="gc-head__screen" v-model="isFullscreen" />
+                <div class="gc-head__inner">轻量、可靠的中后台Vue Admin</div>
+                <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="navActive" @on-select="onPathHandle">
+                    <sMenuItem v-for="item in navList" :name="item.name" :to="item.path" :key="item.id" v-waves> 
+                        <sIcon :type="item.icon" />{{t(item.name)}}
+                    </sMenuItem>
+                </sMenu>
             </template>
             <sDropdown class="gc-head__info" transfer @on-click="handleInfo($event)">
                 <mAvatar :src="avatar" />
@@ -22,11 +27,9 @@
                     <sDropdownItem name="logout" divided>退出登录</sDropdownItem>
                 </sDropdownMenu>
             </sDropdown>
-            <sMenu class="gc-head__nav" v-if="!dataBase.h5" mode="horizontal" theme="light" :active-name="navActive" @on-select="onPathHandle">
-                <sMenuItem v-for="item in navList" :name="item.name" :to="item.path" :key="item.id" v-waves> 
-                    <sIcon :type="item.icon" />{{t(item.name)}}
-                </sMenuItem>
-            </sMenu>
+            <mGlobalSearch id="global-search" class="gc-head__inner" />
+            <mScreenfull class="gc-head__icons" v-model="isFullscreen" />
+            <mGlobalTheme class="gc-head__icons" />
         </div>
     </header>
 </template>
@@ -34,6 +37,7 @@
 /* eslint-disable */
 import { mapGetters } from 'vuex'
 import GlobalSearch from '@base/GlobalSearch'
+import GlobalTheme from '@base/Theme'
 import { navList } from '../config'
 
 export default {
@@ -46,6 +50,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters({
+            themeActive: 'theme/activeSetting'
+        }),
         ...mapGetters([
             'name',
             'avatar'
@@ -77,34 +84,34 @@ export default {
             }
         }
     },
-    components: { 'mGlobalSearch': GlobalSearch }
+    components: { 
+        'mGlobalSearch': GlobalSearch, 
+        'mGlobalTheme': GlobalTheme 
+    }
 }
 </script>
+
 <style lang="less">
 /* 框架主体 */
-@import '~@/assets/css/common/_var.less';
-@import '~@/assets/css/common/_mixins.less';
 .gc-head {
     position: fixed;
     width: 100%;
     top: 0;
     right: 0;
     height: 60px;
-    background: @--color-white;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, .1);
     z-index: 1000;
     &__logo {
         position: relative;
         float: left;
-        margin-top: 6px;
-        height: 50px;
-        width: 118px;
+        height: 60px;
+        width: 109px;
         &::after {
             content: "";
             position: absolute;
             display: block;
             top: 16px;
-            left: 124px;
+            left: 114px;
             width: 1px;
             height: 24px;
             background: #ebedee;
@@ -114,7 +121,8 @@ export default {
         }
     }
     &__nav {
-        float: right;
+        float: left;
+        margin-left: 10px !important;
     }
     &__bd {
         margin: 0 auto;
@@ -130,6 +138,7 @@ export default {
     }
     &__info {
         float: right;
+        margin-left: 10px;
         max-width: 140px;
         height: 60px;
         line-height: 60px;
@@ -138,9 +147,8 @@ export default {
             margin-left: 5px;
         }
     }
-    &__screen {
+    &__icons {
         float: right;
-        margin-left: 15px;
     }
 }
 </style>

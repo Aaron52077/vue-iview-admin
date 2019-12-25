@@ -1,17 +1,12 @@
 
 <template>
     <div class="container">
-        <mBreadcrumb separator=">"></mBreadcrumb>
-        <div class="gc-container">
-            <div class="gc-container__title">适用于处理同级页面类导航面包屑</div>
-            <router-link to="/api/page/children1">页面1</router-link>&nbsp;&nbsp;&nbsp;
-            <router-link to="/api/page/children2">页面2</router-link>
-            <sDivider></sDivider>
+        <div class="gc-container gc-table">
             <div class="gc-container__h1">Table 自定义表头筛选、合并单元格实例</div>
             <div class="gc-container__title">tips: 年龄列列为自定义实例，地址列为官方实例</div>
             <sDivider></sDivider>
             <!-- tooltip-theme="light" -->
-            <sTable max-height="300" border :columns="columns1" :data="data1" :span-method="handleSpan"></sTable>
+            <sTable max-height="300" border :columns="columns1" :data="data1" :span-method="handleSpan" />
             <sDivider></sDivider>
             <div class="gc-container__h1">Table 跨分页全选/多选</div>
             <sTable size="default"
@@ -19,17 +14,16 @@
                     :columns="columns2" 
                     :data="data2" 
                     highlight-row 
-                    stripe 
                     @on-select-all-cancel="handleCancelSelectAll"
                     @on-select-all="handleSelectAll"
                     @on-select="handleSelect"
-                    @on-select-cancel="handleCancel"></sTable>
-            <div class="gc-page">
+                    @on-select-cancel="handleCancel" />
+            <div class="gc-pages">
                 <sPage :total="20" :current="1" size="small" show-elevator show-total @on-change="changePage"></sPage>
             </div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="8">
+                <sCol span="8" class="gc-tree">
                     <div class="gc-container__h1">系统级后台权限id获取</div>
                     <sTree ref="permissionTree" :data="treeData" show-checkbox multiple></sTree>
                     <div class="tree">
@@ -75,7 +69,7 @@
                 </sCol>
             </sRow>
         </div>
-        <router-view class="gc-loyout" :key="active"></router-view>
+        <router-view class="gc-layout" :key="active"></router-view>
     </div>
 </template>
 

@@ -57,11 +57,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@/assets/css/common/_mixins.less';
 .echart-block {
     position: relative;
-    width: 100%;
-    height: 450px;
     &__inner {
         position: absolute;
         top: 65%;

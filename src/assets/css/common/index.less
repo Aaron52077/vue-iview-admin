@@ -1,68 +1,39 @@
 // 全局公用样式
-@import './_var';
-@import './_mixins';
 
 // 参考element-ui动画效果
-.fade-in-linear-enter-active,
-.fade-in-linear-leave-active {
-    transition: @--fade-linear-transition;
-}
-
-.fade-in-linear-enter,
-.fade-in-linear-leave,
-.fade-in-linear-leave-active {
-    opacity: 0;
-}
-
 .el-fade-in-linear-enter-active,
 .el-fade-in-linear-leave-active {
     transition: @--fade-linear-transition;
 }
+
 .el-fade-in-linear-enter,
 .el-fade-in-linear-leave,
 .el-fade-in-linear-leave-active {
     opacity: 0;
 }
 
-.el-fade-in-enter-active,
-.el-fade-in-leave-active {
-    transition: all .3s cubic-bezier(.55,0,.1,1);
-}
-
-.el-fade-in-enter,
-.el-fade-in-leave-active {
-    opacity: 0;
-}
-
 // 全局布局公用样式
 .container {
     min-height: 100%;
-    background: #fff;
-    overflow: hidden;
 }
 
 .gc-container {
     padding: 10px 15px;
     &__title {
         font-size: @--size-base + 2;;
-        color: #999;
+        color: @--color-info;
     }
     &__h1 {
         font-size: @--size-base + 2;
         padding: 5px 0 10px;
-        color: #999;
+        color: @--color-info;
     }
 }
 
-.gc-loyout {
+.gc-layout {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     z-index: 1;
-}
-
-.echart-dom {
-    width: 100%;
-    height: 100%;
 }
