@@ -22,7 +22,7 @@ export default {
         {
             path: 'icons',
             name: 'compicons',
-            component: r => require.ensure([], () => r(require('./con/index.vue')), 'docs'),
+            component: r => require.ensure([], () => r(require('./Icon/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
                 title: '图标'
