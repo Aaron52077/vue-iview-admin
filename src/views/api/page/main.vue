@@ -75,7 +75,7 @@
 
 <script>
 /* eslint-disable */
-import { remove, uniqBy, differenceBy } from 'lodash';
+import { remove, uniqBy, differenceBy } from 'lodash'
 import mBreadcrumb from '@base/Breadcrumb'
 import { mockTable, getTreeCustomData } from '@/api'
 import { uniqueArr } from '@/utils'
@@ -125,7 +125,7 @@ export default {
                     title: 'Sampling Time',
                     key: 'time',
                     render: (h, params) => {
-                        return h('div', 'Almost' + params.row.time + '天');
+                        return h('span', 'Almost' + params.row.time + '天');
                     }
                 },
                 {
@@ -133,7 +133,7 @@ export default {
                     key: 'update',
                     render: (h, params) => {
                         let date = this.dataBase.dateToStr(params.row.update, 'yyyy-MM-dd');
-                        return h('div', date);
+                        return h('span', date);
                     }
                 }
             ],

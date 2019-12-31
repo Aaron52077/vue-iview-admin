@@ -3,7 +3,7 @@
     <header class="gc-head" id="navTop">
         <div class="gc-head__bd">
             <router-link to="/" class="gc-head__logo">
-                <img :src="`theme/${themeActive.name}/preview@2x.png`">
+                <img :src="`theme/${themeActive.name}/logo@2x.png`">
             </router-link>
             <template v-if="!dataBase.h5">
                 <div class="gc-head__inner">轻量、可靠的中后台Vue Admin</div>

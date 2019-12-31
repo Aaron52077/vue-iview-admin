@@ -14,8 +14,7 @@ export default {
             component: r => require.ensure([], () => r(require('./page/main.vue')), 'api'),
             meta: {
                 module: 'api',
-                title: '工具合集',
-                affix: true
+                title: '工具合集'
             }
         },
         {

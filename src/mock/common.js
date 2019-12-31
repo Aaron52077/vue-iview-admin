@@ -52,11 +52,12 @@ Mock.mock(BASE_URL + '/scroll', {
 // 表格数据接口
 Mock.mock(BASE_URL + '/table', {
     "data|10": [{
+        "id": "@id",
         "name": "@cname",
         "status|1": [1, 2, 3],
         "age|12-24": 0,
         "time": "@date('yyyy-MM-dd')",
-        "update": "@datetime('yyyy-MM-dd A HH:mm:ss')",
+        "update": "@datetime('yyyy-MM-dd HH:mm:ss')",
         "address": "@city(true)"
     }]
 });

@@ -9,7 +9,7 @@ const state = {
     offsetTop: 0,
     language: dataBase.lang,
     tabbar: '组件类',
-    navbar: '图标'
+    navbar: '首页'
 }
 
 const mutations = {

@@ -64,44 +64,49 @@ dataBase.debug && (() => {
         try { 
             var vConsole = new VConsole();
         }catch(e) {
-            
+            throw new Error(e)
         };  
     } 
 })(); 
 
-new Vue({
-    router,
-    store,
-    created() {
-        dataBase.init(this)
-    },
-    render: h => h(App)
-}).$mount('#app')
+// 传统方式
+// new Vue({
+//     router,
+//     store,
+//     created() {
+//         dataBase.init(this)
+//     },
+//     render: h => h(App)
+// }).$mount('#app')
 
 // 获取服务端动态配置地址方式
-// function getServerConfig() {
-//     return axios.get('./serverConfig.json').then((result) => {
-//         let config = result.data;
-//         axios.defaults.baseURL = config.VUE_APP_API
-//         Vue.prototype.baseURL = config.VUE_APP_API
-//         console.log('baseURL', Vue.prototype.baseURL, 'axios.defaults.baseURL', axios.defaults.baseURL)  // 验证是否已经把属性挂在了Vue上
-//     }).catch((error) => {
-//         console.log(error);
-//     })
-// }
+function getServerConfig() {
+    return new Promise((resolve, reject) => {
+        axios.get('./serverConfig.json').then((result) => {
+            let config = result.data
+            axios.defaults.baseURL = config.VUE_APP_API   
+            console.log('baseURL', axios.defaults.baseURL)  // 验证是否已经把属性挂在了Vue上
+            resolve()
+        }).catch((error) => {
+            axios.defaults.baseURL = process.env.VUE_APP_API 
+            console.log(error)  
+            reject()
+        })
+    })
+}
 
-// async function init() {
-//     await getServerConfig();
-//     new Vue({
-//         router,
-//         store,
-//         created() {
-//             dataBase.init(this)
-//         },
-//         render: h => h(App)
-//     }).$mount('#app')
-// }
+async function init() {
+    await getServerConfig();
+    new Vue({
+        router,
+        store,
+        created() {
+            dataBase.init(this)
+        },
+        render: h => h(App)
+    }).$mount('#app')
+}
   
-// init()
+init()
 
 

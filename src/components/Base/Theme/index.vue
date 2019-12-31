@@ -13,7 +13,7 @@
             footer-hide
             :mask-closable="false">
             <div slot="header" class="gc-dia-title">主题</div>
-            <div class="gc-dia-body">
+            <div class="gc-dia-body gc-table">
                 <sTable size="large" :columns="columns" :data="list" :show-header="false" highlight-row border>
                     <template slot-scope="{ row }" slot="image">
                         <div class="theme-preview" :style="{ backgroundImage: `url(${row.preview})` }"/>

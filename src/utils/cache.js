@@ -2,8 +2,10 @@ export default {
     setCookie(name, value, days) {
         var Days = days || 7;
         var exp = new Date();
-        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-        document.cookie = name + "=" + escape(value) + ";path=/;expires=" + exp.toGMTString();
+        if (Days && !isNaN(parseInt(Days))) {
+            exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+            document.cookie = name + "=" + escape(value) + ";path=/;expires=" + exp.toGMTString();
+        }
     },
     getCookie(name) {
         var arrStr = document.cookie.split(";");
@@ -16,7 +18,7 @@ export default {
         document.cookie = name + "=;expires=" + (new Date(0)).toGMTString();
     },
     getSession(name) {
-        if (!name) return
+        if (!global.window || !name) return
         return window.sessionStorage.getItem(name)
     },
     setSession(name, content) {
@@ -44,5 +46,11 @@ export default {
     removeLocal(name) {
         if (!name) return
         window.localStorage.removeItem(name)
+    },
+    /**
+     * Clear all localStorage
+     */
+    clearAll() {
+        window.localStorage.clear()
     }
 }

@@ -115,7 +115,4 @@ export default {
         }
     }
 }
-
-/* 注册主题 */
-@import '~@/assets/css/theme/register.less';
 </style>

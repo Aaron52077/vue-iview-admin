@@ -28,6 +28,7 @@ export const menuList = [
     {
         name: '组件栏',
         children: [
+            {name: '首页', path: '/dashboard', icon: 'ios-home'},
             {name: '图标', path: '/icons', icon: 'md-heart-outline'},
             {name: '头像', path: '/avatar', icon: 'md-person'},
             {name: '加载中', path: '/loading', icon: 'ios-loading'},

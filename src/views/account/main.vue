@@ -1,5 +1,7 @@
 <template>
     <div class="gc-login gc-login__bg">
+        <!-- 当前时间 -->
+        <div class="gc-login__layer gc-login__time">{{nowTime}}</div>
         <!-- 粒子动画组件 -->
         <pointwave :color="0x097bdb" />
         <div class="gc-login__bd">
@@ -39,6 +41,14 @@
                 </sFormItem>
             </sForm>
         </div>
+        <div class="gc-login__footer">
+            <p class="gc-login__footer--copyright">Copyright&nbsp;&nbsp;&nbsp;<sIcon type="logo-github" />&nbsp;&nbsp;2019 wuli Admin&nbsp;&nbsp;<a href="https://github.com/Aaron52077" target="_blank">@Aaron</a></p>
+            <p class="gc-login__footer--options">
+                <a href="javascript:;">帮助</a>
+                <a href="javascript:;">隐私</a>
+                <a href="javascript:;">条款</a>
+            </p>
+        </div>
 	</div>
 </template>
 
@@ -53,6 +63,8 @@ export default {
     data () {
         return {
             redirect: undefined,
+            timeInterval: null,
+            nowTime: this.dataBase.dateToStr(new Date(), 'hh:mm:ss'),
             formData: {
                 username: 'admin',
                 password: '111111'
@@ -84,7 +96,18 @@ export default {
             ]
         }
     },
+    mounted() {
+        this.timeInterval = setInterval(() => {
+            this.refreshTime()
+        }, 1000)
+    },
+    beforeDestroy() {
+        clearInterval(this.timeInterval)
+    },
     methods: {
+        refreshTime() {
+            this.nowTime = this.dataBase.dateToStr(new Date(), 'hh:mm:ss')
+        },
         handlePassword() {
             if (this.passwordType === 'password') {
                 this.passwordType = 'text'
@@ -173,6 +196,54 @@ export default {
             color: #fff;
             & + div {
                 margin-left: 10px;
+            }
+        }
+    }
+    &__layer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    &__time {
+        bottom: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+        font-size: 20em;
+        font-weight: bold;
+        color: rgba(45, 140, 240, 0.1);
+        .text-shadow-light(50px, #003756);
+        overflow: hidden;
+    }
+    &__area {
+        bottom: 0;
+        overflow: hidden;
+    }
+    &__footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 1em 0;
+        &--copyright {
+            margin-bottom: 10px;
+            font-size: 12px;
+            line-height: 12px;
+            text-align: center;
+            color: @--color-white;
+            a {
+                color: @--color-white;
+            }
+        }
+        &--options {
+            font-size: 12px;
+            line-height: 12px;
+            text-align: center;
+            a {
+                color: @--color-white;
+                margin: 0 1em;
             }
         }
     }

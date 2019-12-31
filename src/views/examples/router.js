@@ -6,17 +6,26 @@ export default {
         title: '组件栏',
         menuHide: true
     },
-    redirect: 'icons',
+    redirect: 'dashboard',
     component: r => require.ensure([], () => r(require('../../layout/index.vue')), 'docs'),
     children: [
+        {
+            path: 'dashboard',
+            name: 'dashboard',
+            component: r => require.ensure([], () => r(require('./dashboard/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '主页',
+                affix: true
+            }
+        },
         {
             path: 'icons',
             name: 'compicons',
             component: r => require.ensure([], () => r(require('./icon/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
-                title: '图标',
-                affix: true
+                title: '图标'
             }
         },
         {

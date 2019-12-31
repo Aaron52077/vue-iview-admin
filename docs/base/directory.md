@@ -21,8 +21,8 @@
 │   │     └── .../modelN/   模块N...
 │   ├── router/             主路由配置
 │   └── store/              vuex相关
-├── App.vue                 入口
+├── App.vue                 
 ├── main.js                 入口
-├── global.js               全局配置，公共方法、请求、等配置
+├── global.js               全局配置，公共方法集等配置
 └──.env*                    环境配置
 ```

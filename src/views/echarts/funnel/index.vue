@@ -11,11 +11,7 @@
                         <mEchart v-if="funnelObj1.data" :optionObj="funnelObj1.option"></mEchart>
                     </div>
                 </sCol>
-                <sCol :xs="24" :sm="24" :lg="12">
-                    <div class="echart-block">
-
-                    </div>
-                </sCol>
+                <sCol :xs="24" :sm="24" :lg="12"></sCol>
             </sRow>
         </div>
     </div>

@@ -5,11 +5,13 @@ const state = {
         {
             title: '默认',
             name: 'defalut',
+            logo: 'theme/defalut/logo@2x.png',
             preview: 'theme/defalut/preview@2x.png'
         },
         {
             title: '流星',
             name: 'star',
+            logo: 'theme/star/logo@2x.png',
             backgroundImage: 'theme/star/bg.jpg',
             preview: 'theme/star/preview@2x.png'
         }
