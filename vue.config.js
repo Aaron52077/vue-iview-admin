@@ -3,24 +3,9 @@
  * name: Aaron
  */
 const path = require('path')
-const GenerateAssetPlugin = require('generate-asset-webpack-plugin')
-
-const env = {
-    VUE_APP_API: process.env.VUE_APP_API
-}
 
 function resolve(dir) {
     return path.join(__dirname, dir)
-}
-
-// 配置自动生成
-/* eslint-disable no-new */
-let createServerConfig = function (compilation) {
-    var parseEnv = Object.assign({ _hash: compilation.hash }, env) // process.env
-    Object.keys(parseEnv).forEach(function (key) {
-        parseEnv[key] = parseEnv[key].replace(/"/g, "")
-    });
-    return JSON.stringify(parseEnv, null, 2)
 }
 
 module.exports = {
@@ -73,20 +58,10 @@ module.exports = {
         performance: {
             hints: false
         },
-        plugins: [
-            new GenerateAssetPlugin({
-                filename: './public/serverConfig.json',
-                fn: (compilation, cb) => {
-                    cb(null, createServerConfig(compilation))
-                },
-                extraFiles: []
-            })
-        ],
         // 配置解析别名  
         resolve: {
             alias: {
-                '@base': resolve('src/components/Base'),
-                '@h5': resolve('src/components/H5'),
+                '@base': resolve('src/components/Base')
             }
         }
     },

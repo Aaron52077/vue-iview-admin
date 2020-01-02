@@ -21,7 +21,7 @@ import Layout from '@/layout/main.vue'
 export const constantRoutes = [
     {
         path: '',
-        redirect: 'icons'
+        redirect: 'dashboard'
     },
     {
         path: '/redirect',

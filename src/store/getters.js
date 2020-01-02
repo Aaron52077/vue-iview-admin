@@ -9,6 +9,7 @@ const getters = {
     navbar: state => state.app.navbar,
     device: state => state.app.device,
     offsetTop: state => state.app.offsetTop,
+    sensitive: state => state.app.sensitive,
     permission_routes: state => state.permission.routes
 }
 

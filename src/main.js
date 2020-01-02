@@ -2,7 +2,6 @@
 import '@babel/polyfill'
 
 import Vue from 'vue'
-import axios from 'axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -14,7 +13,7 @@ import './router/permission' // permission control
 
 // 全局组件库
 import './components/iview'
-import './components/vant'
+// import './components/vant'
 import './components/index'
 
 import dataBase from './global'
@@ -69,44 +68,13 @@ dataBase.debug && (() => {
     } 
 })(); 
 
-// 传统方式
-// new Vue({
-//     router,
-//     store,
-//     created() {
-//         dataBase.init(this)
-//     },
-//     render: h => h(App)
-// }).$mount('#app')
-
-// 获取服务端动态配置地址方式
-function getServerConfig() {
-    return new Promise((resolve, reject) => {
-        axios.get('./serverConfig.json').then((result) => {
-            let config = result.data
-            axios.defaults.baseURL = config.VUE_APP_API   
-            console.log('baseURL', axios.defaults.baseURL)  // 验证是否已经把属性挂在了Vue上
-            resolve()
-        }).catch((error) => {
-            axios.defaults.baseURL = process.env.VUE_APP_API 
-            console.log(error)  
-            reject()
-        })
-    })
-}
-
-async function init() {
-    await getServerConfig();
-    new Vue({
-        router,
-        store,
-        created() {
-            dataBase.init(this)
-        },
-        render: h => h(App)
-    }).$mount('#app')
-}
-  
-init()
+new Vue({
+    router,
+    store,
+    created() {
+        dataBase.init(this)
+    },
+    render: h => h(App)
+}).$mount('#app')
 
 

@@ -1,5 +1,11 @@
 <template>
     <div class="gc-container gc-panel gc-table">
+        <div class="gc-container__h1">针对系统演示处理，一键脱敏：
+            <sSwitch true-color="#13ce66" false-color="#ff4949" @on-change="desensitization($event)">
+                <span slot="open">开</span>
+                <span slot="close">关</span>
+            </sSwitch>
+        </div>
         <sTable 
             ref="table"
             :height="520"
@@ -16,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import { mockTable } from '@/api'
 import dialogModal from './modal.vue'
 
@@ -45,6 +52,7 @@ export default {
                     key: 'name',
                     align: 'center',
                     title: '姓名',
+                    width: 120,
                     render: (h, params) => {
                         const _this = this
                         return h('sButton', {
@@ -56,7 +64,16 @@ export default {
                                     _this.rowData = params.row
                                 },
                             },
-                        }, params.row.name)
+                        }, _this.sensitive ? _this.dataBase.desensitizationName(params.row.name) : params.row.name)
+                    }
+                },
+                {
+                    key: 'id',
+                    align: 'center',
+                    title: '身份证号',
+                    render: (h, params) => {
+                        const _this = this
+                        return h('span', _this.sensitive ? _this.dataBase.desensitization(params.row.id, 3, -3) : params.row.id)
                     }
                 },
                 {
@@ -86,6 +103,11 @@ export default {
             ]
         }
     },
+    computed: {
+        ...mapGetters([
+            'sensitive'
+        ])
+    },
     created() {
         this.getTableData();
     },
@@ -106,7 +128,10 @@ export default {
         },
         onSelectCancel() {
 
-        }
+        },
+        ...mapMutations({
+            'desensitization': 'app/SET_SENSITIVE'
+        })
     },
     components: { dialogModal }
 }

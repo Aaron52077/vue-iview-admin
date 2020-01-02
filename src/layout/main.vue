@@ -15,15 +15,13 @@
                 </transition>
             </mInfiniteScroll>
         </div>
-        <!-- h5底部导航 tabbar -->
-        <footerView v-if="dataBase.h5" />
     </div>
 </template>
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex'
 import { locales } from '@/i18n'
-import { headerView, sidebarView, tagsView, footerView } from './components'
+import { headerView, sidebarView, tagsView } from './components'
 
 export default {
     name: 'layout-main',
@@ -32,7 +30,7 @@ export default {
             navActive: '组件类'
         }
     },
-    components: { headerView, sidebarView, tagsView, footerView },
+    components: { headerView, sidebarView, tagsView },
     computed: {
         ...mapGetters({
             themeActive: 'theme/activeSetting'

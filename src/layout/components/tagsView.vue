@@ -8,7 +8,7 @@
                 :class="isActive(tag) ? 'is-active' : ''"
                 :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
                 class="tags-view-item"
-                @click.middle.native="closeSelectedTag(tag)"
+                @click.native="onClick(tag.meta.title)"
                 @contextmenu.prevent.native="openMenu(tag, $event)">
                 {{tag.meta.title}}
                 <sIcon v-if="!tag.meta.affix" type="ios-close-circle-outline" :size="16" @click.prevent.stop="closeSelectedTag(tag)" />
@@ -97,6 +97,10 @@ export default {
                     this.$store.dispatch('tagsView/addVisitedView', tag)
                 }
             }
+        },
+        onClick(title) {
+            if (!title) return false 
+            this.$store.dispatch('app/setNavbar', title)
         },
         addTags() {
             const { name } = this.$route

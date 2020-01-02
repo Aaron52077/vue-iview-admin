@@ -19,8 +19,9 @@
 
 ## 演示demo
 
-[demo地址1](https://aaron52077.github.io/vue-iview-dev/#/)
-[demo地址2](http://112.124.28.207/prod-dist/#/)
+[demo地址1](http://wuli.sonw.cn)
+[demo地址2](https://aaron52077.github.io/vue-iview-dev/#/)
+[demo地址3](http://112.124.28.207/prod-dist/#/)
 
 > 开发预览
 
@@ -28,7 +29,7 @@
 # 1. git clone
 git clone https://github.com/Aaron52077/vue-wuli-ui.git
 
-# 2. 安装依赖
+# 2. 安装依赖 推荐使用yarn方式
 npm install (cnpm install)/(cnpm i)/(yarn install)
 
 # 3. 启动程序
@@ -41,4 +42,4 @@ npm run dev
 
 ## 截图
 
-![](https://github.com/Aaron52077/vue-wuli-ui/raw/master/docs/assets/index.png) 
+![](https://github.com/Aaron52077/vue-wuli-ui/raw/master/docs/assets/index.jpg) 

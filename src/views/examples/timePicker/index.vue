@@ -58,39 +58,11 @@
                 <sDatePicker type="date" :options="endTimeOptions" @on-change="endTimeChange" placeholder="结束时间" v-model="endtime" transfer></sDatePicker>
             </div>
         </div>
-        <div class="gc-container" style="margin-bottom: 25px">
-            <sDivider></sDivider>
-            <div class="gc-container__title">基于移动端的时间控件(请用打开手机预览模式)</div>
-            <template v-if="!$route.meta.menuHide && dataBase.h5">
-                <van-field label="开始时间" :value="currentDate1 || confData.start" placeholder="开始时间" readonly clickable @click="startVisible = true" />
-                <van-field label="结束时间" :value="currentDate2 || confData.end" placeholder="结束时间" readonly clickable @click="endVisible = true" />
-                <!-- 开始时间 -->
-                <van-popup v-model="startVisible" position="bottom" :overlay="true">
-                    <u-picker-date
-                        :type="dateType"
-                        v-model="startVisible"
-                        :max-date="maxDate"
-                        :date-value="currentDate1"
-                        @on-confirm="startConfirmHandle" />
-                </van-popup> 
-                <!-- 结束时间 -->
-                <van-popup v-model="endVisible" position="bottom" :overlay="true">
-                    <u-picker-date
-                        type="date"
-                        v-model="endVisible"
-                        :min-date="minDate"
-                        :date-value="currentDate2"
-                        @on-confirm="endConfirmHandle" />
-                </van-popup> 
-            </template>
-        </div>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
-import pickerDate from '@h5/PickerDate'
-
 export default {
     data () {
         return {
@@ -98,12 +70,6 @@ export default {
             endTimeOptions: {},     // 结束日期设置
             starttime: '',          // 开始日期
             endtime: '',            // 结束日期
-            startVisible: false,
-            endVisible: false,
-            currentDate1: '',       // 开始时间
-            currentDate2: '',       // 结束时间
-            minDate: undefined,     // 可选的最小时间
-            maxDate: undefined      // 可选的最大时间
         }
     },
     methods: {
@@ -134,14 +100,6 @@ export default {
                     return date && date.valueOf() > endTime;
                 }
             }
-        },
-        startConfirmHandle(data) {
-            this.currentDate1 = data.time;
-            this.minDate = data.date;
-        },
-        endConfirmHandle(data) {
-            this.currentDate2 = data.time
-            this.maxDate = data.date;
         }
     },
     computed: {
@@ -155,9 +113,6 @@ export default {
             }
             return date
         }
-    },
-    components: {
-        'uPickerDate': pickerDate
     }
 }
 </script>
