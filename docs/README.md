@@ -11,5 +11,5 @@ wuli-admin 是一个后台前端解决方案，它基于 vue 和 view-design实�
 
 > [演示demo 地址1](http://wuli.sonw.cn), [演示demo 地址2](https://aaron52077.github.io/vue-iview-dev/), [演示demo 地址3](http://112.124.28.207/prod-dist/)
 
-![](../../assets/index.jpg)
+![](./assets/index.jpg)
 <div align = right>文档更新时间： {docsify-updated}</div>

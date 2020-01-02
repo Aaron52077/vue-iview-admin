@@ -42,4 +42,4 @@ npm run dev
 
 ## 截图
 
-![](https://github.com/Aaron52077/vue-wuli-ui/raw/master/docs/assets/index.jpg) 
+![](https://github.com/Aaron52077/vue-wuli-ui/blob/master/docs/assets/index.jpg) 
