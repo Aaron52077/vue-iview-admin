@@ -62,9 +62,9 @@ export default {
         onPathHandle(name) {
             this.navActive = name;
             const stauts = {
-                '组件类': '图标',
-                'api': '工具合集',
-                '可视化': '图表'
+                '组件栏': '图标',
+                '插件类': '工具合集',
+                '图表': '图表'
             };
             this.$store.commit('app/SET_NAVBAR', stauts[name]);
         },
@@ -73,10 +73,10 @@ export default {
             this.$router.push(`/account?redirect=${this.$route.fullPath}`)
         },
         handleInfo(name) {
-            if(name === 'logout') {
+            if (name === 'logout') {
                 this.logout();
             }
-            if(name === 'admin') {
+            if (name === 'admin') {
                 this.$Modal.info({
                     title: '系统提示',
                     content: '<p>当前功能在计划中，敬请期待</p>'

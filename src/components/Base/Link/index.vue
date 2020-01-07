@@ -7,6 +7,7 @@
 </template>
 
 <script>
+/* eslint-disable no-new */
 export default {
     props: {
         to: {
@@ -20,7 +21,7 @@ export default {
          * @returns {Boolean}
          */
         isExternal(path) {
-            return /^(https?:|mailto:|tel:)/.test(path)
+            return /^(http?:|https?:|mailto:|tel:)/.test(path)
         },
         linkProps(url) {
             if (this.isExternal(url)) {

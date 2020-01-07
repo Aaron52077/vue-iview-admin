@@ -105,6 +105,9 @@ export default {
             padding-top: 60px;
             width: 210px;
             height: 100%;
+            .ivu-menu {
+                height: 100%;
+            }
         }
         &__rt {
             position: relative;

@@ -9,8 +9,6 @@
 
 <script>
 /* eslint-disable */
-import directives from '@/directive/install'
-
 export default {
 	data() {
 		return {
@@ -53,34 +51,34 @@ export default {
                         base: ['#navTop', '#navBottom'],
                         cls: []
                     }
-                opt = $.extend(true,{}, opt, vm.config)
-                let cls = opt.base.concat(opt.cls);
-                //计算固定区域高度
-                var getHeight = function() {
-                    if($(el).length){
-                        var r = 0;
-                        $(cls.join(',')).map(function() {
-                            r += $(this).outerHeight(true) || 0;
-                        })
-                        if(opt.minOffset) {
-                            var minH = $(window).height() - r - opt.minOffset;
-                            vm.currentValue = minH;
-                            $(el).css({ minHeight: minH });
-                        }else {
-                            var h = $(window).height() - r - opt.offset;
-                            vm.currentValue = h;
-                            $(el).css({ height:h });
+                    opt = $.extend(true, {}, opt, vm.config)
+                    let cls = opt.base.concat(opt.cls);
+                    //计算固定区域高度
+                    var getHeight = function() {
+                        if ($(el).length) {
+                            var r = 0;
+                            $(cls.join(',')).map(function() {
+                                r += $(this).outerHeight(true) || 0;
+                            })
+                            if (opt.minOffset) {
+                                var minH = $(window).height() - r - opt.minOffset;
+                                vm.currentValue = minH;
+                                $(el).css({ minHeight: minH });
+                            } else {
+                                var h = $(window).height() - r - opt.offset;
+                                vm.currentValue = h;
+                                $(el).css({ height:h });
+                            }
                         }
                     }
-                }
-                const id = vm.dataBase.uuid();
-                vm.dataBase.setData('gc-fixed-height', id);
-                $(el).attr('infinite_id', id);
-                getHeight();
-                setTimeout(() => { 
-                    getHeight(); 
-                }, 200);
-                $(window).off('resize.infinite_id' + id).on('resize.infinite_id' + id, getHeight); // 已id方式注册事件
+                    const id = vm.dataBase.uuid();
+                    vm.dataBase.setData('gc-fixed-height', id);
+                    $(el).attr('infinite_id', id);
+                    getHeight();
+                    setTimeout(() => { 
+                        getHeight(); 
+                    }, 200);
+                    $(window).off('resize.infinite_id' + id).on('resize.infinite_id' + id, getHeight); // 已id方式注册事件
                 });
             },
             unbind: function(el,binding) { 

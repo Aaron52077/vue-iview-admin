@@ -6,27 +6,27 @@ export default {
         const clipboard = new Clipboard(el, {
             text: () => binding.value.value
         })
-        el.__success_callback__ = binding.value.success
-        el.__error_callback__ = binding.value.error
+        el.success_callback = binding.value.success
+        el.error_callback = binding.value.error
         clipboard.on('success', e => {
-            const callback = el.__success_callback__
+            const callback = el.success_callback
             callback && callback(e)
         })
         clipboard.on('error', e => {
-            const callback = el.__error_callback__
+            const callback = el.error_callback
             callback && callback(e)
         })
-        el.__clipboard__ = clipboard
+        el.clipboard = clipboard
     },
     update: (el, binding) => {
-        el.__clipboard__.text = () => binding.value.value
-        el.__success_callback__ = binding.value.success
-        el.__error_callback__ = binding.value.error
+        el.clipboard.text = () => binding.value.value
+        el.success_callback = binding.value.success
+        el.error_callback = binding.value.error
     },
     unbind: (el, binding) => {
-        delete el.__success_callback__
-        delete el.__error_callback__
-        el.__clipboard__.destroy()
-        delete el.__clipboard__
+        delete el.success_callback
+        delete el.error_callback
+        el.clipboard.destroy()
+        delete el.clipboard
     }
 }

@@ -10,12 +10,12 @@ export const navList = [
     },
     {
         icon: 'md-build',
-        name: 'api',
+        name: '插件类',
         path: '/api'
     },
     {
         icon: 'ios-podium',
-        name: '可视化',
+        name: '图表',
         path: '/echarts'
     }
 ]
@@ -45,15 +45,16 @@ export const menuList = [
         ]
     },
     {
-        name: 'API',
+        name: '插件类',
         children: [
             {name: '工具合集', path: '/api', icon: 'md-filing'},
             {name: '富文本', path: '/api/editor', icon: 'ios-share'},
-            {name: '图片裁剪', path: '/api/cropper', icon: 'md-clipboard'}
+            {name: '图片裁剪', path: '/api/cropper', icon: 'md-clipboard'},
+            {name: '拖拽布局', path: '/api/grid', icon: 'md-crop'}
         ]
     },
     {
-        name: '可视化 BI',
+        name: '图表示例',
         children: [
             {name: '图表', path: '/echarts/exp', icon: 'md-podium'},
             {name: '柱状图', path: '/echarts/bar', icon: 'md-stats'},

@@ -1,7 +1,8 @@
 <template>
     <mScrollbar :config="{offset: offsetTop + 60}" hide>
-        <sMenu :active-name="navbar" :width="`${layoutWeb}px`">
+        <sMenu :active-name="navbar" :width="`${layoutWeb}px`" accordion>
             <sMenuGroup v-for="(item, index) in menuList" :key="index" :title="item.name">
+                <template slot="title"><sIcon type="ios-paper" />{{item.name}}</template>
                 <sMenuItem v-for="(m, idx) in item.children" :key="idx" :name="m.name" :to="m.path" v-waves>
                     <sIcon :type="m.icon" /><span v-show="!dataBase.h5">{{t(m.name)}}</span>
                 </sMenuItem>

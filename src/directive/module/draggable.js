@@ -28,7 +28,7 @@ export default {
             let yOffset = e.pageY - pageY + transformY
             if (canMove) bodyDom.style.transform = `translate(${xOffset}px, ${yOffset}px)`
         }
-        const handleMouseup = e => {
+        const handleMouseup = () => {
             canMove = false
         }
         on(triggerDom, 'mousedown', handleMousedown)

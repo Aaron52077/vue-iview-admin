@@ -5,13 +5,13 @@ export default {
         module: 'api',
         title: 'API'
     },
-    redirect: '/api/page',
+    redirect: '/api/util',
     component: r => require.ensure([], () => r(require('../../layout/index.vue')), 'api'),
     children: [
         {
-            path: 'page',
-            name: 'api-page',
-            component: r => require.ensure([], () => r(require('./page/main.vue')), 'api'),
+            path: 'util',
+            name: 'api-util',
+            component: r => require.ensure([], () => r(require('./util/main.vue')), 'api'),
             meta: {
                 module: 'api',
                 title: '工具合集'
@@ -34,6 +34,15 @@ export default {
                 module: 'api',
                 title: '图片裁剪'
             },
-        }
+        },
+        {
+            path: 'grid',
+            name: 'api-grid',
+            component: r => require.ensure([], () => r(require('./grid/main.vue')), 'api'),
+            meta: {
+                module: 'api',
+                title: '拖拽式布局'
+            }
+        },
     ]
 }

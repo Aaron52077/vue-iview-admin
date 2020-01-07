@@ -46,6 +46,7 @@ import {demo1, demo2, demo3} from './config'
 export default {
     data () {
         return {
+            chartsType: ['bar', 'boxplot', 'funnel', 'gauge', 'line', 'map', 'pie', 'radar', 'scatter', 'treemap'],
             chartObj: {
                 demo1,
                 demo2,

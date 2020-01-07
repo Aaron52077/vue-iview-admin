@@ -62,7 +62,7 @@ dataBase.debug && (() => {
     script.onload = () => { 
         try { 
             var vConsole = new VConsole();
-        }catch(e) {
+        } catch(e) {
             throw new Error(e)
         };  
     } 
