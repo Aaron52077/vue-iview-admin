@@ -4,7 +4,6 @@ import { resetRouter } from '@/router'
 
 const state = {
     token: cache.getLocal('token'),
-    logs: [],               // 错误日志
     roles: [],
     name: cache.getLocal('user_name'),
     avatar: cache.getLocal('user_avatar')
@@ -22,9 +21,6 @@ const mutations = {
     },
     setRoles: (state, roles) => {
         state.roles = roles
-    },
-    setLogs: (state, val) => {
-        state.logs.push(val)
     }
 }
 

@@ -56,9 +56,15 @@ Mock.mock(BASE_URL + '/table', {
         "name": "@cname",
         "status|1": [1, 2, 3],
         "age|12-24": 0,
-        "time": "@date('yyyy-MM-dd')",
         "update": "@datetime('yyyy-MM-dd HH:mm:ss')",
-        "address": "@city(true)"
+        "address": "@city(true)",
+        "email": "@email",
+        "phone": /^1[385][1-9]\d{8}/,
+        "point|10": [{
+            "seatNo": "@character('upper')",
+            "seatArray|10": ["@natural(0, 2)"]
+        }],
+        "tool": "@range(1, 11)"
     }]
 });
 

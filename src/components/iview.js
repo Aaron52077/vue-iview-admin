@@ -53,7 +53,9 @@ import {
     Cell,
     CellGroup,
     Badge,
-    Drawer 
+    Drawer,
+    Carousel,
+    CarouselItem
 } from 'view-design'
 
 // 全局注册组件
@@ -109,7 +111,9 @@ const components = {
     'sCell': Cell,
     'sCellGroup': CellGroup,
     'sBadge': Badge,
-    'sDrawer': Drawer
+    'sDrawer': Drawer,
+    'sCarousel': Carousel,
+    'sCarouselItem': CarouselItem
 }
 
 // 全局注册按需iview组件

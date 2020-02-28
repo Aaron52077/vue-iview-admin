@@ -1,7 +1,27 @@
 <template>
     <div class="gc-container gc-panel gc-table">
-        <div class="gc-container__h1">针对系统演示处理，一键脱敏：
-            <sSwitch true-color="#13ce66" false-color="#ff4949" @on-change="desensitization($event)">
+        <sRow :gutter="16" class="gc-block__row">
+            <sCol :xs="24" :sm="12" :lg="12">
+                <div class="gc-comp">
+                    <sCard title="置顶组件" icon="ios-options" :padding="0">
+                        <sCellGroup>
+                            <sCell v-for="(item, index) in compList" :key="index" :title="item.name" extra="查看" :to="item.path" :icon="item.icon" />
+                        </sCellGroup>
+                    </sCard>
+                </div>
+            </sCol>
+            <sCol :xs="24" :sm="12" :lg="12">
+                <div class="gc-thumb">
+                    <sCarousel :autoplay-speed="4000" :height="355">
+                        <sCarouselItem v-for="item in carouselImages" :key="item">
+                            <img :src="item" class="gc-thumb__img">
+                        </sCarouselItem>
+                    </sCarousel>
+                </div>
+            </sCol>
+        </sRow>
+        <div class="gc-container__h1" style="margin: 10px 0;">针对预约系统演示处理，一键脱敏：
+            <sSwitch true-color="#13ce66" false-color="#ff4949" @on-change="desensitizations($event)">
                 <span slot="open">开</span>
                 <span slot="close">关</span>
             </sSwitch>
@@ -11,25 +31,38 @@
             :height="520"
             :columns="tableCols"
             :data="tableData.records"
-            border
-            @on-select-all-cancel="onSelectCancel"
-            @on-select-all="onSelectAll"
-            @on-select="onSelect"
-            @on-select-cancel="onDelteteSelect" />
+            border />
         <!-- 操作层 -->
         <dialogModal v-model="visible" :row="rowData" />
+        <!-- 选座大厅预约 -->
+        <seat-hall 
+            v-model="seatVisible" 
+            :seat-tool="seatTool" 
+            :seat-data="seatList" 
+            :tool-list="toolList" 
+            @on-confirm="onConfirmHandle" />
     </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 import { mockTable } from '@/api'
+import { compList } from '@/layout/config'
 import dialogModal from './modal.vue'
+import seatHall from './seat.vue'          // 选座大厅
 
 export default {
     data () {
         return {
+            carouselImages: [
+                'https://wpimg.wallstcn.com/9679ffb0-9e0b-4451-9916-e21992218054.jpg',
+                'https://wpimg.wallstcn.com/bcce3734-0837-4b9f-9261-351ef384f75a.jpg',
+                'https://wpimg.wallstcn.com/d1d7b033-d75e-4cd6-ae39-fcd5f1c0a7c5.jpg',
+                'https://wpimg.wallstcn.com/50530061-851b-4ca5-9dc5-2fead928a939.jpg'
+            ],
+            compList,       // 组件列表
             visible: false,
+            seatVisible: false,
             rowData: {},
             tableData: {
                 total: 0,
@@ -37,12 +70,10 @@ export default {
                 size: 10,
                 records: []     // 数据源
             },
+            toolList: [],
+            seatTool: [],
+            seatList: [],
             tableCols: [
-                {
-                    type: 'selection',
-                    width: 60,
-                    align: 'center'
-                },
                 {
                     type: 'index',
                     width: 65,
@@ -64,7 +95,16 @@ export default {
                                     _this.rowData = params.row
                                 },
                             },
-                        }, _this.sensitive ? _this.dataBase.desensitizationName(params.row.name) : params.row.name)
+                        }, _this.dataBase.desensitization(params.row.name))
+                    }
+                },
+                {
+                    key: 'phone',
+                    align: 'center',
+                    title: '手机号码',
+                    render: (h, params) => {
+                        const _this = this
+                        return h('span', _this.dataBase.desensitization(params.row.phone, { type: 'tel' }))
                     }
                 },
                 {
@@ -73,16 +113,25 @@ export default {
                     title: '身份证号',
                     render: (h, params) => {
                         const _this = this
-                        return h('span', _this.sensitive ? _this.dataBase.desensitization(params.row.id, 3, -3) : params.row.id)
+                        return h('span', _this.dataBase.desensitization(params.row.id, { type: 'identity' }))
+                    }
+                },
+                {
+                    key: 'email',
+                    align: 'center',
+                    title: '邮箱地址',
+                    render: (h, params) => {
+                        const _this = this
+                        return h('span', _this.dataBase.desensitization(params.row.email, { type: 'email', start: 2, end: -5 }))
                     }
                 },
                 {
                     title: '状态',
                     key: 'status',
                     render: (h, params) => {
-                        const row = params.row;
-                        const color = row.status === 1 ? 'primary' : row.status === 2 ? 'success' : 'error';
-                        const text = row.status === 1 ? 'Working' : row.status === 2 ? 'Success' : 'Fail';
+                        const { status } = params.row;
+                        const color = status === 1 ? 'primary' : status === 2 ? 'success' : 'error';
+                        const text = status === 1 ? 'Working' : status === 2 ? 'Success' : 'Fail';
 
                         return h('sTag', {
                             props: {
@@ -93,20 +142,31 @@ export default {
                     }
                 },
                 {
-                    title: '计划时间',
-                    key: 'time'
-                },
-                {
                     title: '更新时间',
                     key: 'update'
+                },
+                {
+                    align: 'center',
+                    title: '操作',
+                    width: 120,
+                    render: (h, params) => {
+                        const _this = this
+                        return h('sButton', {
+                            props: {type: 'text', size: 'small'},
+                            class: ['gc-btn-text'],
+                            on: {
+                                click() {
+                                    _this.seatVisible = true
+                                    _this.toolList = params.row.tool;
+                                    _this.seatTool = params.row.point.map(item => item.seatNo);
+                                    _this.seatList = params.row.point;
+                                },
+                            },
+                        }, '预约')
+                    }
                 }
             ]
         }
-    },
-    computed: {
-        ...mapGetters([
-            'sensitive'
-        ])
     },
     created() {
         this.getTableData();
@@ -117,22 +177,25 @@ export default {
                 this.tableData.records = res.data
             });
         },
-        onSelect() {
-
-        },
-        onSelectAll() {
-
-        },
-        onDelteteSelect() {
-
-        },
-        onSelectCancel() {
-
+        onConfirmHandle(data) {
+            this.$store.state.seat.cachedSeats = [];
+            this.$Message.success(`当前选座为：${data.seatNo}排${data.timeIndexStr}座`);
+            this.confirmVisible = true;
         },
         ...mapMutations({
-            'desensitization': 'app/SET_SENSITIVE'
-        })
+            'desensitizations': 'app/SET_SENSITIVE'
+        }),
     },
-    components: { dialogModal }
+    components: { dialogModal, seatHall }
 }
 </script>
+
+<style lang="less">
+.gc-thumb {
+    &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+</style>

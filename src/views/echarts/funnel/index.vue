@@ -39,8 +39,8 @@
 
 <script>
 import vCharts from '@/components/mixins/v-charts.js'
-import { echartFunnelAPI } from '@/api/echarts';
-import { EchartsFunnel } from '@base/Echart/configs/funnel';
+import { echartFunnelAPI } from '@/api/echarts'
+import { EchartsFunnel } from '@base/Echart/configs/funnel'
 
 export default {
     mixins: [vCharts],

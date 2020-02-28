@@ -20,8 +20,7 @@
 ## 演示demo
 
 [demo地址1](http://wuli.sonw.cn)
-[demo地址2](https://aaron52077.github.io/vue-iview-dev/#/)
-[demo地址3](http://112.124.28.207/prod-dist/#/)
+[demo地址2](http://wuli-admin.gitee.io/vue-iview-dev/#/)
 
 > 开发预览
 

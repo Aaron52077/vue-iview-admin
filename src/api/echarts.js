@@ -1,5 +1,11 @@
 import { fetch } from '@/utils/fetch'
 
+// base
+export function echartBaseAPI() {
+    let res = fetch('/comp/charts')
+    return res
+}
+
 // bar
 export function echartBarAPI() {
     let res = fetch('/echart/bar')

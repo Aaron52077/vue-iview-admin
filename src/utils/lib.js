@@ -1,29 +1,4 @@
 /* eslint-disable */ 
-// 数据脱敏处理
-export function desensitization(str, begin, end) {
-    let tempStr = '';
-    if(typeof str === 'string' && !!str) {
-        let len = str.length;
-        var firstStr = str.substr(0, begin);
-        var lastStr = str.substr(end);
-        var middleStr = str.substring(begin, len - Math.abs(end)).replace(/[\s\S]/g, '*');
-        
-        tempStr = firstStr + middleStr + lastStr;
-        return tempStr;
-    }
-    return tempStr;
-}
-
-export function desensitizationName(str) {
-    let tempStr = '';
-    if(typeof str === 'string' && !!str) {
-        let len = str.length;
-        tempStr = str.substr(0, 1) + str.substring(1, len).replace(/[\s\S]/g, '*');
-        return tempStr;
-    }
-    return tempStr;
-}
-
 // 解析时间方式2 ps:另外一种在全局过滤器中
 const dateToStrParser = (date) => {
     let _date = new Date(date);
@@ -40,29 +15,11 @@ const dateToStrParser = (date) => {
 };
 
 /**
- * 过滤对象中为空的属性
- * @param obj
- * @returns {*}
- */
-export const filterObj = (obj) => {
-    if (!(typeof obj == 'object')) {
-        return;
-    }
-
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key) && (obj[key] == null || obj[key] == undefined || obj[key] === '')) {
-            delete obj[key];
-        }
-    }
-    return obj;
-}
-
-/**
  * @param {*} obj1 对象
  * @param {*} obj2 对象
  * @description 判断两个对象是否相等，这两个对象的值只能是数字或字符串
  */
-export const objEqual = (obj1, obj2) => {
+const objEqual = (obj1, obj2) => {
     const keysArr1 = Object.keys(obj1)
     const keysArr2 = Object.keys(obj2)
     if (keysArr1.length !== keysArr2.length) return false
@@ -71,8 +28,22 @@ export const objEqual = (obj1, obj2) => {
     else return !keysArr1.some(key => obj1[key] != obj2[key])
 }
 
+/**
+ * @description 判断数组是否相等
+ * @param {arr1, arr2}
+ * @return {Boolean}
+ */
+export const arrayEqual = (arr1, arr2) => {
+    if (arr1 === arr2) return true
+    if (arr1.length !== arr2.length) return false
+    for (let i = 0; i < arr1.length; ++i) {
+        if (arr1[i] !== arr2[i]) return false
+    }
+    return true
+}
+
 // scrollTop animation
-export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
+const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
     if (!window.requestAnimationFrame) {
         window.requestAnimationFrame = (
             window.webkitRequestAnimationFrame ||
@@ -111,7 +82,7 @@ export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
 /**
  * @returns {String} 当前浏览器名称
  */
-export const getExplorer = () => {
+const getBrowserType = () => {
     const ua = window.navigator.userAgent
     const isExplorer = (exp) => {
         return ua.indexOf(exp) > -1
@@ -132,4 +103,91 @@ function bouncer(arr) {
     return arr.filter(value => {
         return !(!value || value === "")
     });
+}
+
+/**
+ * 过滤对象中为空的属性
+ * @param obj
+ * @returns {*}
+ */
+const filterObj = (obj) => {
+    if (!(typeof obj == 'object')) {
+        return;
+    }
+
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key) && (obj[key] == null || obj[key] == undefined || obj[key] === '')) {
+            delete obj[key];
+        }
+    }
+    return obj;
+}
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+function isString(str) {
+    if (typeof str === 'string' || str instanceof String) {
+        return true
+    }
+    return false
+}
+
+/**
+ * @param {Array} arg
+ * @returns {Boolean}
+ */
+function isArray(arg) {
+    if (typeof Array.isArray === 'undefined') {
+        return Object.prototype.toString.call(arg) === '[object Array]'
+    }
+    return Array.isArray(arg)
+}
+
+/**
+ * @param {Array} 不同数组，取交集
+ * @returns {Array}
+ */
+function array2Equal(arr1, arr2) {
+    let arr = [];
+    arr2.forEach(item => {
+        if (arr1.some(m => m.key === item.key)) {
+            arr.push(item)
+        }
+    });
+    return arr;
+}
+
+// 简单函数回调封装
+const forEach = (arr, fn) => {
+    if (!arr.length || !fn) return
+    let i = -1
+    let len = arr.length
+    while (++i < len) {
+        let item = arr[i]
+        fn(item, i, arr)
+    }
+}
+
+// 小写金额转大写
+function moneyFormat(num) {
+    if (isNaN(num)) return '';
+    var strPrefix = '';
+    if (num < 0) strPrefix = '(负)';
+    num = Math.abs(num);
+    if (num >= 1000000000000) return '';
+    var strOutput = '';
+    var strUnit = '仟佰拾亿仟佰拾万仟佰拾元角分';
+    var strCapDgt = '零壹贰叁肆伍陆柒捌玖';
+    num += "00";
+    var intPos = num.indexOf('.');
+    if (intPos >= 0) {
+        num = num.substring(0, intPos) + num.substr(intPos + 1, 2);
+    }
+    strUnit = strUnit.substr(strUnit.length - num.length);
+    for (let i = 0, len = num.length; i < len; i++) {
+        strOutput += strCapDgt.substr(num.substr(i, 1), 1) + strUnit.substr(i, 1);
+    }
+    return strPrefix + strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, '零元')
 }

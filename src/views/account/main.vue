@@ -22,23 +22,41 @@
             <sForm ref="formData" :model="formData" :rules="rules">
                 <sFormItem prop="username">
                     <sInput type="text" v-model="formData.username" placeholder="帐号">
-                        <sIcon type="ios-person-outline" slot="prepend"></sIcon>
+                        <sIcon type="ios-person-outline" slot="prepend" />
                     </sInput>
                 </sFormItem>
                 <sFormItem prop="password">
-                    <sInput ref="password" :type="passwordType" v-model="formData.password" placeholder="密码" @on-enter="handleSubmit()">
-                        <sIcon :type="passwordType === 'password' ? 'ios-eye-off' : 'ios-eye'" slot="prepend" @click.native="handlePassword()"></sIcon>
+                    <sInput ref="password" :type="passwordType" v-model="formData.password" placeholder="密码">
+                        <sIcon :type="passwordType === 'password' ? 'ios-eye-off' : 'ios-eye'" slot="prepend" @click.native="handlePassword()" />
+                    </sInput>
+                </sFormItem>
+                <sFormItem prop="sidentify">
+                    <sInput placeholder="验证码" v-model="formData.sidentify" :maxlength="4" @on-enter="handleSubmit()">
+                        <sIcon type="md-ionitron" slot="prepend" />
+                        <mIdentifyCanvas v-show="identifyType === 'canvas'" slot="append" :width="90" :height="30" :value.sync="identifyCode" @click="getIdentifyCode" />
+                        <mIdentify v-show="identifyType === 'normal'" slot="append" :value.sync="identifyCode" :width="90" :height="30" @click="getIdentifyCode" />
                     </sInput>
                 </sFormItem>
                 <sFormItem>
                     <div class="gc-login__items">
                         <div class="gc-login__item">
+                            <span>验证码风格:</span>
+                        </div>
+                    </div>
+                    <sRadioGroup v-model="identifyType" type="button">
+                        <sRadio label="normal">normal</sRadio>
+                        <sRadio label="canvas">canvas</sRadio>
+                    </sRadioGroup>
+                </sFormItem>
+                <sFormItem>
+                    <div class="gc-login__items">
+                        <div class="gc-login__item">
                             <span>{{t('帐号')}}: admin</span>
-                            <span>{{t('密码')}}: {{t('任意类型')}}</span>
+                            <span>{{t('密码')}}: {{t('任意')}}</span>
                         </div>
                     </div>
                     <sButton type="primary" :loading="loading" @click="handleSubmit">登陆</sButton>
-                    <sButton type="info" @click="thirdAccout">第三方登录</sButton>
+                    <sButton style="margin-left: 5px;" type="info" @click="thirdAccout">第三方登录模拟</sButton>
                 </sFormItem>
             </sForm>
         </div>
@@ -56,19 +74,30 @@
 <script>
 /* eslint-disable */
 import { locales } from '@/i18n'
-import { encryption } from "@/utils"
+import { encryption } from '@/utils'
+import { mIdentify, mIdentifyCanvas } from '@base/Identify'
 import pointwave from './pointwave.vue'
 
 export default {
     name: 'account',
     data () {
+        const validateSidentify = (rule, value, callback) => {
+            if (value && (value.toLowerCase() !== this.identifyCode.toLowerCase())) {
+                callback(new Error('请填写正确验证码'));
+            } else {
+                callback();
+            }
+        };
         return {
             redirect: undefined,
             timeInterval: null,
             nowTime: this.dataBase.dateToStr(new Date(), 'hh:mm:ss'),
+            identifyCode: '',
+            identifyType: 'normal',
             formData: {
                 username: 'admin',
-                password: '111111'
+                password: '111111',
+                sidentify: ''
             },
             rules: {
                 username: [
@@ -77,6 +106,9 @@ export default {
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
                     { type: 'string', min: 1, message: '长度在 1 到 10 个字符', trigger: 'blur' }
+                ],
+                sidentify: [
+                    { validator: validateSidentify, trigger: "blur" }
                 ]
             },
             loading: false,
@@ -133,11 +165,12 @@ export default {
                     this.$store.dispatch('user/accountIn', formData).then(res => {
                         this.loading = false
                         this.$router.push({ path: this.redirect || '/' })
+                        this.$Message.success('登录成功！')
                     }).catch(err => {
                         this.loading = false
                     });
                 } else {
-                    this.$message.error('error submit!!')
+                    this.$Message.error('登录失败！')
                     return false
                 }
             })
@@ -145,11 +178,8 @@ export default {
         handleLanguages(name) {
             this.dataBase.setLang = name
         },
-        thirdAccout(thirdpart = '单点登录') {        
-            const cassos = 'http://10.88.83.111:3033/sso/login'
-            const redirect_uri = encodeURIComponent(cassos + '/auth')
-            const url = 'http://authserver.lzzy.net/authserver/login?service=' + cassos + '&redirect_uri=' + redirect_uri + '&scope=snsapi_login#auth_redirect'
-            this.openModal(url, thirdpart, 1080, 810)
+        thirdAccout(thirdpart = '测试登录') {        
+            this.openModal('https://e.weibo.com/register/register', thirdpart, 1080, 810)
         },
         /**
         * @param {Sting} url
@@ -173,10 +203,13 @@ export default {
             if (window.focus) {
                 newWindow.focus()
             }
+        },
+        getIdentifyCode(data) {
+            this.identifyCode = data
         }
     },
     locales: locales,
-    components: { pointwave }
+    components: { pointwave, mIdentify, mIdentifyCanvas }
 }
 </script>
 
@@ -193,7 +226,7 @@ export default {
     }
     &__bd {
         position: relative;
-        width: 420px;
+        width: 430px;
         max-width: 100%;
         padding: 180px 35px 0;
         margin: 0 auto;
@@ -213,7 +246,7 @@ export default {
         font-size: 14px;
         color: #fff;
         margin-bottom: 10px;
-         span:first-of-type {
+        span:first-of-type {
             margin-right: 16px;
         }
     }
@@ -279,5 +312,3 @@ export default {
     }
 }
 </style>
-
-

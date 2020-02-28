@@ -65,7 +65,7 @@ export function param2Obj(url) {
 }
 
 // 防抖机制
-export function debounce(func, wait, immediate) {
+export function debounce(fn, wait, immediate) {
     let timeout, args, context, timestamp, result
 
     const later = function () {
@@ -77,9 +77,9 @@ export function debounce(func, wait, immediate) {
             timeout = setTimeout(later, wait - last)
         } else {
             timeout = null
-            // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
+            // 如果设定为immediate === true，因为开始边界已经调用过了此处无需调用
             if (!immediate) {
-                result = func.apply(context, args)
+                result = fn.apply(context, args)
                 if (!timeout) context = args = null
             }
         }
@@ -92,11 +92,26 @@ export function debounce(func, wait, immediate) {
         // 如果延时不存在，重新设定延时
         if (!timeout) timeout = setTimeout(later, wait)
         if (callNow) {
-            result = func.apply(context, args)
+            result = fn.apply(context, args)
             context = args = null
         }
 
         return result
+    }
+}
+
+// 节流机制
+export function throttle(fn, wait) {
+    let timer = null
+    return function() {
+        let context = this,
+            args = arguments;
+        if (!timer) {
+            timer = setTimeout(function () {
+                fn.apply(context,args)
+                timer = null
+            }, wait)
+        }
     }
 }
 
@@ -221,15 +236,4 @@ export const setTitle = (routeItem, vm) => {
     const handledRoute = getRouteTitleHandled(routeItem)
     const pageTitle = showTitle(handledRoute, vm)
     window.document.title = `${pageTitle} wuli-admin`
-}
-
-// 简单函数回调封装
-export const forEach = (arr, fn) => {
-    if (!arr.length || !fn) return
-    let i = -1
-    let len = arr.length
-    while (++i < len) {
-        let item = arr[i]
-        fn(item, i, arr)
-    }
 }

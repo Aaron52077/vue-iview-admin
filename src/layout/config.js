@@ -41,7 +41,9 @@ export const menuList = [
             {name: '虚拟列表', path: '/vlist', icon: 'ios-list'},
             {name: '文件预览', path: '/docPreview', icon: 'md-book'},
             {name: '视频预览', path: '/videoPreview', icon: 'md-videocam'},
-            {name: '地图检索', path: '/map', icon: 'md-compass'}
+            {name: '地图坐标拾取器', path: '/map', icon: 'md-compass'},
+            {name: '动态数值', path: '/countTo', icon: 'logo-yen'},
+            {name: '无缝滚动', path: '/seamless', icon: 'md-megaphone'}
         ]
     },
     {
@@ -50,7 +52,8 @@ export const menuList = [
             {name: '工具合集', path: '/api', icon: 'md-filing'},
             {name: '富文本', path: '/api/editor', icon: 'ios-share'},
             {name: '图片裁剪', path: '/api/cropper', icon: 'md-clipboard'},
-            {name: '拖拽布局', path: '/api/grid', icon: 'md-crop'}
+            {name: '拖拽布局', path: '/api/grid', icon: 'md-crop'},
+            {name: '贷款计算器', path: '/api/calculator', icon: 'ios-calculator'}
         ]
     },
     {
@@ -69,4 +72,15 @@ export const menuList = [
             {name: '气泡图', path: '/echarts/scatter', icon: 'md-radio-button-off'}
         ]
     }
+]
+
+export const compList = [
+    {name: '时间控件', path: '/timePicker', icon: 'md-time'},
+    {name: '树状下拉选择器', path: '/treeSelect', icon: 'ios-arrow-down'},
+    {name: '贷款计算器', path: '/api/calculator', icon: 'md-infinite'},
+    {name: '拖拽抽屉', path: '/dragDrawer', icon: 'md-list'},
+    {name: '地图坐标拾取器', path: '/map', icon: 'md-compass'},
+    {name: '动态数值', path: '/countTo', icon: 'logo-yen'},
+    {name: '无缝滚动', path: '/seamless', icon: 'md-megaphone'},
+    {name: '拖拽布局', path: '/api/grid', icon: 'md-crop'}
 ]

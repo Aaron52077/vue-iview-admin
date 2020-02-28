@@ -53,21 +53,7 @@ export default {
                 : {}
         }
     },
-    created() {
-        // 引入百度地图
-        // this.MapInit();
-    },
     methods: {
-        MapInit(ak = 'c939d01cf713a7826caf8421b9be8c81') {
-            var _hmt = _hmt || [];
-            (function () {
-                var hm = document.createElement("script");
-                hm.async = 1;
-                hm.src = "http://api.map.baidu.com/api?v=2.0&ak=" + ak + "&callback=init";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();
-        },
         openUrl() {
             // 跳转新链接方式
             let routeUrl = this.$router.resolve({path: '/bi'});

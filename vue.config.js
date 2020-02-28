@@ -11,8 +11,8 @@ const resolve = dir => path.join(__dirname, dir)
 process.env.VUE_APP_VERSION = require('./package.json').version
 
 // 设置不参与构建的库
-let externals = {}
-cdnDependencies.forEach(package => { externals[package.name] = package.library })
+// let externals = {}
+// cdnDependencies.forEach(package => { externals[package.name] = package.library })
 
 // 引入文件的 cdn 链接
 const cdn = {
@@ -67,6 +67,7 @@ module.exports = {
         // provide the app's title in webpack's name field, so that
         // it can be accessed in index.html to inject the correct title.
         name: process.env.VUE_APP_TITLE,
+        // externals: externals,
         performance: {
             hints: false
         },
@@ -99,6 +100,7 @@ module.exports = {
         config.plugins.delete('prefetch').delete('preload')
         // 解决 cli3 热更新失效 https://github.com/vuejs/vue-cli/issues/1559
         config.resolve.symlinks(true)
+        
         // building config. webpack 4.0, 开发环境 sourcemap 不包含列信息
         config.when(process.env.NODE_ENV === 'development',
             config => config.devtool('cheap-source-map')
@@ -121,7 +123,7 @@ module.exports = {
                   name: 'chunk-libs',
                   test: /[\\/]node_modules[\\/]/,
                   priority: 10,
-                  chunks: 'initial' // only package third parties that are initially dependent
+                  chunks: 'initial' // only package third parties that are initially dependent, 只打包初始时依赖的第三方
                 },
                 commons: {
                   name: 'chunk-commons',
@@ -133,7 +135,6 @@ module.exports = {
               }
             })
           config.optimization.runtimeChunk('single')
-          config.externals = externals
         }
       )
     }

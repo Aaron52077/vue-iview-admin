@@ -12,6 +12,7 @@
                         <sIcon :type="item.icon" />{{t(item.name)}}
                     </sMenuItem>
                 </sMenu>
+                <mGlobalSearch id="global-search" class="gc-head__inner" />
             </template>
             <sDropdown class="gc-head__info" transfer @on-click="handleInfo($event)">
                 <mAvatar :src="avatar" />
@@ -27,9 +28,9 @@
                     <sDropdownItem name="logout" divided>退出登录</sDropdownItem>
                 </sDropdownMenu>
             </sDropdown>
-            <mGlobalSearch id="global-search" class="gc-head__inner" />
             <mScreenfull class="gc-head__icons" v-model="isFullscreen" />
             <mGlobalTheme class="gc-head__icons" />
+            <mGlobalErrorLog class="gc-head__icons" />
         </div>
     </header>
 </template>
@@ -38,6 +39,7 @@
 import { mapGetters } from 'vuex'
 import GlobalSearch from '@base/GlobalSearch'
 import GlobalTheme from '@base/Theme'
+import GlobalErrorLog from './errorLog.vue'
 import { navList } from '../config'
 
 export default {
@@ -71,6 +73,7 @@ export default {
         async logout() {
             await this.$store.dispatch('user/accountOut')
             this.$router.push(`/account?redirect=${this.$route.fullPath}`)
+            this.$Message.success('退出成功！')
         },
         handleInfo(name) {
             if (name === 'logout') {
@@ -86,7 +89,8 @@ export default {
     },
     components: { 
         'mGlobalSearch': GlobalSearch, 
-        'mGlobalTheme': GlobalTheme 
+        'mGlobalTheme': GlobalTheme,
+        'mGlobalErrorLog': GlobalErrorLog
     }
 }
 </script>
@@ -100,7 +104,7 @@ export default {
     right: 0;
     height: 60px;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, .1);
-    z-index: 1000;
+    z-index: 999;
     &__logo {
         position: relative;
         float: left;
@@ -123,6 +127,9 @@ export default {
     &__nav {
         float: left;
         margin-left: 10px !important;
+        &.ivu-menu {
+            background: transparent;
+        }
     }
     &__bd {
         margin: 0 auto;
@@ -149,6 +156,9 @@ export default {
     }
     &__icons {
         float: right;
+    }
+    .ivu-select-selection {
+        background: transparent;
     }
 }
 </style>

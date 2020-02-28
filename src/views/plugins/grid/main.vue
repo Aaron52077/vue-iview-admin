@@ -17,7 +17,6 @@
                     <sTag size="medium" color="primary" slot="title">Card {{item.i}}</sTag>
                     <template v-if="item.i === '0'">
                         <div class="gc-container__h1">拖拽卡片调整位置</div>
-                        <div class="gc-container__h1">拖拽卡片右下角的手柄调整卡片大小</div>
                         <div class="gc-container__h1">在控制台打印出数据变化</div>
                     </template>
                     <template v-else>
@@ -105,7 +104,7 @@ export default {
         showInfo() {
             this.$Notice.success({
                 title: '提示',
-                desc: '你可以按住卡片拖拽改变位置；或者在每个卡片的右下角拖动，调整卡片大小'
+                desc: '你可以按住卡片拖拽改变位置，调整卡片大小'
             });
         },
         // 测试代码

@@ -19,7 +19,7 @@ const components = {
     'mTimePicker': 'TimePicker',
     'mSkeleton': 'Skeleton',
     'mVlist': 'VList',
-    'mDocPreview': 'DocPreview',
+    'mFramePreview': 'FramePreview',
     'mVideo': 'Video',
     'mScreenfull': 'Screenfull'
 }

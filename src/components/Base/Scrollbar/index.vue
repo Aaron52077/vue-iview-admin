@@ -21,7 +21,7 @@ export default {
     mounted() {
         var el = this.$refs.container, vm = this;
         vm.dataBase.load('jquery','./plugins/scrollbar/jquery.scrollbar.css','./plugins/scrollbar/jquery.scrollbar.min.js', () => {
-            var $el=$(el);
+            var $el = $(el);
             // 销毁滚动事件
             $el.scrollbar(this.config).on('$destroy', function() {
                 $el.scrollbar('destroy');

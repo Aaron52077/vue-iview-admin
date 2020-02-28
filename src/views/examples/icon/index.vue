@@ -19,7 +19,6 @@
 // directives: {
 //     clipboard: directives.clipboard
 // }
-
 export default {
     data () {
         return {

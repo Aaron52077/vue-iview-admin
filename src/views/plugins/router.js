@@ -44,5 +44,14 @@ export default {
                 title: '拖拽式布局'
             }
         },
+        {
+            path: 'calculator',
+            name: 'api-calculator',
+            component: r => require.ensure([], () => r(require('./calculator/main.vue')), 'api'),
+            meta: {
+                module: 'api',
+                title: '贷款计算器'
+            }
+        }
     ]
 }

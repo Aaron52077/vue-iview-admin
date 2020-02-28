@@ -2,6 +2,8 @@
   "name": "wuli-admin-pro",
   "version": "2.0.0",
   "private": true,
+  "author": "Aaron",
+  "license": "MIT",
   "scripts": {
     "dev": "npm run serve",
     "serve": "vue-cli-service serve",
@@ -10,6 +12,10 @@
     "build:test": "vue-cli-service build --mode test",
     "lint": "vue-cli-service lint",
     "docs": "docsify serve docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aaron52077/vue-wuli-ui"
   },
   "dependencies": {
     "axios": "0.18.1",
@@ -50,10 +56,7 @@
     },
     "globals": {
       "$": true,
-      "echarts": true,
-      "dsBridge": true,
-      "EngineWrapper": true,
-      "dsbAdapter": true
+      "echarts": true
     },
     "extends": [
       "plugin:vue/essential",

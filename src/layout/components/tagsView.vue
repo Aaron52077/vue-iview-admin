@@ -160,7 +160,7 @@ export default {
             } else {
                 // now the default is to redirect to the home page if there is no tags-view,
                 // you can adjust it according to your needs.
-                if (view.name === 'icons') {
+                if (view.name === 'dashboard') {
                     // to reload home page
                     this.$router.replace({ path: '/redirect' + view.fullPath })
                 } else {

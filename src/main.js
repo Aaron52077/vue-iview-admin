@@ -10,6 +10,7 @@ import echarts from 'echarts'
 import directives from '@/directive'
 
 import './router/permission' // permission control
+// import './utils/errorLog' // error log
 
 // 全局组件库
 import './components/iview'
@@ -31,7 +32,7 @@ import * as filters from './filters'
  * please remove it before going online! ! !
  */
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
-    require('@/mock')
+    require('../mock')
 }
 
 // register global utility filters.
@@ -61,7 +62,7 @@ dataBase.debug && (() => {
     document.body.appendChild(script); 
     script.onload = () => { 
         try { 
-            var vConsole = new VConsole();
+            new VConsole();
         } catch(e) {
             throw new Error(e)
         };  

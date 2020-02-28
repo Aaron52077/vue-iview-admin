@@ -38,6 +38,28 @@ Mock.mock(BASE_URL + '/comp/tree', {
 	}]
 });
 
+// 通用图表数据	
+Mock.mock(BASE_URL + '/comp/charts', {
+	data: {
+		columns: ['日期', '访问用户', '下单用户', '下单率'],
+		"rows|5-8": [{
+			'日期': '1/@increment()', 
+			'访问用户': '@integer(1000, 3000)', 
+			'下单用户': '@integer(1000, 2000)',
+			'下单率': '@float(0, 0, 1, 2)'
+		}]
+	}
+});
+
+// 测试无缝滚动
+Mock.mock(BASE_URL + '/comp/seamles', {
+	"data|20-50": [{
+		id: "@integer(0, 1000)",
+		title: "@ctitle(2, 5)",
+		date: "@date('yyyy-MM-dd')"
+	}]
+});
+
 // 气泡图
 Mock.mock(BASE_URL + '/echart/scatter', {
 	data: {

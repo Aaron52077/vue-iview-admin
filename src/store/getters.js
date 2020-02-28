@@ -10,7 +10,9 @@ const getters = {
     device: state => state.app.device,
     offsetTop: state => state.app.offsetTop,
     sensitive: state => state.app.sensitive,
-    permission_routes: state => state.permission.routes
+    permission_routes: state => state.permission.routes,
+    errorLogs: state => state.errorLog.logs,
+    seatlist: state => state.seat.cachedSeats
 }
 
 export default getters

@@ -1,6 +1,6 @@
 <template>
     <div class="gc-panel">
-        <div class="gc-panel__title">DocPreview 文件预览</div>
+        <div class="gc-panel__title">FramePreview 文件预览</div>
         <sDivider></sDivider>
         <div class="gc-container">
             <div class="gc-container__title">支持格式：XLS、XLSX，PPT、PPTX，DOC、DOCX，RTF，EIO，UOF、UOS，XML，PDF，Office文档</div>
@@ -12,7 +12,7 @@
         </div>
         <mInfiniteScroll :config="{ offset: 240 }"> 
             <sSpin size="large" fix v-if="spinShow"></sSpin>
-            <mDocPreview :src="urlList[type]" />
+            <mFramePreview :src="urlList[type]" />
         </mInfiniteScroll>
     </div>
 </template>
@@ -24,8 +24,8 @@ export default {
             spinShow: true,
             type: 0,
             urlList: [
-                'https://dcsapi.com/?k=282194091&url=http://www.scrm365.cn/api/file/v3/fileflow/253',
-                'https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls'
+                'https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls',
+                'https://dcsapi.com/?k=282194091&url=http://www.scrm365.cn/api/file/v3/fileflow/253'
             ]
         }
     },

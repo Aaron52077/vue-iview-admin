@@ -133,8 +133,26 @@ export default {
             component: r => require.ensure([], () => r(require('./map/index.vue')), 'docs'),
             meta: {
                 module: 'docs',
-                title: '地图检索'
+                title: '地图坐标拾取器'
             }
         },
+        {
+            path: 'countTo',
+            name: 'comcountTo',
+            component: r => require.ensure([], () => r(require('./countTo/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '动态赋值'
+            }
+        },
+        {
+            path: 'seamless',
+            name: 'comseamless',
+            component: r => require.ensure([], () => r(require('./seamless/index.vue')), 'docs'),
+            meta: {
+                module: 'docs',
+                title: '无缝滚动'
+            }
+        }
     ],
 }

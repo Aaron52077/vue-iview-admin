@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="gc-panel">
         <div class="gc-panel__title">Cropper 图片裁剪组件</div>
         <sDivider></sDivider>
         <div class="gc-container" id="container">

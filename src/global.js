@@ -4,7 +4,7 @@ import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
 import { dateToStr, unixToStr, toFixed } from '@/filters'
-import { desensitization, desensitizationName } from '@/utils/lib'
+import { desensitization } from '@/filters'
 // 公共工具集函数挂载，根据项目需求插入即可
 // import common from '@/common'
 
@@ -16,7 +16,7 @@ let global = new Vue({
     data: {
         ENV: process.env.NODE_ENV,
         apihost: process.env.VUE_APP_API,
-        debug: (process.env.NODE_ENV || '').indexOf('development') > -1 || window.localStorage && window.localStorage.devOnline == 1,
+        debug: (process.env.NODE_ENV || '').indexOf('development') > -1 || window.localStorage && window.localStorage.devOnline == 1,   // ES6: includes
         token: cache.getLocal('token') || '',
         lang: cache.getLocal('lang') || 'zh-cn',
         dh: document.body.clientHeight,
@@ -127,7 +127,6 @@ let global = new Vue({
         unixToStr: unixToStr,
         toFixed: toFixed,
         desensitization: desensitization,
-        desensitizationName: desensitizationName,
         fileDownload(data, fileName) {
             // 后端接口文件流下载
             const blob = new Blob([data], {
@@ -164,7 +163,7 @@ let global = new Vue({
         }
     }
 })
-Vue.global = global
+
 // Vue 原型链挂载
 Vue.prototype.dataBase = global
 

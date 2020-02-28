@@ -1,7 +1,7 @@
 <template>
     <div class="gc-oauth">
         <sButton type="primary" @click="thirdAccout">第三方登录</sButton>
-        <!-- <mDocPreview src="http://authserver.lzzy.net/authserver/login?service=http://10.88.83.111:3033/sso/login" /> -->
+        <!-- <mFramePreview src="http://authserver.lzzy.net/authserver/login?service=http://10.88.83.111:3033/sso/login" /> -->
 	</div>
 </template>
 

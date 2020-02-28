@@ -1,3 +1,5 @@
+import store from '@/store'
+
 //  过滤上万数据
 export function toThousand(num) {
     return num >= 10000 ? (num / 10000).toFixed(1) + '万' : num
@@ -133,17 +135,64 @@ export const toFixed = (num, n) => {
     return (num * flag).toFixed(n)
 }
 
-// 数据脱敏处理
-export const desensitization = (str, begin, end) => {
-    let tempStr = '';
-    if(typeof str === 'string' && !!str) {
-        let len = str.length;
-        var firstStr = str.substr(0, begin);
-        var lastStr = str.substr(end);
-        var middleStr = str.substring(begin, len - Math.abs(end)).replace(/[\s\S]/g, '*');
-        
-        tempStr = firstStr + middleStr + lastStr;
-        return tempStr;
+/**
+ * 数据脱敏处理
+ * @param {string} str 处理值
+ * @param {object} option 配置项 type: tel/code/email/identity 电话、学号（工号）、邮箱、身份证
+ */
+export function desensitization(value, option = {}) {
+    let sign = store.state.app.sensitive;
+    if (sign && (typeof value === 'string' || value instanceof String)) {
+        // 配置项拓展
+        const __extend = (obj, option) => {
+            for (const key in option) {
+                obj[key] = option[key]
+            }
+            return obj
+        }
+        const actions = {
+            'tel': {
+                start: 3,
+                end: -4  
+            },
+            'code': {
+                start: 1,
+                end: -1  
+            },
+            'email': {
+                start: 3,
+                end: -8  
+            },
+            'identity': {
+                start: 3,
+                end: -3 
+            },
+            'default': {
+                start: 1,
+                end: 0  
+            }
+        };
+        const handler = (key) => {
+            let action = actions[`${key}`] || actions['default']
+            return action
+        }
+        let defaultOpt = handler((option || {}).type || 'name')
+        let options = __extend(defaultOpt, option)
+        const { type, start, end } = options;
+        let tempStr = '';
+        let len = value.length;
+        if (type !== undefined) {
+            const firstStr = value.substr(0, start);
+            const lastStr = value.substr(end);
+            const middleStr = value.substring(start, len - Math.abs(end)).replace(/[\s\S]/g, '*');
+            // result
+            tempStr = firstStr + middleStr + lastStr;
+            return tempStr;
+        } else {
+            tempStr = value.substr(0, 1) + value.substring(1, len).replace(/[\s\S]/g, '*');
+            return tempStr;
+        }
+    } else {
+        return value;
     }
-    return tempStr;
 }

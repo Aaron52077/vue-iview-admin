@@ -1,5 +1,11 @@
 import { fetch } from '@/utils/fetch'
 
+// seamles
+export function getSeamlesData() {
+    let res = fetch('/comp/seamles')
+    return res
+}
+
 // tree1
 export function getTreeSelectData() {
     let res = fetch('/comp/tree')

@@ -107,13 +107,24 @@ export const fetch = async (url = '', type = 'GET', data = {}, isDown = false) =
 }
 
 // 简化版
-// const fetch = async (url = '',  method = 'GET', data = {}) => {
-//     let method = method.toUpperCase()
-//     let args = { url, method };
-//     if (method === 'GET') {
-//         args.params = data;
+// export const flyio = async (url = '', method = 'GET',  data = {}) => {
+// 	let result;
+//     let methods = method.toUpperCase();
+// 	let args = { url, method };
+// 	let timestamp = Date.parse(new Date()) / 1000;
+//     if (methods === 'GET') {
+//         args.params = {
+// 			t: timestamp,
+// 			...data
+// 		}
 //     } else {
-//         args.data = data;
-//     }
-//     return instance(args);
+//         args.body = {
+// 			t: timestamp,
+//             ...data
+//         }
+// 	}
+// 	await instance.request(args).then(res => {
+//         result = res
+// 	});
+//     return result
 // }

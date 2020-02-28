@@ -21,6 +21,7 @@ export default {
         ])
     },
     created() {
+        // eslint-disable-line
         if (!this.token) {
             this.hasToken = 'mAccount'
         }

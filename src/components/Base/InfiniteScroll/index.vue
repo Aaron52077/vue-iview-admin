@@ -72,7 +72,7 @@ export default {
                         }
                     }
                     const id = vm.dataBase.uuid();
-                    vm.dataBase.setData('gc-fixed-height', id);
+                    vm.dataBase.setData('infinite-scroll-height', id);
                     $(el).attr('infinite_id', id);
                     getHeight();
                     setTimeout(() => { 
@@ -81,11 +81,12 @@ export default {
                     $(window).off('resize.infinite_id' + id).on('resize.infinite_id' + id, getHeight); // 已id方式注册事件
                 });
             },
-            unbind: function(el,binding) { 
+            unbind: function(el, binding) { 
                 // 注销事件
                 const vm = binding.value;
                 vm.dataBase.load('jquery', () => {
-                    const id = vm.dataBase.uuid();
+                    const id = vm.dataBase.getData['infinite-scroll-height'];
+                    vm.dataBase.setData('infinite-scroll-height', id);
                     $(window).off('resize.infinite_id' + id);
                 })
             }
@@ -94,8 +95,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.gc-fixed-height{
+<style>
+.gc-fixed-height {
     overflow: auto;
 }
 </style>
