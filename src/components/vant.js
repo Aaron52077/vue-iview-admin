@@ -1,6 +1,9 @@
+/**
+ * demo: 仅做移动端工程项目vant实例
+ * babel.config.js 按需加载样式
+ * import '~vant/lib/index.css'
+ */
 import Vue from 'vue'
-// babel.config.js 按需加载样式
-// import '~vant/lib/index.css'
 import {
     DatetimePicker, 
     Dialog,

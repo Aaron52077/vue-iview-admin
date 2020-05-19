@@ -64,8 +64,8 @@ export default {
         onPathHandle(name) {
             this.navActive = name;
             const stauts = {
-                '组件栏': '图标',
-                '插件类': '工具合集',
+                '组件类': '首页',
+                '业务类': '工具合集',
                 '图表': '图表'
             };
             this.$store.commit('app/SET_NAVBAR', stauts[name]);

@@ -1,21 +1,7 @@
 import cache from '@/utils/cache'
 
 const state = {
-    list: [
-        {
-            title: '默认',
-            name: 'defalut',
-            logo: 'theme/defalut/logo@2x.png',
-            preview: 'theme/defalut/preview@2x.png'
-        },
-        {
-            title: '流星',
-            name: 'star',
-            logo: 'theme/star/logo@2x.png',
-            backgroundImage: 'theme/star/bg.jpg',
-            preview: 'theme/star/preview@2x.png'
-        }
-    ],
+    list: [],
     activeName: 'defalut'
 }
 
@@ -36,6 +22,9 @@ const mutations = {
      */
     DOM(state) {
         document.body.className = `theme-${state.activeName}`
+    },
+    SET_THEME(state, data) {
+        state.list = data
     }
 }
 

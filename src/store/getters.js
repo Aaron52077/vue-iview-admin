@@ -12,7 +12,8 @@ const getters = {
     sensitive: state => state.app.sensitive,
     permission_routes: state => state.permission.routes,
     errorLogs: state => state.errorLog.logs,
-    seatlist: state => state.seat.cachedSeats
+    seatlist: state => state.seat.cachedSeats,
+    cachedViews: state => state.tagsView.cachedViews
 }
 
 export default getters

@@ -46,8 +46,12 @@ export default {
     opacity:0;
 }
 .scrollbar-inner > .scroll-element.scroll-x.scroll-scrollx_visible,
-.scrollbar-inner > .scroll-element.scroll-y.scroll-scrolly_visible{ opacity:0; transition: opacity 1s;  }
-
+.scrollbar-inner > .scroll-element.scroll-y.scroll-scrolly_visible { 
+    opacity:0; 
+    transition: opacity 1s;  
+}
 .scrollbar-inner:hover > .scroll-element.scroll-x.scroll-scrollx_visible,
-.scrollbar-inner:hover > .scroll-element.scroll-y.scroll-scrolly_visible{ opacity:1; }
+.scrollbar-inner:hover > .scroll-element.scroll-y.scroll-scrolly_visible { 
+    opacity:1; 
+}
 </style>

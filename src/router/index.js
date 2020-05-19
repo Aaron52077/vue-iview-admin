@@ -43,15 +43,6 @@ export const constantRoutes = [
         component: () => import('@/views/account/main')
     },
     {
-        path: '/oauth',
-        name: 'auth',
-        meta: {
-            menuHide: true,
-            module: 'account'
-        },
-        component: () => import('@/views/account/auth')
-    },
-    {
         path: '/404',
         component: () => import('@/views/errorPage/404')
     },

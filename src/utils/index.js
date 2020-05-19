@@ -199,7 +199,8 @@ export const off = (function () {
     }
 })()
 
-export const getRouteTitleHandled = (route) => {
+// 获取页面配置标题
+const getRouteTitle = (route) => {
     let router = { ...route }
     let meta = { ...route.meta }
     let title = ''
@@ -215,7 +216,7 @@ export const getRouteTitleHandled = (route) => {
     return router
 }
 
-export const showTitle = (item, vm) => {
+const showTitle = (item, vm) => {
     let { title } = item.meta
     if (!title) return ''
     if (vm.t) {
@@ -233,7 +234,7 @@ export const showTitle = (item, vm) => {
  * @param {Object} vm Vue实例
  */
 export const setTitle = (routeItem, vm) => {
-    const handledRoute = getRouteTitleHandled(routeItem)
+    const handledRoute = getRouteTitle(routeItem)
     const pageTitle = showTitle(handledRoute, vm)
     window.document.title = `${pageTitle} wuli-admin`
 }

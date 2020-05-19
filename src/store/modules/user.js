@@ -59,9 +59,7 @@ const actions = {
             logout(state.token).then(() => {
                 commit('setToken', '')
                 commit('setRoles', [])
-                cache.removeLocal('token')
-                cache.removeLocal('user_name')
-                cache.removeLocal('user_avatar')
+                cache.clearAll()
                 resetRouter()
                 resolve()
             }).catch(error => {

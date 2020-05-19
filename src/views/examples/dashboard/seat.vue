@@ -92,16 +92,6 @@ export default {
         },
         onClick(data) {
             this.seatList = data
-        },
-        array2Equal(arr1, arr2) {
-            // 不同数组，取交集
-            let result = [];
-            arr2.forEach(item => {
-                if (arr1.some(m => m.col == item.index)) {
-                    result.push(item)
-                }
-            });
-            return result;
         }
     },
     components: { elTableHall },

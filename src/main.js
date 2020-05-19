@@ -6,6 +6,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import echarts from 'echarts'
+import axios from 'axios'
+import { fetch } from '@/utils/fetch'
 
 import directives from '@/directive'
 
@@ -14,7 +16,6 @@ import './router/permission' // permission control
 
 // 全局组件库
 import './components/iview'
-// import './components/vant'
 import './components/index'
 
 import dataBase from './global'
@@ -42,6 +43,7 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
+Vue.prototype.$http = fetch
 
 /**
  * 注册指令
@@ -69,13 +71,32 @@ dataBase.debug && (() => {
     } 
 })(); 
 
-new Vue({
-    router,
-    store,
-    created() {
-        dataBase.init(this)
-    },
-    render: h => h(App)
-}).$mount('#app')
+// 获取服务端动态配置地址方式
+function getServerConfig() {
+    return new Promise((resolve, reject) => {
+        axios.get('./config.json').then((result) => {
+            let config = result.data;
+            axios.defaults.baseURL = config.vue_app_api;
+            store.commit('theme/SET_THEME', config.windows.theme);
+            resolve()
+        }).catch((error) => {
+            axios.defaults.baseURL = process.env.VUE_APP_API;
+            reject()
+        })
+    })
+}
 
+async function init() {
+    await getServerConfig();
+    new Vue({
+        router,
+        store,
+        created() {
+            dataBase.init(this)
+        },
+        render: h => h(App)
+    }).$mount('#app')
+}
+
+init()
 

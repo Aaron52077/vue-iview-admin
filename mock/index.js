@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Mock from 'mockjs'
 
-// const Random = Mock.Random
 const BASE_URL = process.env.VUE_APP_API
 
 // 模拟请求响应时间

@@ -11,7 +11,9 @@
                 <tagsView />
                 <!-- 移除slot插槽方式，采用页面跳转 -->
                 <transition name="el-fade-in-linear" mode="out-in"> 
-                    <router-view :key="viewKey" />
+                    <keep-alive :include="cachedViews">
+                        <router-view :key="viewKey" />
+                    </keep-alive>
                 </transition>
             </mInfiniteScroll>
         </div>
@@ -36,7 +38,8 @@ export default {
             themeActive: 'theme/activeSetting'
         }),
         ...mapGetters([
-            'offsetTop'
+            'offsetTop',
+            'cachedViews'
         ]),
         layoutWeb() {
             return this.dataBase.h5 ? 75 : 210
@@ -54,10 +57,10 @@ export default {
         }
     },
     methods: {
-        openUrl() {
+        openURL() {
             // 跳转新链接方式
-            let routeUrl = this.$router.resolve({path: '/bi'});
-            window.open(routeUrl.href, '_blank');
+            let routerURL = this.$router.resolve({path: '/bi'});
+            window.open(routerURL.href, '_blank');
         }
     },
     locales: locales,

@@ -36,6 +36,12 @@ export function getEditortData() {
     return res
 }
 
+// jsonview
+export function getJsonView() {
+    let res = fetch('/comp/jsonview')
+    return res
+}
+
 /**
  * 上传excel模版
  * @param file

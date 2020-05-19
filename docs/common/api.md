@@ -165,5 +165,9 @@ this.$axios.post('/api/module/...')
 适用于导出、下载文件流第三方资源等
 
 ```
-    this.dataBase.fileDownload(data, name); //传入数据，文件名称
+    this.dataBase.fileDownload({
+        data: data,
+        fileName: '9527.zip',
+        type: 'application/zip;charset=utf-8'
+    }); // 传入数据，文件名称，文件流导出类型
 ```

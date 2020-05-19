@@ -12,13 +12,12 @@
                     :action="`${dataBase.apihost}/admin/file/upload`"
                     :on-format-error="handleFormatError"
                     :on-exceeded-size="handleMaxSize"
-                    :on-success="handleSuccess"
                     style="display: inline-block;width:92px;">
                     <sButton type="info">请选择图片</sButton>
                 </sUpload>
                 <div class="wrapper">
-                    <VueCropper ref="cropper" 
-                        :img="myCropper.img" 
+                    <vue-cropper ref="cropper" 
+                        :img="myCropper.img"
                         :outputSize="myCropper.size" 
                         :outputType="myCropper.outputType" 
                         :info="myCropper.info" 
@@ -26,12 +25,12 @@
                         :autoCrop="myCropper.autoCrop" 
                         :autoCropWidth="myCropper.width" 
                         :autoCropHeight="myCropper.height">
-                    </VueCropper>
+                    </vue-cropper>
                 </div>
             </div>
             <div slot="footer" class="gc-dia-foot">
-                <sButton size="large" class="gc-btn-text gc-btn-no" type="text" @click="handleCancel">取消</sButton>
-                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" @click="handleFinish(fileType)">确定</sButton>
+                <sButton size="large" class="gc-btn-text gc-btn-no" type="text" :disabled="load" @click="handleCancel">取消</sButton>
+                <sButton size="large" class="gc-btn-text gc-btn-yes" type="text" :loading="load" @click="handleFinish(fileType)">确定</sButton>
             </div>
         </sModal>
     </div>
@@ -64,16 +63,13 @@ export default {
             fileName: '',
             fileType: 'Blob',
             isShow: '',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer 12be9d0b-98d3-4d4b-a075-2a5d0eda10f3'
-            },
+            load: false,
             myCropper: {
                 img: '',
                 info: true,
                 size: 1,
                 outputType: 'png',
-                canScale: false,
+                canScale: true,
                 autoCrop: true,             // 只有自动截图开启 宽度高度才生效
                 width: 150,
                 height: 150
@@ -99,14 +95,11 @@ export default {
             // 当读操作完成，readyState 变为 DONE，loadend 被触发，此时 result 属性包含数据：URL（以 base64 编码的字符串表示文件的数据）读取文件作为 URL 可访问地址
             if (file) {
                 imgUrlBase64 = reader.readAsDataURL(file);     // 转化为base64 
-                reader.onload = (e) => {
+                reader.onload = () => {
                     this.myCropper.img = reader.result;
                 }
                 const fileName = `${(file || {}).name}`;
             }
-        },
-        handleSuccess(res, file) {
-            console.log(res, file)
         },
         handleFormatError(file) {
             this.$Notice.warning({
@@ -137,7 +130,7 @@ export default {
                     this.myCropper.img = '';
                     this.currentValue = false;
                     this.$emit('on-ok', {url: dataB64});
-                    // this.dataBase.log('64截图信息', sData, dataB64);
+                    // this.dataBase.log('base64截图信息', sData, dataB64);
                 });
             }else {
                 this.$Message.error("请选择上传图片");
@@ -158,11 +151,7 @@ export default {
             while (n--) {
                 u8arr[n] = bstr.charCodeAt(n)
             }
-            cb(
-                new Blob([u8arr], {
-                    type: mime
-                })
-            )
+            cb(new Blob([u8arr], {type: mime}))
         },
         handleUpload() {
             const headers = {

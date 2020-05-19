@@ -90,7 +90,6 @@ export default {
         };
         return {
             redirect: undefined,
-            timeInterval: null,
             nowTime: this.dataBase.dateToStr(new Date(), 'hh:mm:ss'),
             identifyCode: '',
             identifyType: 'normal',
@@ -130,15 +129,16 @@ export default {
         }
     },
     mounted() {
-        this.timeInterval = setInterval(() => {
-            this.refreshTime()
-        }, 1000)
-    },
-    beforeDestroy() {
-        clearInterval(this.timeInterval)
+        let timeInterval = setInterval(() => {
+            this.creatInterval()
+        }, 1000);
+        // 销毁计时器
+        this.$once('hook:beforeDestroy', function() {
+            clearInterval(timeInterval)
+        });
     },
     methods: {
-        refreshTime() {
+        creatInterval() {
             this.nowTime = this.dataBase.dateToStr(new Date(), 'hh:mm:ss')
         },
         handlePassword() {

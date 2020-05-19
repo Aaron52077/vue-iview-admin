@@ -2,18 +2,12 @@ import axios from 'axios'
 import store from '@/store'
 import qs from 'qs'
 import { Message } from 'view-design'
-import cache from '@/utils/cache'
-
-const tokenValue = 'Y2FtcHVzOmNhbXB1cw=='
-let axiosSource = axios.CancelToken.source()
-
 /**
  * 创建axios实例对象
  * withCredentials: true
  * send cookies when cross-domain requests
  */       
 export const instance = axios.create({
-    baseURL: process.env.VUE_APP_API,       // api的base_url
     timeout: 5 * 1000,                      // 请求超时时间
     retry: 4,
     retryDelay: 500
@@ -25,12 +19,11 @@ instance.interceptors.request.use(config => {
     // 初始化默认post header
     config.headers = {
         'Content-Type': 'application/x-www-form-urlencoded',    // application/json
-        'Authorization': `Basic ${tokenValue}`
+        'Authorization': 'Basic Y2FtcHVzOmNhbXB1cw=='
     }
     let hasToken = store.getters.token
     if (hasToken) {
         config.headers['Authorization'] = `Bearer ${hasToken}` // 让每个请求携带token -- ['AUTH_TOKEN']为自定义key
-        cache.setLocal('token', hasToken)
     }
     return config
 }, error => {
@@ -77,12 +70,9 @@ instance.interceptors.response.use(response => {
 export const fetch = async (url = '', type = 'GET', data = {}, isDown = false) => {
     let result
     type = type.toUpperCase()
-    // 取消所有使用axiosSource.token的请求，这些请求Promise会走reject，即可以catch到错误。
-    // axiosSource.cancel('取消请求')
     let requestOptions = {
         method: type,
         url: url,
-        cancelToken: axiosSource.token,
         responseType: isDown ? 'blob' : 'json'
     }
 

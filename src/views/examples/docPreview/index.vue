@@ -3,16 +3,13 @@
         <div class="gc-panel__title">FramePreview 文件预览</div>
         <sDivider></sDivider>
         <div class="gc-container">
-            <div class="gc-container__title">支持格式：XLS、XLSX，PPT、PPTX，DOC、DOCX，RTF，EIO，UOF、UOS，XML，PDF，Office文档</div>
+            <div class="gc-container__title">支持格式：XLS、XLSX，DOC、DOCX，PDF，Office等文档</div>
+            <div class="gc-container__h1">word、ppt、xls文件实现在线预览的方式比较简单可以直接通过调用微软的在线预览功能实现 (预览前提：资源必须是公共可访问的)，src就是要实现预览的文件地址 具体文档看这 <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2013/04/10/office-web-viewer-view-office-documents-in-a-browser/?eu=true" target="_blank">微软接口文档</a> </div>
             <sDivider></sDivider>
-            <sRadioGroup v-model="type" type="button" @on-change="onChange">
-                <sRadio :label="0">xls1</sRadio>
-                <sRadio :label="1">xls2</sRadio>
-            </sRadioGroup>
         </div>
-        <mInfiniteScroll :config="{ offset: 240 }"> 
+        <mInfiniteScroll :config="{ offset: 300 }"> 
             <sSpin size="large" fix v-if="spinShow"></sSpin>
-            <mFramePreview :src="urlList[type]" />
+            <mFramePreview src="https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls" />
         </mInfiniteScroll>
     </div>
 </template>
@@ -21,27 +18,17 @@
 export default {
     data () {
         return {
-            spinShow: true,
-            type: 0,
-            urlList: [
-                'https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls',
-                'https://dcsapi.com/?k=282194091&url=http://www.scrm365.cn/api/file/v3/fileflow/253'
-            ]
+            spinShow: true
         }
     },
     mounted() {
-        this.handleSpinShow();
+        this.spinShow = true;
+        setTimeout(() => {
+            this.spinShow = false;
+        }, 1500);
     },
     methods: {
-        handleSpinShow() {
-            this.spinShow = true;
-            setTimeout(() => {
-                this.spinShow = false;
-            }, 1500);
-        },
-        onChange(data) {
-            this.type = data;
-        }
+
     }
 }
 </script>

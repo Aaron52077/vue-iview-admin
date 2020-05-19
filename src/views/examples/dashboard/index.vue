@@ -1,16 +1,7 @@
 <template>
     <div class="gc-container gc-panel gc-table">
         <sRow :gutter="16" class="gc-block__row">
-            <sCol :xs="24" :sm="12" :lg="12">
-                <div class="gc-comp">
-                    <sCard title="置顶组件" icon="ios-options" :padding="0">
-                        <sCellGroup>
-                            <sCell v-for="(item, index) in compList" :key="index" :title="item.name" extra="查看" :to="item.path" :icon="item.icon" />
-                        </sCellGroup>
-                    </sCard>
-                </div>
-            </sCol>
-            <sCol :xs="24" :sm="12" :lg="12">
+            <sCol :xs="24" :sm="8" :lg="8">
                 <div class="gc-thumb">
                     <sCarousel :autoplay-speed="4000" :height="355">
                         <sCarouselItem v-for="item in carouselImages" :key="item">
@@ -18,6 +9,20 @@
                         </sCarouselItem>
                     </sCarousel>
                 </div>
+            </sCol>
+            <sCol :xs="24" :sm="8" :lg="8">
+                <sCard title="业务组件" icon="ios-options" :padding="0" class="gc-comp">
+                    <sCellGroup>
+                        <sCell v-for="(item, index) in compList1" :key="index" :title="item.name" extra="查看" :to="item.path" :icon="item.icon" />
+                    </sCellGroup>
+                </sCard>
+            </sCol>
+            <sCol :xs="24" :sm="8" :lg="8">
+                <sCard title="功能组件" icon="ios-options" :padding="0" class="gc-comp">
+                    <sCellGroup>
+                        <sCell v-for="(item, index) in compList2" :key="index" :title="item.name" extra="查看" :to="item.path" :icon="item.icon" />
+                    </sCellGroup>
+                </sCard>
             </sCol>
         </sRow>
         <div class="gc-container__h1" style="margin: 10px 0;">针对预约系统演示处理，一键脱敏：
@@ -47,7 +52,7 @@
 <script>
 import { mapMutations } from 'vuex'
 import { mockTable } from '@/api'
-import { compList } from '@/layout/config'
+import { compList1, compList2 } from '@/layout/config'
 import dialogModal from './modal.vue'
 import seatHall from './seat.vue'          // 选座大厅
 
@@ -60,7 +65,8 @@ export default {
                 'https://wpimg.wallstcn.com/d1d7b033-d75e-4cd6-ae39-fcd5f1c0a7c5.jpg',
                 'https://wpimg.wallstcn.com/50530061-851b-4ca5-9dc5-2fead928a939.jpg'
             ],
-            compList,       // 组件列表
+            compList1,
+            compList2,       // 组件列表
             visible: false,
             seatVisible: false,
             rowData: {},
@@ -197,5 +203,9 @@ export default {
         height: 100%;
         object-fit: cover;
     }
+}
+.gc-comp {
+    width: 100%;
+    height: 355px;
 }
 </style>

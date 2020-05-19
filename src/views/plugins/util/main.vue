@@ -3,12 +3,13 @@
     <div class="container">
         <div class="gc-container gc-table">
             <div class="gc-container__h1">Table 自定义表头筛选、合并单元格实例</div>
-            <div class="gc-container__title">tips: 年龄列列为自定义实例，地址列为官方实例</div>
             <sDivider></sDivider>
-            <!-- tooltip-theme="light" -->
+            <table-custom />
+            <sDivider></sDivider>
             <sTable max-height="300" border :columns="columns1" :data="data1" :span-method="handleSpan" />
             <sDivider></sDivider>
             <div class="gc-container__h1">Table 跨分页全选/多选</div>
+            <div class="gc-container__title">tips: 年龄列列为自定义实例，地址列为官方实例</div>
             <sTable size="default"
                     ref="selection" 
                     :columns="columns2" 
@@ -18,12 +19,12 @@
                     @on-select-all="handleSelectAll"
                     @on-select="handleSelect"
                     @on-select-cancel="handleCancel" />
-            <div class="gc-pages">
+            <div class="gc-pages" style="margin-top: 10px;">
                 <sPage :total="20" :current="1" size="small" show-elevator show-total @on-change="changePage"></sPage>
             </div>
             <sDivider></sDivider>
             <sRow :gutter="16">
-                <sCol span="8" class="gc-tree">
+                <sCol span="6" class="gc-tree">
                     <div class="gc-container__h1">系统级后台权限id获取</div>
                     <sTree ref="permissionTree" :data="treeData" show-checkbox multiple></sTree>
                     <div class="tree">
@@ -32,22 +33,12 @@
                     <div class="gc-container__title">勾选节点id：{{id}}</div>
                     <div class="gc-container__title">勾选节点id、当前节点父级id集合：{{parentIds}}</div>
                 </sCol>
-                <sCol span="8">
+                <sCol span="12">
                     <div class="gc-container__h1">指令-复制</div>
                     <sInput v-model="inputVal" style="width: 60%; z-index: 0;">
                         <sButton slot="append" v-clipboard="clipOptions">复制</sButton>
                     </sInput>
-                    <div class="gc-container__h1" style="margin-top: 10px;">滚动加载实例</div>
-                    <sScroll class="gc-loadmore__wrapper" :on-reach-bottom="handleReachBottom">
-                        <mScrollbar class="gc-loadmore__wrapper"> 
-                            <sCard dis-hover v-for="(item, index) in list1" :key="index" style="margin: 10px 0">
-                                Content {{ item }}
-                            </sCard>
-                        </mScrollbar>
-                    </sScroll>
-                </sCol>
-                <sCol span="8">
-                    <div class="gc-container__h1">指令-水波纹</div>
+                    <div class="gc-container__h1" style="margin-top: 10px;">指令-水波纹</div>
                     <sButton v-waves @click.native="clickHandle">Default</sButton>
                     <sButton type="primary" v-waves class="inline" @click.native="clickHandle">Primary</sButton>
                     <sButton type="dashed" v-waves class="inline" @click.native="clickHandle">Dashed</sButton>
@@ -57,19 +48,9 @@
                     <sButton type="success" v-waves class="inline" @click.native="clickHandle">Success</sButton>
                     <sButton type="warning" v-waves class="inline" @click.native="clickHandle">Warning</sButton>
                     <sButton type="error" v-waves class="inline" @click.native="clickHandle">Error</sButton>
-                    <div class="gc-container__h1" style="margin-top: 10px;">保留2位或多位小数精度</div>
-                    <sRow>
-                        <sCol span="12">
-                            <div>处理前：1.25623, 1.581, 10.05</div>
-                        </sCol>
-                        <sCol span="12">
-                            <div>处理后：{{dataBase.toFixed(1.25623, 2)}}, {{dataBase.toFixed(1.581, 2)}}, {{dataBase.toFixed(10.05, 1)}}</div>
-                        </sCol>
-                    </sRow>
                 </sCol>
             </sRow>
         </div>
-        <router-view class="gc-layout" :key="active"></router-view>
     </div>
 </template>
 
@@ -80,6 +61,7 @@ import mBreadcrumb from '@base/Breadcrumb'
 import { mockTable, getTreeCustomData } from '@/api'
 import { uniqueArr } from '@/utils'
 import { tableTemp } from './table.js'
+import tableCustom from './table_columns.vue'
 
 const headCustom = () => import(/* webpackChunkName: "layout" */'./filter_custom.vue')
 
@@ -87,12 +69,10 @@ export default {
     data () {
         return {
             selectList: [],
-            active: '1',
             treeData: [],
             parentIds: [],
             id: [],
             inputVal: '输入的内容',
-            list1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             loadFalg: false,
             data2: tableTemp.data1,
             columns2: [
@@ -272,22 +252,11 @@ export default {
                 desc: '触发水波纹'
             });
         },
-        handleReachBottom() {
-             return new Promise(resolve => {
-                setTimeout(() => {
-                    const last = this.list1[this.list1.length - 1];
-                    for (let i = 1; i < 11; i++) {
-                        this.list1.push(last + i);
-                    }
-                    resolve();
-                }, 50);
-            });
-        },
         changePage(page) {
             // The simulated data is changed directly here, and the actual usage scenario should fetch the data from the server
-            if(page == 1) {
+            if (page == 1) {
                 this.data2 = tableTemp.data1;
-            }else {
+            } else {
                 this.data2 = tableTemp.data2;
             }
             this.updateChecked();
@@ -338,15 +307,15 @@ export default {
             let rowspanTd = 0;
             const tableData = this.dataBase.cloneDeep(this.data1);
             tableData.forEach((m, n) => {
-                if(n === 0) {
+                if (n === 0) {
                     // 保证有数据源前提
                     colspanTd.push(1);
                     rowspanTd = 0;
-                }else {
-                    if(tableData[n][key] === tableData[n - 1][key]) {
+                } else {
+                    if (tableData[n][key] === tableData[n - 1][key]) {
                         colspanTd[rowspanTd] += 1;
                         colspanTd.push(0);
-                    }else {
+                    } else {
                         colspanTd.push(1);
                         rowspanTd = n;
                     }
@@ -384,7 +353,7 @@ export default {
             }
         }
     },
-    components: { mBreadcrumb, headCustom }
+    components: { mBreadcrumb, headCustom, tableCustom }
 }
 </script>
 

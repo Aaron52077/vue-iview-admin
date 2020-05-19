@@ -18,7 +18,7 @@ const state = {
     },
     offsetTop: 0,
     language: dataBase.lang,
-    sensitive: false,
+    sensitive: false,       // 系统脱敏开关
     tabbar: '组件类',
     navbar: '首页'
 }

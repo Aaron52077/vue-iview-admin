@@ -48,9 +48,10 @@ export default {
         window.localStorage.removeItem(name)
     },
     /**
-     * Clear all localStorage
+     * Clear all localStorage and sessionStorage
      */
     clearAll() {
         window.localStorage.clear()
+        window.sessionStorage.clear()
     }
 }

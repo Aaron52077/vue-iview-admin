@@ -42,7 +42,7 @@ export default {
             lineObj1: {
                 data: false,
                 option: {}
-            },
+            }
         }
     },
     computed: {
@@ -84,10 +84,8 @@ export default {
         row: {
             handler(val, oldVal) {
                 if (val.id) {
-                    this.activeTab = 'bar1'
-                    echartBarAPI().then(res => {
-                        this.barObj1 = EchartsBarOpt1(res.data);
-                    });
+                    this.activeTab = 'bar1';
+                    this.onTabClick('bar1');
                 }
             },
             immediate: true

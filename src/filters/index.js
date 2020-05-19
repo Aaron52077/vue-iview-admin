@@ -1,13 +1,20 @@
 import store from '@/store'
 
 //  过滤上万数据
-export function toThousand(num) {
-    return num >= 10000 ? (num / 10000).toFixed(1) + '万' : num
+export function toThousand(value) {
+    if (value === null || value == '') {
+        return '0'
+    }
+    value = parseFloat(value)
+    return value >= 10000 ? (value / 10000).toFixed(1) + '万' : value
 }
 
-// 过滤千分符
-export function toThousandFilter(num) {
-    return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+/**
+ * 10000 => "10,000" 过滤千分符
+ * @param {number} num
+ */
+export function toThousands(value) {
+    return (+value || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
 
 // 时间数字转字符
@@ -30,20 +37,17 @@ export function getTimeInt(time) {
 }
 
 // 格式化文件大小
-export function renderFileSize(size) {
-    if (!size) {
-        return '0B';
+export function readFileSize(value) {
+    if (value === null || value === '') {
+        return '0B'
     }
-    if (size > 999999) {
-        return parseInt(size / 1000000) + "MB"
+    value = parseFloat(value)
+    const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    const formatter = (value, power) => {
+        return (value / Math.pow(1024, power)).toFixed(2) + units[power]
     }
-    if (size > 999) {
-        return parseInt(size / 1000) + "KB"
-    }
-    if (size < 1000) {
-        return size + "B"
-    }
-    return size;
+    const index = Math.floor(Math.log(value) / Math.log(1024)) || 0
+    return formatter(value, index)
 }
 
 // 日期对象格式化
@@ -124,17 +128,6 @@ export function moneyFormat(num) {
     return strPrefix + strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, '零元')
 }
 
-// 保留2位小数精度问题 建议使用mathjs工具包
-export const toFixed = (num, n) => {
-    let flag = 1
-    if (num < 0) {
-       flag = -1
-       num *= -1
-    }
-    num = Math.round(num * Math.pow(10, n)) / Math.pow(10, n)+ Math.pow(10, -(n + 1));
-    return (num * flag).toFixed(n)
-}
-
 /**
  * 数据脱敏处理
  * @param {string} str 处理值
@@ -172,11 +165,11 @@ export function desensitization(value, option = {}) {
                 end: 0  
             }
         };
-        const handler = (key) => {
+        const __handler = (key) => {
             let action = actions[`${key}`] || actions['default']
             return action
         }
-        let defaultOpt = handler((option || {}).type || 'name')
+        let defaultOpt = __handler((option || {}).type || 'name')
         let options = __extend(defaultOpt, option)
         const { type, start, end } = options;
         let tempStr = '';

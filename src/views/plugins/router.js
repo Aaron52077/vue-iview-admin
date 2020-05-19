@@ -52,6 +52,33 @@ export default {
                 module: 'api',
                 title: '贷款计算器'
             }
+        },
+        {
+            path: 'jsonview',
+            name: 'api-jsonview',
+            component: r => require.ensure([], () => r(require('./elementDesign/jsonview.vue')), 'api'),
+            meta: {
+                module: 'api',
+                title: 'json-view 面板'
+            }
+        },
+        {
+            path: 'mockproxy',
+            name: 'api-mockproxy',
+            component: r => require.ensure([], () => r(require('./elementDesign/mockProxy.vue')), 'api'),
+            meta: {
+                module: 'api',
+                title: '第三方接口代理'
+            }
+        },
+        {
+            path: 'animatedbook',
+            name: 'api-animatedbook',
+            component: r => require.ensure([], () => r(require('./elementDesign/animatedBook.vue')), 'api'),
+            meta: {
+                module: 'api',
+                title: '图书集'
+            }
         }
     ]
 }

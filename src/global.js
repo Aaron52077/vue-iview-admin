@@ -3,8 +3,7 @@ import Vue from 'vue'
 import store from '@/store'
 import cache from '@/utils/cache'
 import { cloneDeep, size } from 'lodash'
-import { dateToStr, unixToStr, toFixed } from '@/filters'
-import { desensitization } from '@/filters'
+import { dateToStr, unixToStr, desensitization } from '@/filters'
 // 公共工具集函数挂载，根据项目需求插入即可
 // import common from '@/common'
 
@@ -12,7 +11,6 @@ import { desensitization } from '@/filters'
 import './utils/ljs'
 
 let global = new Vue({
-    template: '<div></div>',
     data: {
         ENV: process.env.NODE_ENV,
         apihost: process.env.VUE_APP_API,
@@ -22,8 +20,7 @@ let global = new Vue({
         dh: document.body.clientHeight,
         dw: document.body.clientWidth,
         ljs: window.ljs,
-        data: {},
-        // common: common  
+        data: {}
     },
     computed: {
         getData() {
@@ -93,7 +90,7 @@ let global = new Vue({
                 this.dw = document.body.clientWidth;
                 this.dh = document.body.clientHeight;
             };
-            if(!this.$t) {
+            if (!this.$t) {
                 Vue.prototype.$t = vm.t;
             }
         },
@@ -108,11 +105,11 @@ let global = new Vue({
              */
             const config = {
                 'jquery': ['plugins/jquery.js'],
-                'video': ['plugins/videojs/video.min.js','plugins/videojs/videojs.min.css','plugins/videojs/zh-CN.js']
+                'video': ['plugins/videojs/video.min.js', 'plugins/videojs/videojs.min.css', 'plugins/videojs/zh-CN.js']
             }
             arg.map(item => {
                 let pluginName = (typeof item == 'string') ? item.toLocaleLowerCase() : item;
-                if(config[pluginName]) {
+                if (config[pluginName]) {
                     plugins.push(...config[pluginName]);
                 } else {
                     plugins.push(pluginName);
@@ -125,14 +122,20 @@ let global = new Vue({
         delValue: cache.removeLocal,
         dateToStr: dateToStr,
         unixToStr: unixToStr,
-        toFixed: toFixed,
         desensitization: desensitization,
-        fileDownload(data, fileName) {
-            // 后端接口文件流下载
-            const blob = new Blob([data], {
+        /**
+         * 后端接口文件流下载
+         * @param {*} data
+         * @param {*} fileName 
+         * @param {*} type  'application/vnd.ms-excel;charset=utf-8' or type: 'application/zip;charset=utf-8'
+         */
+        fileDownload({data, fileName, type}) {
+            const options = type ? type : {
                 type: 'application/vnd.ms-excel;charset=utf-8'
-            })
-            const filename = fileName || 'excel.xlsx'
+            };
+            const blob = new Blob([data], options); 
+            let _fileName = res.headers["content-disposition"].split(";")[1].split("=")[1].split(".")[0];
+            const filename = fileName ? fileName : decodeURIComponent(_fileName)
             if (typeof window.navigator.msSaveBlob !== 'undefined') {
                 window.navigator.msSaveBlob(blob, filename)
             } else {
@@ -152,9 +155,9 @@ let global = new Vue({
         },
         print(obj){
             this.load('jquery', 'plugins/jqery.print.js', () => {
-                if($(obj) && $(obj).length) {
+                if ($(obj) && $(obj).length) {
                     $(obj).printArea();
-                }else {
+                } else {
                     this.$Notice.error({
                         title: '打印失败'
                     });

@@ -110,7 +110,7 @@ function bouncer(arr) {
  * @param obj
  * @returns {*}
  */
-const filterObj = (obj) => {
+const filterEmptyObj = (obj) => {
     if (!(typeof obj == 'object')) {
         return;
     }
@@ -123,26 +123,16 @@ const filterObj = (obj) => {
     return obj;
 }
 
-/**
- * @param {string} str
- * @returns {Boolean}
- */
-function isString(str) {
-    if (typeof str === 'string' || str instanceof String) {
-        return true
-    }
-    return false
-}
-
-/**
- * @param {Array} arg
- * @returns {Boolean}
- */
-function isArray(arg) {
-    if (typeof Array.isArray === 'undefined') {
-        return Object.prototype.toString.call(arg) === '[object Array]'
-    }
-    return Array.isArray(arg)
+// 判断数据类型
+const typeOf = (data) => {      
+    const toString = Object.prototype.toString;
+    // 为了统一DOM节点类型输出        
+    let dataType = data instanceof Element 
+    ? 'element' 
+    : toString.call(data)
+    .replace(/\[object\s(.+)\]/, '$1')
+    .toLowerCase()  
+    return dataType
 }
 
 /**
@@ -190,4 +180,15 @@ function moneyFormat(num) {
         strOutput += strCapDgt.substr(num.substr(i, 1), 1) + strUnit.substr(i, 1);
     }
     return strPrefix + strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, '零元')
+}
+
+// 保留2位小数精度问题 建议使用mathjs工具包
+const toFixed = (num, n) => {
+    let flag = 1
+    if (num < 0) {
+       flag = -1
+       num *= -1
+    }
+    num = Math.round(num * Math.pow(10, n)) / Math.pow(10, n)+ Math.pow(10, -(n + 1));
+    return (num * flag).toFixed(n)
 }

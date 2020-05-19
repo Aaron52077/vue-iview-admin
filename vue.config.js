@@ -3,12 +3,17 @@
  * name: Aaron
  */
 const path = require('path')
+const GenerateAssetPlugin = require('generate-asset-webpack-plugin')
 const cdnDependencies = require('./dependencies-cdn')
 
 // 拼接路径
 const resolve = dir => path.join(__dirname, dir)
 
 process.env.VUE_APP_VERSION = require('./package.json').version
+
+const env = {
+    VUE_APP_API: process.env.VUE_APP_API
+}
 
 // 设置不参与构建的库
 // let externals = {}
@@ -18,6 +23,16 @@ process.env.VUE_APP_VERSION = require('./package.json').version
 const cdn = {
     css: cdnDependencies.map(e => e.css).filter(e => e),
     js: cdnDependencies.map(e => e.js).filter(e => e)
+}
+
+// 配置自动生成
+/* eslint-disable no-new */
+let createServerConfig = (compilation) => {
+    var parseEnv = Object.assign({ _hash: compilation.hash }, env) // process.env 环境配置项
+    Object.keys(parseEnv).forEach(function (key) {
+        parseEnv[key] = parseEnv[key].replace(/"/g, "")
+    });
+    return JSON.stringify(parseEnv, null, 2)
 }
 
 module.exports = {
@@ -71,6 +86,15 @@ module.exports = {
         performance: {
             hints: false
         },
+        plugins: [
+            new GenerateAssetPlugin({
+                filename: './public/config.json',
+                fn: (compilation, cb) => {
+                    cb(null, createServerConfig(compilation))
+                },
+                extraFiles: []
+            })
+        ],
         // 配置解析别名  
         resolve: {
             alias: {

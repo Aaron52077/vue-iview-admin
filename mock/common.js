@@ -87,3 +87,43 @@ Mock.mock(BASE_URL + '/custom/tree', {
         }]
     }
 });
+
+// 针对json-view展示接口
+Mock.mock(BASE_URL + '/comp/jsonview', {
+    "data": {
+        "data1": {
+            "satutsCode": 200,
+            "message": "请求成功",
+            "data": {
+                "records|10": [{
+                    'id|+1': 1,
+                    "name": "@cname()",
+                    "age|12-24": 0,
+                    "update": "@datetime('yyyy-MM-dd HH:mm')",
+                    "email": "@email",
+                    "status": "@color()"
+                }],
+                "page": 10
+            }
+        },
+        "data2": {
+            "code": 200,
+            "message": "success",
+            "data": {
+                "list|10": [{
+                    'id|+1': 1,
+                    "name": "@cname()",
+                    "age|12-24": 0,
+                    "update": "@datetime('yyyy-MM-dd HH:mm')",
+                    "email": "@email",
+                    "status": "@color()",
+                    "points|2-10": [{
+                        'id|+1': 100,
+                        "name": "@name()"
+                    }]
+                }],
+                "page": 10
+            }
+        }
+    }
+});

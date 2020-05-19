@@ -20,19 +20,21 @@
                 </sSwitch>
             </div>
             <sDivider></sDivider>
-            <div ref="treeWrapper" 
-                class="gc-container__wrapper gc-tree">
-                <sTree :data="treeData" :render="nodeRender"></sTree>
-            </div>
+            <el-scrollbar wrap-class="gc-panel__scroll" view-class="gc-panel__list">
+                <div ref="treeWrapper" 
+                    class="gc-container__wrapper gc-tree">
+                    <sTree :data="treeData" :render="nodeRender"></sTree>
+                </div>
+            </el-scrollbar>
         </div>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
-import { setTimeout } from 'timers';
 import { getTreeCustomData } from '@/api'
-const customCop = () => import(/* webpackChunkName: "layout" */'./custom.vue')
+import ElScrollbar from '@base/Scrollbar/main'
+const customComp = () => import(/* webpackChunkName: "layout" */'./custom.vue')
 
 export default {
     data () {
@@ -72,7 +74,7 @@ export default {
                         marginRight: '5px'
                     }
                 }, data.title),
-                h(customCop, {
+                h(customComp, {
                     props: {
                         trigger: _this.switch1 ? 'click' : 'hover',
                         id: data.id
@@ -89,11 +91,11 @@ export default {
             this.$Message.info('开关状态：' + status);
         }
     },
-    components: { customCop }
+    components: { customComp, ElScrollbar }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .gc-block {
     display: inline-block;
     & + .gc-block {
@@ -102,5 +104,10 @@ export default {
 }
 .ivu-btn {
     margin-right: 5px;
+}
+.gc-panel {
+    &__scroll {
+        height: 150px;
+    }
 }
 </style>

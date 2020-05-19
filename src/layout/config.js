@@ -6,11 +6,11 @@ export const navList = [
     {
         icon: 'md-cube',
         name: '组件类',
-        path: '/icons'
+        path: '/dashboard'
     },
     {
         icon: 'md-build',
-        name: '插件类',
+        name: '业务类',
         path: '/api'
     },
     {
@@ -47,13 +47,16 @@ export const menuList = [
         ]
     },
     {
-        name: '插件类',
+        name: '业务类',
         children: [
             {name: '工具合集', path: '/api', icon: 'md-filing'},
             {name: '富文本', path: '/api/editor', icon: 'ios-share'},
             {name: '图片裁剪', path: '/api/cropper', icon: 'md-clipboard'},
             {name: '拖拽布局', path: '/api/grid', icon: 'md-crop'},
-            {name: '贷款计算器', path: '/api/calculator', icon: 'ios-calculator'}
+            {name: '贷款计算器', path: '/api/calculator', icon: 'ios-calculator'},
+            {name: 'json-view面板', path: '/api/jsonview', icon: 'md-code'},
+            {name: '第三方接口代理', path: '/api/mockproxy', icon: 'md-construct'},
+            {name: '图书集', path: '/api/animatedbook', icon: 'md-bookmarks'}
         ]
     },
     {
@@ -74,13 +77,19 @@ export const menuList = [
     }
 ]
 
-export const compList = [
-    {name: '时间控件', path: '/timePicker', icon: 'md-time'},
-    {name: '树状下拉选择器', path: '/treeSelect', icon: 'ios-arrow-down'},
-    {name: '贷款计算器', path: '/api/calculator', icon: 'md-infinite'},
+// 业务组件
+export const compList1 = [
     {name: '拖拽抽屉', path: '/dragDrawer', icon: 'md-list'},
     {name: '地图坐标拾取器', path: '/map', icon: 'md-compass'},
     {name: '动态数值', path: '/countTo', icon: 'logo-yen'},
     {name: '无缝滚动', path: '/seamless', icon: 'md-megaphone'},
     {name: '拖拽布局', path: '/api/grid', icon: 'md-crop'}
+]
+
+// 功能组件
+export const compList2 = [
+    {name: '贷款计算器', path: '/api/calculator', icon: 'md-infinite'},
+    {name: 'json-view面板', path: '/api/jsonview', icon: 'md-code'},
+    {name: '第三方接口代理', path: '/api/mockproxy', icon: 'ios-arrow-down'},
+    {name: '图书集', path: '/api/animatedbook', icon: 'ios-arrow-down'}
 ]

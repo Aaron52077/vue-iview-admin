@@ -1,6 +1,10 @@
 /* eslint-disable */
 import { debounce, on, off } from '@/utils'
-
+// ps: 注销监听方式
+// this.$on('hook:beforeDestroy', () => {
+//     off(window, 'resize', this._resizeHandler)
+//     this.$_sidebarElm && off(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
+// });
 export default {
     data() {
         return {
@@ -21,10 +25,16 @@ export default {
     
         this.$_sidebarElm = document.getElementsByClassName('sidebar-container')[0]
         this.$_sidebarElm && on(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
-    },
-    beforeDestroy() {
-        off(window, 'resize', this._resizeHandler)
-        this.$_sidebarElm && off(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
+
+        this.$on('hook:beforeDestroy', () => {
+            off(window, 'resize', this._resizeHandler)
+            this.$_sidebarElm && off(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
+        });
+        // ps: 等价于在生命周期beforeDestroy中的实现
+        // beforeDestroy() {
+        //     off(window, 'resize', this._resizeHandler)
+        //     this.$_sidebarElm && off(this.$_sidebarElm, 'transitionend', this.$_sidebarResizeHandler)
+        // },
     },
     methods: {
         /**
