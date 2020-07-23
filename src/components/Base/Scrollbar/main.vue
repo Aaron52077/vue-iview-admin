@@ -1,13 +1,13 @@
 <template>
     <div class="gc-scrollbar">
         <template v-if="!native">
-            <div ref="wrap" 
+            <div
+                ref="wrap"
                 :style="handleStyle"
                 :class="[wrapClass, 'gc-scrollbar__wrap', scrollbarWidth() ? '' : 'gc-scrollbar__wrap--hidden-default']"
-                @scroll="handleScroll">
-                <div :class="['gc-scrollbar__view', viewClass]" 
-                    :style="viewStyle" 
-                    ref="resize">
+                @scroll="handleScroll"
+            >
+                <div :class="['gc-scrollbar__view', viewClass]" :style="viewStyle" ref="resize">
                     <slot></slot>
                 </div>
             </div>
@@ -15,12 +15,8 @@
             <Bar vertical :move="moveY" :size="sizeHeight"></Bar>
         </template>
         <template v-else>
-            <div ref="wrap" 
-                :style="handleStyle"
-                :class="[wrapClass, 'gc-scrollbar__wrap']">
-                <div :class="['gc-scrollbar__view', viewClass]" 
-                    :style="viewStyle" 
-                    ref="resize">
+            <div ref="wrap" :style="handleStyle" :class="[wrapClass, 'gc-scrollbar__wrap']">
+                <div :class="['gc-scrollbar__view', viewClass]" :style="viewStyle" ref="resize">
                     <slot></slot>
                 </div>
             </div>
@@ -29,12 +25,12 @@
 </template>
 
 <script>
-import { addResizeListener, removeResizeListener, toObject } from './libs';
-import Bar from './bar.vue';
+import { addResizeListener, removeResizeListener, toObject } from "./libs";
+import Bar from "./bar.vue";
 
 /* istanbul ignore next */
 export default {
-    name: 'mScrollbar',
+    name: "mScrollbar",
     components: { Bar },
     props: {
         native: Boolean,
@@ -46,11 +42,11 @@ export default {
     },
     data() {
         return {
-            sizeWidth: '0',
-            sizeHeight: '0',
+            sizeWidth: "0",
+            sizeHeight: "0",
             moveX: 0,
             moveY: 0
-        }
+        };
     },
     computed: {
         wrap() {
@@ -61,37 +57,38 @@ export default {
         handleScroll() {
             const wrap = this.wrap;
 
-            this.moveY = ((wrap.scrollTop * 100) / wrap.clientHeight);
-            this.moveX = ((wrap.scrollLeft * 100) / wrap.clientWidth);
+            this.moveY = (wrap.scrollTop * 100) / wrap.clientHeight;
+            this.moveX = (wrap.scrollLeft * 100) / wrap.clientWidth;
         },
         update() {
             let heightPercentage, widthPercentage;
             const wrap = this.wrap;
             if (!wrap) return;
 
-            heightPercentage = (wrap.clientHeight * 100 / wrap.scrollHeight);
-            widthPercentage = (wrap.clientWidth * 100 / wrap.scrollWidth);
+            heightPercentage = (wrap.clientHeight * 100) / wrap.scrollHeight;
+            widthPercentage = (wrap.clientWidth * 100) / wrap.scrollWidth;
 
-            this.sizeHeight = (heightPercentage < 100) ? (heightPercentage + '%') : '';
-            this.sizeWidth = (widthPercentage < 100) ? (widthPercentage + '%') : '';
+            this.sizeHeight =
+                heightPercentage < 100 ? heightPercentage + "%" : "";
+            this.sizeWidth = widthPercentage < 100 ? widthPercentage + "%" : "";
         },
         scrollbarWidth() {
             let scrollBarWidth;
             if (scrollBarWidth !== undefined) return scrollBarWidth;
 
-            const outer = document.createElement('div');
-            outer.className = 'gc-scrollbar__wrap';
-            outer.style.visibility = 'hidden';
-            outer.style.width = '100px';
-            outer.style.position = 'absolute';
-            outer.style.top = '-9999px';
+            const outer = document.createElement("div");
+            outer.className = "gc-scrollbar__wrap";
+            outer.style.visibility = "hidden";
+            outer.style.width = "100px";
+            outer.style.position = "absolute";
+            outer.style.top = "-9999px";
             document.body.appendChild(outer);
 
             const widthNoScroll = outer.offsetWidth;
-            outer.style.overflow = 'scroll';
+            outer.style.overflow = "scroll";
 
-            const inner = document.createElement('div');
-            inner.style.width = '100%';
+            const inner = document.createElement("div");
+            inner.style.width = "100%";
             outer.appendChild(inner);
 
             const widthWithScroll = inner.offsetWidth;
@@ -111,7 +108,7 @@ export default {
                 if (Array.isArray(this.wrapStyle)) {
                     style = toObject(this.wrapStyle);
                     style.marginRight = style.marginBottom = gutterWith;
-                } else if (typeof this.wrapStyle === 'string') {
+                } else if (typeof this.wrapStyle === "string") {
                     style += gutterStyle;
                 } else {
                     style = gutterStyle;
@@ -129,8 +126,7 @@ export default {
         if (this.native) return;
         !this.noresize && removeResizeListener(this.$refs.resize, this.update);
     }
-}
-
+};
 </script>
 
 
@@ -158,7 +154,7 @@ export default {
         z-index: 1;
         border-radius: 4px;
         opacity: 0;
-        transition: opacity .12s ease-out;
+        transition: opacity 0.12s ease-out;
         &.is-horizontal {
             height: 6px;
             left: 2px;
@@ -181,18 +177,18 @@ export default {
         height: 0;
         cursor: pointer;
         border-radius: inherit;
-        background-color: rgba(144, 147, 153, .3);
-        transition: background-color .3s;
+        background-color: rgba(144, 147, 153, 0.3);
+        transition: background-color 0.3s;
     }
     &::-webkit-scrollbar {
-        z-index: 11;
-        width: 6px;
+        z-index: 99;
+        width: 8px;
         &:horizontal {
-            height: 6px;
+            height: 8px;
         }
         &-thumb {
             border-radius: 5px;
-            width: 6px;
+            width: 8px;
             background: #b4bccc;
         }
         &-corner {
@@ -203,7 +199,7 @@ export default {
 
             &-piece {
                 background: @--color-white;
-                width: 6px;
+                width: 8px;
             }
         }
     }

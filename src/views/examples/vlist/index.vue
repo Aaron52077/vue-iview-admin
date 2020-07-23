@@ -6,7 +6,11 @@
             <div class="gc-container__title">virtual-scroll-list示例</div>
             <sDivider></sDivider>
             <mVlist :totalHeight="400" :defaultHeight="40" style="width: 100%;">
-                <div v-for="(item, index) in list" :key="index" :style="{ height: `${item.height}px` }" >{{ item.name }}</div>
+                <div
+                    v-for="(item, index) in list"
+                    :key="index"
+                    :style="{ height: `${item.height}px` }"
+                >{{ item.name }}</div>
             </mVlist>
         </div>
     </div>
@@ -14,21 +18,21 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             list: this.mockData()
-        }
+        };
     },
     methods: {
         mockData() {
             let arr = [];
-            for(let i = 0; i < 99; i++) {
-                arr.push({ name:'8test'+(i+1), height:80 })
-                arr.push({ name:'4test'+(i+1), height:40 })
-                arr.push({ name:'2test'+(i+1), height:20 })
+            for (let i = 0; i < 9999; i++) {
+                arr.push({ name: "8test" + (i + 1), height: 80 });
+                arr.push({ name: "4test" + (i + 1), height: 40 });
+                arr.push({ name: "2test" + (i + 1), height: 20 });
             }
-            return arr
+            return arr;
         }
     }
-}
+};
 </script>
