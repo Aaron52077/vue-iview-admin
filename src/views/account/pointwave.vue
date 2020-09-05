@@ -4,28 +4,28 @@
 </template>
 
 <script>
-import * as THREE from 'three'
-import { on, off } from '@/utils'
+import * as THREE from "three";
+import { onEvent, offEvent } from "@/utils";
 
 export default {
-    name: 'Pointwave',
+    name: "Pointwave",
     props: {
         amountX: {
             type: Number,
-            default: 50
+            default: 50,
         },
         amountY: {
             type: Number,
-            default: 50
+            default: 50,
         },
         color: {
             type: Number,
-            default: 0xffffff
+            default: 0xffffff,
         },
         top: {
             type: Number,
-            default: 350
-        }
+            default: 350,
+        },
     },
     data() {
         return {
@@ -40,60 +40,73 @@ export default {
             // 批量管理粒子
             particles: null,
             // 渲染器
-            renderer: null
-        }
+            renderer: null,
+        };
     },
     mounted() {
-        this.init()
-        this.animate()
+        this.init();
+        this.animate();
     },
     beforeDestroy() {
-        off(window, 'resize',  this.onWindowResize)
-        off(document, 'mousemove',  this.onDocumentMouseMove)
-        off(document, 'touchstart',  this.onDocumentTouchStart)
-        off(document, 'touchmove',  this.onDocumentTouchMove)
+        offEvent(window, "resize", this.onWindowResize);
+        offEvent(document, "mousemove", this.onDocumentMouseMove);
+        offEvent(document, "touchstart", this.onDocumentTouchStart);
+        offEvent(document, "touchmove", this.onDocumentTouchMove);
     },
     methods: {
         init() {
-            const SEPARATION = 100
-            const SCREEN_WIDTH = window.innerWidth
-            const SCREEN_HEIGHT = window.innerHeight
-            const container = document.createElement('div')
-            this.windowHalfX = window.innerWidth / 2
-            container.style.position = 'relative'
-            container.style.top = `${this.top}px`
-            container.style.height = `${(SCREEN_HEIGHT - this.top)}px`
-            document.getElementById('particles').appendChild(container)
+            const SEPARATION = 100;
+            const SCREEN_WIDTH = window.innerWidth;
+            const SCREEN_HEIGHT = window.innerHeight;
+            const container = document.createElement("div");
+            this.windowHalfX = window.innerWidth / 2;
+            container.style.position = "relative";
+            container.style.top = `${this.top}px`;
+            container.style.height = `${SCREEN_HEIGHT - this.top}px`;
+            document.getElementById("particles").appendChild(container);
 
-            this.camera = new THREE.PerspectiveCamera(75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000)
-            this.camera.position.z = 1000
+            this.camera = new THREE.PerspectiveCamera(
+                75,
+                SCREEN_WIDTH / SCREEN_HEIGHT,
+                1,
+                10000
+            );
+            this.camera.position.z = 1000;
 
-            this.scene = new THREE.Scene()
+            this.scene = new THREE.Scene();
 
-            const numParticles = this.amountX * this.amountY
-            const positions = new Float32Array(numParticles * 3)
-            const scales = new Float32Array(numParticles)
+            const numParticles = this.amountX * this.amountY;
+            const positions = new Float32Array(numParticles * 3);
+            const scales = new Float32Array(numParticles);
             // 初始化粒子位置和大小
-            let i = 0
-            let j = 0
+            let i = 0;
+            let j = 0;
             for (let ix = 0; ix < this.amountX; ix++) {
                 for (let iy = 0; iy < this.amountY; iy++) {
-                    positions[i] = ix * SEPARATION - ((this.amountX * SEPARATION) / 2)
-                    positions[i + 1] = 0
-                    positions[i + 2] = iy * SEPARATION - ((this.amountY * SEPARATION) / 2)
-                    scales[j] = 1
-                    i += 3
-                    j++
+                    positions[i] =
+                        ix * SEPARATION - (this.amountX * SEPARATION) / 2;
+                    positions[i + 1] = 0;
+                    positions[i + 2] =
+                        iy * SEPARATION - (this.amountY * SEPARATION) / 2;
+                    scales[j] = 1;
+                    i += 3;
+                    j++;
                 }
             }
 
-            const geometry = new THREE.BufferGeometry()
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-            geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1))
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute(
+                "position",
+                new THREE.BufferAttribute(positions, 3)
+            );
+            geometry.setAttribute(
+                "scale",
+                new THREE.BufferAttribute(scales, 1)
+            );
             // 初始化粒子材质
             const material = new THREE.ShaderMaterial({
                 uniforms: {
-                    color: { value: new THREE.Color(this.color) }
+                    color: { value: new THREE.Color(this.color) },
                 },
                 vertexShader: `
                 attribute float scale;
@@ -109,72 +122,89 @@ export default {
                     if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
                     gl_FragColor = vec4( color, 1.0 );
                 }
-                `
-            })
+                `,
+            });
 
-            this.particles = new THREE.Points(geometry, material)
-            this.scene.add(this.particles)
+            this.particles = new THREE.Points(geometry, material);
+            this.scene.add(this.particles);
 
-            this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-            this.renderer.setSize(container.clientWidth, container.clientHeight)
-            this.renderer.setPixelRatio(window.devicePixelRatio)
-            this.renderer.setClearAlpha(0)
-            container.appendChild(this.renderer.domElement)
+            this.renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true,
+            });
+            this.renderer.setSize(
+                container.clientWidth,
+                container.clientHeight
+            );
+            this.renderer.setPixelRatio(window.devicePixelRatio);
+            this.renderer.setClearAlpha(0);
+            container.appendChild(this.renderer.domElement);
 
-            on(window, 'resize',  this.onWindowResize, { passive: false })
-            on(document, 'mousemove',  this.onDocumentMouseMove, { passive: false })
-            on(document, 'touchstart',  this.onDocumentTouchStart, { passive: false })
-            on(document, 'touchmove',  this.onDocumentTouchMove, { passive: false })
+            onEvent(window, "resize", this.onWindowResize, { passive: false });
+            onEvent(document, "mousemove", this.onDocumentMouseMove, {
+                passive: false,
+            });
+            onEvent(document, "touchstart", this.onDocumentTouchStart, {
+                passive: false,
+            });
+            onEvent(document, "touchmove", this.onDocumentTouchMove, {
+                passive: false,
+            });
         },
         render() {
-            this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.05
-            this.camera.position.y = 400
-            this.camera.lookAt(this.scene.position)
-            const positions = this.particles.geometry.attributes.position.array
-            const scales = this.particles.geometry.attributes.scale.array
+            this.camera.position.x +=
+                (this.mouseX - this.camera.position.x) * 0.05;
+            this.camera.position.y = 400;
+            this.camera.lookAt(this.scene.position);
+            const positions = this.particles.geometry.attributes.position.array;
+            const scales = this.particles.geometry.attributes.scale.array;
             // 计算粒子位置及大小
-            let i = 0
-            let j = 0
+            let i = 0;
+            let j = 0;
             for (let ix = 0; ix < this.amountX; ix++) {
                 for (let iy = 0; iy < this.amountY; iy++) {
-                    positions[i + 1] = (Math.sin((ix + this.count) * 0.3) * 100) + (Math.sin((iy + this.count) * 0.5) * 100)
-                    scales[j] = (Math.sin((ix + this.count) * 0.3) + 1) * 8 + (Math.sin((iy + this.count) * 0.5) + 1) * 8
-                    i += 3
-                    j++
+                    positions[i + 1] =
+                        Math.sin((ix + this.count) * 0.3) * 100 +
+                        Math.sin((iy + this.count) * 0.5) * 100;
+                    scales[j] =
+                        (Math.sin((ix + this.count) * 0.3) + 1) * 8 +
+                        (Math.sin((iy + this.count) * 0.5) + 1) * 8;
+                    i += 3;
+                    j++;
                 }
             }
             // 重新渲染粒子
-            this.particles.geometry.attributes.position.needsUpdate = true
-            this.particles.geometry.attributes.scale.needsUpdate = true
-            this.renderer.render(this.scene, this.camera)
-            this.count += 0.1
+            this.particles.geometry.attributes.position.needsUpdate = true;
+            this.particles.geometry.attributes.scale.needsUpdate = true;
+            this.renderer.render(this.scene, this.camera);
+            this.count += 0.1;
         },
         animate() {
-            requestAnimationFrame(this.animate)
-            this.render()
+            requestAnimationFrame(this.animate);
+            this.render();
         },
         onDocumentMouseMove(event) {
-            this.mouseX = event.clientX - this.windowHalfX
+            this.mouseX = event.clientX - this.windowHalfX;
         },
         onDocumentTouchStart(event) {
             if (event.touches.length === 1) {
-                this.mouseX = event.touches[0].pageX - this.windowHalfX
+                this.mouseX = event.touches[0].pageX - this.windowHalfX;
             }
         },
         onDocumentTouchMove(event) {
             if (event.touches.length === 1) {
-                event.preventDefault()
-                this.mouseX = event.touches[0].pageX - this.windowHalfX
+                event.preventDefault();
+                this.mouseX = event.touches[0].pageX - this.windowHalfX;
             }
         },
         onWindowResize() {
-            this.windowHalfX = window.innerWidth / 2
-            this.camera.aspect = window.innerWidth / window.innerHeight
-            this.camera.updateProjectionMatrix()
-            this.renderer.setSize(window.innerWidth, window.innerHeight)
-        }
-    }
-}
+            this.windowHalfX = window.innerWidth / 2;
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        },
+    },
+};
 </script>
 
 <style lang="less">

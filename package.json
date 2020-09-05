@@ -5,8 +5,7 @@
   "author": "Aaron",
   "license": "MIT",
   "scripts": {
-    "dev": "npm run serve",
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:dev": "vue-cli-service build --mode dev",
     "build:test": "vue-cli-service build --mode test",

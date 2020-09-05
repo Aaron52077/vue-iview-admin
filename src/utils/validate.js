@@ -2,26 +2,26 @@
 // 验证规则
 /* 合法url*/
 export function validateURL(textval) {
-    const urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
-    return urlregex.test(textval)
+  const urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+  return urlregex.test(textval);
 }
 
 /* 小写字母*/
 export function validateLowerCase(str) {
-    const reg = /^[a-z]+$/
-    return reg.test(str)
+  const reg = /^[a-z]+$/;
+  return reg.test(str);
 }
 
 /* 大写字母*/
 export function validateUpperCase(str) {
-    const reg = /^[A-Z]+$/
-    return reg.test(str)
+  const reg = /^[A-Z]+$/;
+  return reg.test(str);
 }
 
 /* 大小写字母*/
 export function validatAlphabets(str) {
-    const reg = /^[A-Za-z]+$/
-    return reg.test(str)
+  const reg = /^[A-Za-z]+$/;
+  return reg.test(str);
 }
 
 /**
@@ -29,15 +29,15 @@ export function validatAlphabets(str) {
  * @returns {String}
  */
 export const regVar = (val1, val2) => {
-  const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g
-  return val1.replace(reg, val2)
-}
+  const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g;
+  return val1.replace(reg, val2);
+};
 
 /**
  * @param ${} 是否存在匹配变量
  * @returns {String}
  */
 export const hasRegVar = (value) => {
-    const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g
-    return reg.test(value)
-}
+  const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g;
+  return reg.test(value);
+};

@@ -25,7 +25,7 @@
 <script>
 /* eslint-disable */
 import { requestAnimationFrame, cancelAnimationFrame } from '@/utils/RAFrame'
-import { arrayEqual } from '@/utils/lib'
+import { arrayEqual } from '@/utils/helper'
 
 export default {
     name: 'seamless-scroll',
