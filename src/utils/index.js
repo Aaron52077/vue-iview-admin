@@ -143,16 +143,16 @@ export function deepClone(source) {
 }
 
 // 简单数组去重
-export function uniqueArr(array) {
+export function uniqueSimple(array) {
   // ES6简洁方法
   return Array.from(new Set(array));
 }
 
 // 复杂数组去重方法
-export function uniqueArrObj(array, key) {
-  const res = new Map();
+export function uniqueToArray(array, key) {
+  const ret = new Map();
   // res中没有某个键(key)，就设置这个键的值为1
-  return array.filter((m) => !res.has(m[key]) && res.set(m[key], 1));
+  return array.filter((m) => !ret.has(m[key]) && ret.set(m[key], 1));
 }
 
 // 生成字符串 mock token

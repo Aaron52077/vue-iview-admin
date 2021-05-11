@@ -59,7 +59,7 @@
 import { remove, uniqBy, differenceBy } from "lodash";
 import mBreadcrumb from "@base/Breadcrumb";
 import { mockTable, getTreeCustomData } from "@/api";
-import { uniqueArr } from "@/utils";
+import { uniqueSimple } from "@/utils";
 import { tableTemp } from "./table.js";
 
 const headCustom = () => import(/* webpackChunkName: "layout" */ "./filter_custom.vue");
@@ -235,7 +235,7 @@ export default {
       });
 
       /* 去重，checkNodeIds即为选中所有节点的id集合 */
-      this.parentIds = uniqueArr(tmpIds);
+      this.parentIds = uniqueSimple(tmpIds);
     },
     /**
      * 获取某节点的所有父节点
