@@ -37,7 +37,7 @@ export const regVar = (val1, val2) => {
  * @param ${} 是否存在匹配变量
  * @returns {String}
  */
-export const hasRegVar = (value) => {
+export const hasRegVar = value => {
   const reg = /\$\{(\w+)\s*(([\+\-])\s*(\d+))?\}/g;
   return reg.test(value);
 };

@@ -97,7 +97,6 @@ function getServerConfig() {
     store,
     created() {
       dataBase.init(this);
-      console.log(this);
     },
     render: (h) => h(App)
   }).$mount("#app");

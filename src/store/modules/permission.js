@@ -1,17 +1,17 @@
-import router, { constantRoutes } from '@/router'
+import router, { constantRoutes } from '@/router';
 
-const asyncRoutes = router.options.routes
+const asyncRoutes = router.options.routes;
 /**
  * 通过meta.role判断是否与当前用户权限匹配
  * @param roles
  * @param route
  */
 function hasPermission(roles, route) {
-    if (route.meta && route.meta.roles) {
-        return roles.some(role => route.meta.roles.includes(role))
-    } else {
-        return true
-    }
+  if (route.meta && route.meta.roles) {
+    return roles.some(role => route.meta.roles.includes(role));
+  } else {
+    return true;
+  }
 }
 
 /**
@@ -20,45 +20,45 @@ function hasPermission(roles, route) {
  * @param roles
  */
 export function filterAsyncRoutes(routes, roles) {
-    const res = []
+  const res = [];
 
-    routes.forEach(route => {
-        const tmp = { ...route }
-        if (hasPermission(roles, tmp)) {
-            if (tmp.children) {
-                tmp.children = filterAsyncRoutes(tmp.children, roles)
-            }
-            res.push(tmp)
-        }
-    })
+  routes.forEach(route => {
+    const tmp = { ...route };
+    if (hasPermission(roles, tmp)) {
+      if (tmp.children) {
+        tmp.children = filterAsyncRoutes(tmp.children, roles);
+      }
+      res.push(tmp);
+    }
+  });
 
-    return res
+  return res;
 }
 
 const state = {
-    routes: [],
-    addRoutes: []
-}
+  routes: [],
+  addRoutes: []
+};
 
 const mutations = {
-    SET_ROUTES: (state, routes) => {
-        state.addRoutes = routes
-        state.routes = constantRoutes.concat(routes)
-    }
-}
+  SET_ROUTES: (state, routes) => {
+    state.addRoutes = routes;
+    state.routes = constantRoutes.concat(routes);
+  }
+};
 
 const actions = {
-    generateRoutes({ commit }) {
-        return new Promise(resolve => {
-            commit('SET_ROUTES', asyncRoutes)
-            resolve(asyncRoutes)
-        })
-    }
-}
+  generateRoutes({ commit }) {
+    return new Promise(resolve => {
+      commit('SET_ROUTES', asyncRoutes);
+      resolve(asyncRoutes);
+    });
+  }
+};
 
 export default {
-    namespaced: true,
-    state,
-    mutations,
-    actions
-}
+  namespaced: true,
+  state,
+  mutations,
+  actions
+};

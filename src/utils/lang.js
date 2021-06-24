@@ -8,7 +8,7 @@ const VueTranslate = {
       vm = new Vue({
         data() {
           return {
-            current: "",
+            current: '',
             locales: {}
           };
         },
@@ -24,14 +24,14 @@ const VueTranslate = {
         methods: {
           setLang(val) {
             if (this.current !== val) {
-              if (this.current === "") {
-                this.$emit("language:init", val);
+              if (this.current === '') {
+                this.$emit('language:init', val);
               } else {
-                this.$emit("language:changed", val);
+                this.$emit('language:changed', val);
               }
             }
             this.current = val;
-            this.$emit("language:modified", val);
+            this.$emit('language:modified', val);
           },
           setLocales(locales) {
             if (!locales) return;
@@ -41,7 +41,7 @@ const VueTranslate = {
               Vue.util.extend(newLocale[key], locales[key]);
             }
             this.locales = Object.create(newLocale);
-            this.$emit("locales:loaded", locales);
+            this.$emit('locales:loaded', locales);
           },
           text(t) {
             if (!this.locale || !this.locale[t]) {
@@ -50,11 +50,11 @@ const VueTranslate = {
             return this.locale[t];
           },
           nano(template, data) {
-            return (template || "").replace(/\{([\w\.]*)\}/g, function(str, key) {
-              var keys = key.split("."),
+            return (template || '').replace(/\{([\w\.]*)\}/g, function(str, key) {
+              var keys = key.split('.'),
                 v = data[keys.shift()];
               for (var i = 0, l = keys.length; i < l; i++) v = v[keys[i]];
-              return typeof v !== "undefined" && v !== null ? v : "";
+              return typeof v !== 'undefined' && v !== null ? v : '';
             });
           }
         }
@@ -62,7 +62,7 @@ const VueTranslate = {
       Vue.prototype.$translate = vm;
     }
     Vue.mixin({
-      [version === "1" ? "init" : "beforeCreate"]() {
+      [version === '1' ? 'init' : 'beforeCreate']() {
         this.$translate.setLocales(this.$options.locales);
       },
       methods: {
@@ -73,16 +73,16 @@ const VueTranslate = {
       directives: {
         translate: function(el, binding) {
           if (!el.$translateKey) el.$translateKey = el.innerText;
-          let data = typeof binding.value == "object" ? binding.value : {};
+          let data = typeof binding.value == 'object' ? binding.value : {};
           let text = this.$translate.nano(this.$translate.text(el.$translateKey), data);
           el.innerText = text;
         }.bind(vm)
       }
     });
-    Vue.locales = (locales) => {
+    Vue.locales = locales => {
       vm.$translate.setLocales(locales);
     };
-    Vue.lang = (lang) => {
+    Vue.lang = lang => {
       vm.$translate.setLang(lang);
     };
   }

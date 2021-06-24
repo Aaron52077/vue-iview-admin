@@ -82,33 +82,33 @@
         ></sDatePicker>
       </div>
     </div>
-    <div>{{ "102423232" | readFileSize }}</div>
+    <div>{{ '102423232' | readFileSize }}</div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import { readFileSize } from "@/filters";
+import { readFileSize } from '@/filters';
 
 export default {
   data() {
     return {
       startTimeOptions: {
-        disabledDate: (date) => {
+        disabledDate: date => {
           if (this.endtime) {
             return date.valueOf() > new Date(this.endtime).valueOf();
           }
         }
       }, // 开始日期设置
       endTimeOptions: {
-        disabledDate: (date) => {
+        disabledDate: date => {
           if (this.starttime) {
             return date.valueOf() < new Date(this.starttime).valueOf();
           }
         }
       }, // 结束日期设置
-      starttime: "", // 开始日期
-      endtime: "" // 结束日期
+      starttime: '', // 开始日期
+      endtime: '' // 结束日期
     };
   },
   methods: {
@@ -124,7 +124,7 @@ export default {
     confData() {
       const t = this.dataBase;
       let beginTime = new Date().getFullYear();
-      let nowTime = t.dateToStr(new Date(), "yyyy-MM");
+      let nowTime = t.dateToStr(new Date(), 'yyyy-MM');
       const date = {
         start: `${beginTime}-01-01`,
         end: `${nowTime}-01`

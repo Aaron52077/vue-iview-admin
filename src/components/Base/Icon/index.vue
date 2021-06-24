@@ -1,7 +1,7 @@
 <template>
-    <svg :class="svgClass" aria-hidden="true" v-on="$listeners">
-        <use :xlink:href="iconsName"></use>
-    </svg>
+  <svg :class="svgClass" aria-hidden="true" v-on="$listeners">
+    <use :xlink:href="iconsName"></use>
+  </svg>
 </template>
 
 <script>
@@ -14,31 +14,31 @@
  * @example
  */
 export default {
-    name: 'm-icon',
-    props: {
-        iconClass: String,
-        iconName: String
+  name: "m-icon",
+  props: {
+    iconClass: String,
+    iconName: String
+  },
+  computed: {
+    iconsName() {
+      return `#${this.iconName}`;
     },
-    computed: {
-        iconsName() {
-            return `#${this.iconName}`
-        },
-        svgClass() {
-            if (this.iconClass) {
-                return 'gc-icon ' + this.iconClass
-            } else {
-                return 'gc-icon'
-            }
-        }
+    svgClass() {
+      if (this.iconClass) {
+        return "gc-icon " + this.iconClass;
+      } else {
+        return "gc-icon";
+      }
     }
-}
+  }
+};
 </script>
 
 <style scoped>
 .gc-icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
 }
 </style>

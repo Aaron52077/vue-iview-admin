@@ -19,7 +19,14 @@
         @on-select-cancel="handleCancel"
       />
       <div class="gc-pages" style="margin-top: 10px;">
-        <sPage :total="20" :current="1" size="small" show-elevator show-total @on-change="changePage"></sPage>
+        <sPage
+          :total="20"
+          :current="1"
+          size="small"
+          show-elevator
+          show-total
+          @on-change="changePage"
+        ></sPage>
       </div>
       <sDivider></sDivider>
       <sRow :gutter="16">
@@ -28,7 +35,9 @@
           <sTree ref="permissionTree" :data="treeData" show-checkbox multiple></sTree>
           <div class="tree">
             <sButton type="primary" class="tree-inline" @click="getNodeId">获取节点id</sButton
-            ><sButton type="primary" class="tree-inline" @click="getNodePid">获取节点所有父级id</sButton>
+            ><sButton type="primary" class="tree-inline" @click="getNodePid"
+              >获取节点所有父级id</sButton
+            >
           </div>
           <div class="gc-container__title">勾选节点id：{{ id }}</div>
           <div class="gc-container__title">勾选节点id、当前节点父级id集合：{{ parentIds }}</div>
@@ -40,13 +49,19 @@
           </sInput>
           <div class="gc-container__h1" style="margin-top: 10px;">指令-水波纹</div>
           <sButton v-waves @click.native="clickHandle">Default</sButton>
-          <sButton type="primary" v-waves class="inline" @click.native="clickHandle">Primary</sButton>
+          <sButton type="primary" v-waves class="inline" @click.native="clickHandle"
+            >Primary</sButton
+          >
           <sButton type="dashed" v-waves class="inline" @click.native="clickHandle">Dashed</sButton>
           <sButton type="text" v-waves class="inline" @click.native="clickHandle">Text</sButton>
           <br /><br />
           <sButton type="info" v-waves class="inline" @click.native="clickHandle">Info</sButton>
-          <sButton type="success" v-waves class="inline" @click.native="clickHandle">Success</sButton>
-          <sButton type="warning" v-waves class="inline" @click.native="clickHandle">Warning</sButton>
+          <sButton type="success" v-waves class="inline" @click.native="clickHandle"
+            >Success</sButton
+          >
+          <sButton type="warning" v-waves class="inline" @click.native="clickHandle"
+            >Warning</sButton
+          >
           <sButton type="error" v-waves class="inline" @click.native="clickHandle">Error</sButton>
         </sCol>
       </sRow>
@@ -56,13 +71,13 @@
 
 <script>
 /* eslint-disable */
-import { remove, uniqBy, differenceBy } from "lodash";
-import mBreadcrumb from "@base/Breadcrumb";
-import { mockTable, getTreeCustomData } from "@/api";
-import { uniqueSimple } from "@/utils";
-import { tableTemp } from "./table.js";
+import { remove, uniqBy, differenceBy } from 'lodash';
+import mBreadcrumb from '@base/Breadcrumb';
+import { mockTable, getTreeCustomData } from '@/api';
+import { uniqueSimple } from '@/utils';
+import { tableTemp } from './table.js';
 
-const headCustom = () => import(/* webpackChunkName: "layout" */ "./filter_custom.vue");
+const headCustom = () => import(/* webpackChunkName: "layout" */ './filter_custom.vue');
 
 export default {
   data() {
@@ -71,32 +86,32 @@ export default {
       treeData: [],
       parentIds: [],
       id: [],
-      inputVal: "输入的内容",
+      inputVal: '输入的内容',
       loadFalg: false,
       data2: tableTemp.data1,
       columns2: [
         {
-          type: "selection",
+          type: 'selection',
           width: 60,
-          align: "center"
+          align: 'center'
         },
         {
-          title: "Name",
-          key: "name"
+          title: 'Name',
+          key: 'name'
         },
         {
-          title: "Status",
-          key: "status",
+          title: 'Status',
+          key: 'status',
           render: (h, params) => {
             const row = params.row;
-            const color = row.status === 1 ? "primary" : row.status === 2 ? "success" : "error";
-            const text = row.status === 1 ? "Working" : row.status === 2 ? "Success" : "Fail";
+            const color = row.status === 1 ? 'primary' : row.status === 2 ? 'success' : 'error';
+            const text = row.status === 1 ? 'Working' : row.status === 2 ? 'Success' : 'Fail';
 
             return h(
-              "sTag",
+              'sTag',
               {
                 props: {
-                  type: "dot",
+                  type: 'dot',
                   color: color
                 }
               },
@@ -105,41 +120,41 @@ export default {
           }
         },
         {
-          title: "Sampling Time",
-          key: "time",
+          title: 'Sampling Time',
+          key: 'time',
           render: (h, params) => {
-            return h("span", "Almost" + params.row.time + "天");
+            return h('span', 'Almost' + params.row.time + '天');
           }
         },
         {
-          title: "Updated Time",
-          key: "update",
+          title: 'Updated Time',
+          key: 'update',
           render: (h, params) => {
-            let date = this.dataBase.dateToStr(params.row.update, "yyyy-MM-dd");
-            return h("span", date);
+            let date = this.dataBase.dateToStr(params.row.update, 'yyyy-MM-dd');
+            return h('span', date);
           }
         }
       ],
       columns1: [
         {
-          title: "名字",
-          key: "name"
+          title: '名字',
+          key: 'name'
         },
         {
-          title: "年龄",
-          key: "age",
+          title: '年龄',
+          key: 'age',
           renderHeader: (h, params) => {
             const _this = this;
             //  style: { whiteSpace: 'normal', wordBreak: 'break-all' }
-            return h("div", [
+            return h('div', [
               h(
-                "span",
+                'span',
                 {
                   style: {
-                    marginRight: "5px"
+                    marginRight: '5px'
                   }
                 },
-                "年龄"
+                '年龄'
               ),
               h(
                 headCustom,
@@ -147,12 +162,12 @@ export default {
                   props: {
                     tree: [
                       {
-                        id: "A",
-                        name: "阿西吧"
+                        id: 'A',
+                        name: '阿西吧'
                       },
                       {
-                        id: "B",
-                        name: "逼逼叨"
+                        id: 'B',
+                        name: '逼逼叨'
                       }
                     ]
                   },
@@ -162,23 +177,23 @@ export default {
                     }
                   }
                 },
-                ""
+                ''
               )
             ]);
           },
-          className: "table-custom1"
+          className: 'table-custom1'
         },
         {
-          title: "地址",
-          key: "address",
+          title: '地址',
+          key: 'address',
           tooltip: true,
           filters: [
             {
-              label: "大于18岁",
+              label: '大于18岁',
               value: 1
             },
             {
-              label: "小于18岁",
+              label: '小于18岁',
               value: 2
             }
           ],
@@ -200,10 +215,10 @@ export default {
   },
   methods: {
     getMockTable() {
-      mockTable().then((res) => {
+      mockTable().then(res => {
         this.data1 = res.data;
       });
-      getTreeCustomData().then((res) => {
+      getTreeCustomData().then(res => {
         let treeMap = res.data.data.map((ele, index) => {
           if (index === 0) {
             ele.expand = true;
@@ -216,7 +231,7 @@ export default {
     getNodeId() {
       const checkedNodes = this.$refs.permissionTree.getCheckedNodes();
       let tmpIds = [];
-      checkedNodes.map((item) => {
+      checkedNodes.map(item => {
         tmpIds = tmpIds.concat(item.id);
       });
       this.id = tmpIds;
@@ -225,12 +240,12 @@ export default {
       const checkedNodes = this.$refs.permissionTree.getCheckedNodes();
       /* 获取选中项的所有父级 */
       let tmpIds = [];
-      checkedNodes.map((item) => {
+      checkedNodes.map(item => {
         const parents = this.getParentIds(this.treeData, item.id);
         tmpIds = tmpIds.concat(parents);
       });
 
-      checkedNodes.map((item) => {
+      checkedNodes.map(item => {
         tmpIds.push(item.id);
       });
 
@@ -261,8 +276,8 @@ export default {
     },
     clickHandle() {
       this.$Notice.info({
-        title: "水波纹指令",
-        desc: "触发水波纹"
+        title: '水波纹指令',
+        desc: '触发水波纹'
       });
     },
     changePage(page) {
@@ -276,7 +291,7 @@ export default {
     },
     handleCancel(selection, row) {
       //从已选项中去除取消项
-      remove(this.selectList, (n) => {
+      remove(this.selectList, n => {
         return n.id === row.id;
       });
     },
@@ -286,11 +301,11 @@ export default {
     },
     handleSelectAll(selection) {
       // 数组合并，有可能用户先选择了某几项，已经被我们push进去，因此数组合并需要去重一下
-      this.selectList = uniqBy(this.selectList.concat(selection), "id");
+      this.selectList = uniqBy(this.selectList.concat(selection), 'id');
     },
     handleCancelSelectAll(selection) {
       // 从已选项中移除当页数据
-      this.selectList = differenceBy(this.selectList, this.data2, "id");
+      this.selectList = differenceBy(this.selectList, this.data2, 'id');
     },
     updateChecked() {
       // 把源数据加上_checked字段，遍历已选项数据，更新选中状态
@@ -309,9 +324,9 @@ export default {
       //     return arr;
       // }, []);
       // 方式2 利用 includes
-      const tempArr = temp.map((n) =>
+      const tempArr = temp.map(n =>
         Object.assign({}, n, {
-          _checked: this.selectList.map((item) => item.id).includes(n.id)
+          _checked: this.selectList.map(item => item.id).includes(n.id)
         })
       );
       this.data2 = tempArr;
@@ -345,7 +360,7 @@ export default {
       // console.log('当前行', row, '当前列', column, '当前行索引', rowIndex, '当前列索引', columnIndex)
       if (columnIndex === 0) {
         // 合并单元格处理
-        let merageTd = this.initMerageTD("name");
+        let merageTd = this.initMerageTD('name');
         const rowSpan = merageTd.colspanTd[rowIndex];
         const colSpan = rowSpan > 0 ? 1 : 0; // 如果被合并了rowSpan = 0 则它这个列需要取消
         return {
@@ -360,10 +375,10 @@ export default {
       return {
         value: this.inputVal,
         success: () => {
-          this.$Message.success("复制成功");
+          this.$Message.success('复制成功');
         },
         error: () => {
-          this.$Message.error("复制失败");
+          this.$Message.error('复制失败');
         }
       };
     }

@@ -1,30 +1,28 @@
 <template>
-    <component :is="hasToken" />
+  <component :is="hasToken" />
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import mAccount from '@/views/account/main.vue'
-import mLayoutMain from './main.vue'
+import { mapGetters } from "vuex";
+import mAccount from "@/views/account/main.vue";
+import mLayoutMain from "./main.vue";
 
 export default {
-    name: 'page-layout',
-    data() {
-        return {
-            hasToken: 'mLayoutMain'
-        }
-    },
-    components: { mAccount, mLayoutMain },
-    computed: {
-        ...mapGetters([
-            'token'
-        ])
-    },
-    created() {
-        // eslint-disable-line
-        if (!this.token) {
-            this.hasToken = 'mAccount'
-        }
+  name: "page-layout",
+  data() {
+    return {
+      hasToken: "mLayoutMain"
+    };
+  },
+  components: { mAccount, mLayoutMain },
+  computed: {
+    ...mapGetters(["token"])
+  },
+  created() {
+    // eslint-disable-line
+    if (!this.token) {
+      this.hasToken = "mAccount";
     }
-}
+  }
+};
 </script>

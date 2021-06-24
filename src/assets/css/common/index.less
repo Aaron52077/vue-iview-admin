@@ -3,41 +3,41 @@
 // 参考element-ui动画效果
 .el-fade-in-linear-enter-active,
 .el-fade-in-linear-leave-active {
-    transition: @--fade-linear-transition;
+  transition: @--fade-linear-transition;
 }
 
 .el-fade-in-linear-enter,
 .el-fade-in-linear-leave,
 .el-fade-in-linear-leave-active {
-    opacity: 0;
+  opacity: 0;
 }
 
 // 全局布局公用样式
 .container {
-    min-height: 100%;
+  min-height: 100%;
 }
 
 .gc-container {
-    padding: 10px 15px;
-    &__title {
-        font-size: @--size-base + 2;;
-        color: @--color-info;
-    }
-    &__h1 {
-        font-size: @--size-base + 2;
-        padding: 5px 0 10px;
-        color: @--color-info;
-    }
+  padding: 10px 15px;
+  &__title {
+    font-size: @--size-base + 2;
+    color: @--color-info;
+  }
+  &__h1 {
+    font-size: @--size-base + 2;
+    padding: 5px 0 10px;
+    color: @--color-info;
+  }
 }
 
 .gc-layout {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
 }
 
 .collapse-transition {
-    transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+  transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
 }
