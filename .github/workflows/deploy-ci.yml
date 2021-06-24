@@ -27,7 +27,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: ./dist
+          publish_dir: ./prod-dist
           GITHUB_TOKEN: ${{ secrets.IVEIW_DEPLOY_PRIVATE_KEY }}
           BRANCH: gh-pages
           FOLDER: gh-pages
