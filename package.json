@@ -1,5 +1,5 @@
 {
-  "name": "wuli-admin-pro",
+  "name": "vue-iview-admin",
   "version": "2.0.0",
   "private": true,
   "author": "Aaron",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aaron52077/vue-wuli-ui"
+    "url": "https://github.com/Aaron52077/vue-iview-admin"
   },
   "dependencies": {
     "axios": "0.18.1",

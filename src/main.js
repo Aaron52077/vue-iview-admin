@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "producti
 }
 
 // register global utility filters.
-Object.keys(filters).forEach((key) => {
+Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key]);
 });
 
@@ -58,32 +58,32 @@ Vue.use(VueTranslate);
 const lang = localStorage.lang || "zh-cn";
 Vue.lang(lang);
 
-dataBase.debug &&
-  (() => {
-    var script = document.createElement("script");
-    script.src = "plugins/vconsole.min.js";
-    document.body.appendChild(script);
-    script.onload = () => {
-      try {
-        new VConsole();
-      } catch (e) {
-        throw new Error(e);
-      }
-    };
-  })();
+// dataBase.debug &&
+//   (() => {
+//     var script = document.createElement("script");
+//     script.src = "plugins/vconsole.min.js";
+//     document.body.appendChild(script);
+//     script.onload = () => {
+//       try {
+//         new VConsole();
+//       } catch (e) {
+//         throw new Error(e);
+//       }
+//     };
+//   })();
 
 // 获取服务端动态配置地址方式
 function getServerConfig() {
   return new Promise((resolve, reject) => {
     axios
       .get("./config.json")
-      .then((result) => {
+      .then(result => {
         let config = result.data;
         axios.defaults.baseURL = config.vue_app_api;
         store.commit("theme/SET_THEME", config.windows.theme);
         resolve();
       })
-      .catch((error) => {
+      .catch(error => {
         axios.defaults.baseURL = process.env.VUE_APP_API;
         reject();
       });
@@ -98,6 +98,6 @@ function getServerConfig() {
     created() {
       dataBase.init(this);
     },
-    render: (h) => h(App)
+    render: h => h(App)
   }).$mount("#app");
 })();

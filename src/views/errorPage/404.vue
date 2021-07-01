@@ -5,7 +5,7 @@
       <p class="page-wrapper__text">您要查找的頁面被外星人偷走了，或者根本不存在。</p>
       <sButton type="primary" round @click="$router.push('/')">回到首页</sButton>
       <div class="page-wrapper__issues">
-        <a href="https://github.com/Aaron52077/vue-wuli-ui/issues" target="_blank">Issues me</a>
+        <a href="https://github.com/Aaron52077/vue-iview-admin/issues" target="_blank">Issues me</a>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'page-404'
+  name: "page-404"
 };
 </script>
 

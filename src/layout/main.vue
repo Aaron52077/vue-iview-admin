@@ -18,11 +18,13 @@
       >
         <tagsView />
         <!-- 移除slot插槽方式，采用页面跳转 -->
-        <transition name="el-fade-in-linear" mode="out-in">
-          <keep-alive :include="cachedViews">
-            <router-view :key="viewKey" />
-          </keep-alive>
-        </transition>
+        <router-view #default="{ Component, route }">
+          <transition name="el-fade-in-linear" mode="out-in" appear>
+            <keep-alive :include="cachedViews">
+              <component :is="Component" :key="route.fullPath" />
+            </keep-alive>
+          </transition>
+        </router-view>
       </mInfiniteScroll>
     </div>
   </div>
@@ -49,14 +51,13 @@ export default {
     layoutWeb() {
       return this.dataBase.h5 ? 75 : 210;
     },
-    viewKey() {
-      return this.$route.fullPath;
-    },
     /**
      * @description 最外层容器的背景图片样式
      */
     styleLayoutMainGroup() {
-      return this.themeActive.backgroundImage ? { backgroundImage: `url('${this.themeActive.backgroundImage}')` } : {};
+      return this.themeActive.backgroundImage
+        ? { backgroundImage: `url('${this.themeActive.backgroundImage}')` }
+        : {};
     }
   },
   methods: {

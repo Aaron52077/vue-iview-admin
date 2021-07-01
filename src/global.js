@@ -1,24 +1,23 @@
 /* eslint-disable */
-import Vue from 'vue';
-import store from '@/store';
-import cache from '@/utils/cache';
-import { cloneDeep, size } from 'lodash';
-import { dateToStr, unixToStr, desensitization } from '@/filters';
+import Vue from "vue";
+import store from "@/store";
+import cache from "@/utils/cache";
+import { cloneDeep, size } from "lodash";
+import { dateToStr, unixToStr, desensitization } from "@/filters";
 // 公共工具集函数挂载，根据项目需求插入即可
-// import common from '@/common'
 
 // 流加载
-import './utils/ljs';
+import "./utils/ljs";
 
 let global = new Vue({
   data: {
     ENV: process.env.NODE_ENV,
     apihost: process.env.VUE_APP_API,
     debug:
-      (process.env.NODE_ENV || '').indexOf('development') > -1 ||
+      (process.env.NODE_ENV || "").indexOf("development") > -1 ||
       (window.localStorage && window.localStorage.devOnline == 1), // ES6: includes
-    token: cache.getLocal('token') || '',
-    lang: cache.getLocal('lang') || 'zh-cn',
+    token: cache.getLocal("token") || "",
+    lang: cache.getLocal("lang") || "zh-cn",
     dh: document.body.clientHeight,
     dw: document.body.clientWidth,
     ljs: window.ljs,
@@ -34,8 +33,8 @@ let global = new Vue({
       },
       set(val) {
         this.token = val;
-        cache.setLocal('token', val);
-        if (val == '') cache.removeLocal('token');
+        cache.setLocal("token", val);
+        if (val == "") cache.removeLocal("token");
       }
     },
     setLang: {
@@ -43,10 +42,10 @@ let global = new Vue({
         return this.lang;
       },
       set(val) {
-        let value = val || 'zh-cn';
+        let value = val || "zh-cn";
         this.$translate.setLang(value);
         this.lang = value;
-        cache.setLocal('lang', value);
+        cache.setLocal("lang", value);
       }
     },
     h5() {
@@ -63,13 +62,13 @@ let global = new Vue({
       // let storeData = cloneDeep(this.data);
       storeData[key] = val;
       this.data = storeData;
-      store.dispatch('setData', storeData);
+      store.dispatch("setData", storeData);
       return val;
     },
     setApi(val) {
-      let name = val && val.$options ? val.$options.name : '';
+      let name = val && val.$options ? val.$options.name : "";
       if (!name) {
-        console.warn('setApi error, 请定义 name ');
+        console.warn("setApi error, 请定义 name ");
       }
       if (!global[`api_${name}`]) {
         global[`api_${name}`] = val;
@@ -110,15 +109,15 @@ let global = new Vue({
        * 'viewer': ['plugins/viewer/viewer.min.css','plugins/viewer/viewer.min.js'],
        */
       const config = {
-        jquery: ['plugins/jquery.js'],
+        jquery: ["plugins/jquery.js"],
         video: [
-          'plugins/videojs/video.min.js',
-          'plugins/videojs/videojs.min.css',
-          'plugins/videojs/zh-CN.js'
+          "plugins/videojs/video.min.js",
+          "plugins/videojs/videojs.min.css",
+          "plugins/videojs/zh-CN.js"
         ]
       };
       arg.map(item => {
-        let pluginName = typeof item == 'string' ? item.toLocaleLowerCase() : item;
+        let pluginName = typeof item == "string" ? item.toLocaleLowerCase() : item;
         if (config[pluginName]) {
           plugins.push(...config[pluginName]);
         } else {
@@ -143,24 +142,24 @@ let global = new Vue({
       const options = type
         ? type
         : {
-            type: 'application/vnd.ms-excel;charset=utf-8'
+            type: "application/vnd.ms-excel;charset=utf-8"
           };
       const blob = new Blob([data], options);
-      let _fileName = res.headers['content-disposition']
-        .split(';')[1]
-        .split('=')[1]
-        .split('.')[0];
+      let _fileName = res.headers["content-disposition"]
+        .split(";")[1]
+        .split("=")[1]
+        .split(".")[0];
       const filename = fileName ? fileName : decodeURIComponent(_fileName);
-      if (typeof window.navigator.msSaveBlob !== 'undefined') {
+      if (typeof window.navigator.msSaveBlob !== "undefined") {
         window.navigator.msSaveBlob(blob, filename);
       } else {
         var blobURL = window.URL.createObjectURL(blob);
-        var tempLink = document.createElement('a');
-        tempLink.style.display = 'none';
+        var tempLink = document.createElement("a");
+        tempLink.style.display = "none";
         tempLink.href = blobURL;
-        tempLink.setAttribute('download', filename);
-        if (typeof tempLink.download === 'undefined') {
-          tempLink.setAttribute('target', '_blank');
+        tempLink.setAttribute("download", filename);
+        if (typeof tempLink.download === "undefined") {
+          tempLink.setAttribute("target", "_blank");
         }
         document.body.appendChild(tempLink);
         tempLink.click();
@@ -169,12 +168,12 @@ let global = new Vue({
       }
     },
     print(obj) {
-      this.load('jquery', 'plugins/jqery.print.js', () => {
+      this.load("jquery", "plugins/jqery.print.js", () => {
         if ($(obj) && $(obj).length) {
           $(obj).printArea();
         } else {
           this.$Notice.error({
-            title: '打印失败'
+            title: "打印失败"
           });
         }
       });

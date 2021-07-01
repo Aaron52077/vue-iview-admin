@@ -1,44 +1,44 @@
-import { fetch } from '@/utils/fetch';
+import { fetch } from "@/utils/fetch";
 
 // seamles
 export function getSeamlesData() {
-  let res = fetch('/comp/seamles');
+  let res = fetch("/comp/seamles");
   return res;
 }
 
 // tree1
 export function getTreeSelectData() {
-  let res = fetch('/comp/tree');
+  let res = fetch("/comp/tree");
   return res;
 }
 
 // tree2
 export function getTreeCustomData() {
-  let res = fetch('/custom/tree');
+  let res = fetch("/custom/tree");
   return res;
 }
 
 // drag
 export function getDragListData() {
-  let res = fetch('/comp/list');
+  let res = fetch("/comp/list");
   return res;
 }
 
 // table
 export function mockTable() {
-  let res = fetch('/table');
+  let res = fetch("/table");
   return res;
 }
 
 // editor
 export function getEditortData() {
-  let res = fetch('/editor');
+  let res = fetch("/editor");
   return res;
 }
 
 // jsonview
 export function getJsonView() {
-  let res = fetch('/comp/jsonview');
+  let res = fetch("/comp/jsonview");
   return res;
 }
 
@@ -48,6 +48,6 @@ export function getJsonView() {
  * @returns {*}
  */
 export function uploadFile(file) {
-  let res = fetch('/biz/graduate/importExcel', 'post', file);
+  let res = fetch("/biz/graduate/importExcel", "post", file);
   return res;
 }
