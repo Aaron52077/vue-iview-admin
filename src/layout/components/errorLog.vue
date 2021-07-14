@@ -15,9 +15,15 @@
       footer-hide
     >
       <div slot="header" class="gc-dia-title">
-        错误日志<sButton style="margin-left: 15px;" type="primary" icon="md-trash" @click.native="onClick"
+        错误日志<sButton
+          style="margin-left: 15px;"
+          type="primary"
+          icon="md-trash"
+          @click.native="onClick"
           >错误演示</sButton
-        ><sButton style="margin-left: 15px;" type="primary" icon="md-trash" @click="clearAll">清空全部</sButton>
+        ><sButton style="margin-left: 15px;" type="primary" icon="md-trash" @click="clearAll"
+          >清空全部</sButton
+        >
       </div>
       <div class="gc-dia-body gc-table gc-table-mini">
         <sTable :columns="columns" :data="errorLogs" highlight-row border>

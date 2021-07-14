@@ -1,4 +1,4 @@
-import routerObj from "@/router";
+import router from "@/router";
 import store from "@/store";
 import { LoadingBar } from "view-design";
 import cache from "@/utils/cache";
@@ -7,7 +7,7 @@ import { setTitle } from "@/utils";
 const whiteList = ["/account", "/auth"]; // no redirect whitelist
 
 // 全局路由登录验证，权限验证路由拦截
-routerObj.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // start progress bar
   LoadingBar.start();
   // 免登录或已登录
@@ -32,7 +32,7 @@ routerObj.beforeEach(async (to, from, next) => {
           // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
 
           // dynamically add accessible routes
-          // routerObj.addRoutes(accessRoutes)
+          // router.addRoutes(accessRoutes)
 
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
@@ -57,9 +57,9 @@ routerObj.beforeEach(async (to, from, next) => {
   }
 });
 
-routerObj.afterEach((to) => {
+router.afterEach(to => {
   // set title
-  setTitle(to, routerObj.app);
+  setTitle(to, router.app);
   // finish progress bar
   LoadingBar.finish();
 });

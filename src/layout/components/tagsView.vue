@@ -23,7 +23,12 @@
     <!-- 右键操作项 -->
     <ul v-show="visible" :style="{ left: `${left}px`, top: `${top}px` }" class="contextmenu">
       <li @click="refreshSelectedTag(selectedTag)">刷新</li>
-      <li v-if="!(selectedTag.meta && selectedTag.meta.affix)" @click="closeSelectedTag(selectedTag)">关闭</li>
+      <li
+        v-if="!(selectedTag.meta && selectedTag.meta.affix)"
+        @click="closeSelectedTag(selectedTag)"
+      >
+        关闭
+      </li>
       <li @click="closeOthersTags">关闭其他</li>
       <li @click="closeAllTags(selectedTag)">关闭所有</li>
     </ul>
@@ -76,7 +81,7 @@ export default {
     },
     filterAffixTags(routes, basePath = "/") {
       let tags = [];
-      routes.forEach((route) => {
+      routes.forEach(route => {
         if (route.meta && route.meta.affix) {
           const tagPath = path.resolve(basePath, route.path);
           tags.push({
@@ -153,7 +158,7 @@ export default {
     },
     closeAllTags(view) {
       this.$store.dispatch("tagsView/delAllViews").then(({ visitedViews }) => {
-        if (this.affixTags.some((tag) => tag.path === view.path)) {
+        if (this.affixTags.some(tag => tag.path === view.path)) {
           return;
         }
         this.toLastView(visitedViews, view);

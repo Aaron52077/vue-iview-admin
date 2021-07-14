@@ -7,8 +7,20 @@
       </router-link>
       <template v-if="!dataBase.h5">
         <div class="gc-head__inner">轻量、可靠的中后台Vue Admin</div>
-        <sMenu class="gc-head__nav" mode="horizontal" theme="light" :active-name="navActive" @on-select="onPathHandle">
-          <sMenuItem v-for="item in navList" :name="item.name" :to="item.path" :key="item.id" v-waves>
+        <sMenu
+          class="gc-head__nav"
+          mode="horizontal"
+          theme="light"
+          :active-name="navActive"
+          @on-select="onPathHandle"
+        >
+          <sMenuItem
+            v-for="item in navList"
+            :name="item.name"
+            :to="item.path"
+            :key="item.id"
+            v-waves
+          >
             <sIcon :type="item.icon" />{{ t(item.name) }}
           </sMenuItem>
         </sMenu>

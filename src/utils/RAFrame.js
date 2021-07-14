@@ -2,7 +2,7 @@
 
 // requestAnimationFrame、cancelAnimationFrame 兼容方法
 let lastTime = 0;
-const vendors = ['webkit', 'moz', 'ms', 'o'];
+const vendors = ["webkit", "moz", "ms", "o"];
 
 let requestAnimationFrame = window.requestAnimationFrame;
 let cancelAnimationFrame = window.cancelAnimationFrame;
@@ -10,10 +10,10 @@ for (let x = 0; x < vendors.length; x++) {
   if (requestAnimationFrame && cancelAnimationFrame) {
     break;
   } else {
-    requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
     cancelAnimationFrame =
-      window[vendors[x] + 'CancelAnimationFrame'] ||
-      window[vendors[x] + 'CancelRequestAnimationFrame'];
+      window[vendors[x] + "CancelAnimationFrame"] ||
+      window[vendors[x] + "CancelRequestAnimationFrame"];
   }
 }
 if (!requestAnimationFrame) {

@@ -69,11 +69,11 @@ const getBrowserType = () => {
   const isExplorer = exp => {
     return ua.indexOf(exp) > -1;
   };
-  if (isExplorer('MSIE')) return 'IE';
-  else if (isExplorer('Firefox')) return 'Firefox';
-  else if (isExplorer('Chrome')) return 'Chrome';
-  else if (isExplorer('Opera')) return 'Opera';
-  else if (isExplorer('Safari')) return 'Safari';
+  if (isExplorer("MSIE")) return "IE";
+  else if (isExplorer("Firefox")) return "Firefox";
+  else if (isExplorer("Chrome")) return "Chrome";
+  else if (isExplorer("Opera")) return "Opera";
+  else if (isExplorer("Safari")) return "Safari";
 };
 
 /**
@@ -83,7 +83,7 @@ function bouncer(arr) {
   // Don't show a false ID to this bouncer.
   // 过滤掉数组中false, null, 0, "", undefined, NaN
   return arr.filter(value => {
-    return !(!value || value === '');
+    return !(!value || value === "");
   });
 }
 
@@ -93,12 +93,12 @@ function bouncer(arr) {
  * @returns {*}
  */
 const filterEmptyObj = obj => {
-  if (!(typeof obj == 'object')) {
+  if (!(typeof obj == "object")) {
     return;
   }
 
   for (var key in obj) {
-    if (obj.hasOwnProperty(key) && (obj[key] == null || obj[key] == undefined || obj[key] === '')) {
+    if (obj.hasOwnProperty(key) && (obj[key] == null || obj[key] == undefined || obj[key] === "")) {
       delete obj[key];
     }
   }
@@ -111,10 +111,10 @@ const typeOf = data => {
   // 为了统一DOM节点类型输出
   let dataType =
     data instanceof Element
-      ? 'element'
+      ? "element"
       : toString
           .call(data)
-          .replace(/\[object\s(.+)\]/, '$1')
+          .replace(/\[object\s(.+)\]/, "$1")
           .toLowerCase();
   return dataType;
 };
@@ -146,16 +146,16 @@ const forEach = (arr, fn) => {
 
 // 小写金额转大写
 function moneyFormat(num) {
-  if (isNaN(num)) return '';
-  var strPrefix = '';
-  if (num < 0) strPrefix = '(负)';
+  if (isNaN(num)) return "";
+  var strPrefix = "";
+  if (num < 0) strPrefix = "(负)";
   num = Math.abs(num);
-  if (num >= 1000000000000) return '';
-  var strOutput = '';
-  var strUnit = '仟佰拾亿仟佰拾万仟佰拾元角分';
-  var strCapDgt = '零壹贰叁肆伍陆柒捌玖';
-  num += '00';
-  var intPos = num.indexOf('.');
+  if (num >= 1000000000000) return "";
+  var strOutput = "";
+  var strUnit = "仟佰拾亿仟佰拾万仟佰拾元角分";
+  var strCapDgt = "零壹贰叁肆伍陆柒捌玖";
+  num += "00";
+  var intPos = num.indexOf(".");
   if (intPos >= 0) {
     num = num.substring(0, intPos) + num.substr(intPos + 1, 2);
   }
@@ -166,18 +166,18 @@ function moneyFormat(num) {
   return (
     strPrefix +
     strOutput
-      .replace(/零角零分$/, '整')
-      .replace(/零[仟佰拾]/g, '零')
-      .replace(/零{2,}/g, '零')
-      .replace(/零([亿|万])/g, '$1')
-      .replace(/零+元/, '元')
-      .replace(/亿零{0,3}万/, '亿')
-      .replace(/^元/, '零元')
+      .replace(/零角零分$/, "整")
+      .replace(/零[仟佰拾]/g, "零")
+      .replace(/零{2,}/g, "零")
+      .replace(/零([亿|万])/g, "$1")
+      .replace(/零+元/, "元")
+      .replace(/亿零{0,3}万/, "亿")
+      .replace(/^元/, "零元")
   );
 }
 
 export const prettyBytes = num => {
-  const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
   if (!Number.isFinite(num)) {
     throw new Error(`Expected a finite number, got ${typeof num}: ${num}`);
@@ -190,12 +190,12 @@ export const prettyBytes = num => {
   }
 
   if (num < 1) {
-    return (neg ? '-' : '') + num + ' B';
+    return (neg ? "-" : "") + num + " B";
   }
 
   const exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), UNITS.length - 1);
   const numStr = Number((num / Math.pow(1000, exponent)).toPrecision(3));
   const unit = UNITS[exponent];
 
-  return (neg ? '-' : '') + numStr + ' ' + unit;
+  return (neg ? "-" : "") + numStr + " " + unit;
 };

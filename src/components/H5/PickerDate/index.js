@@ -1,2 +1,3 @@
-import VanFieldDate from './main.vue'
-export default VanFieldDate
+import VanFieldDate from "./main.vue";
+
+export default VanFieldDate;

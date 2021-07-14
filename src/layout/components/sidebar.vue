@@ -9,6 +9,7 @@
     </sMenu>
   </mScrollbar>
 </template>
+
 <script>
 /* eslint-disable */
 import { mapGetters } from "vuex";

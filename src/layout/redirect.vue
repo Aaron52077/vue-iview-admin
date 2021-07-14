@@ -10,6 +10,6 @@ export default {
     const { path } = params;
     this.$router.replace({ path: "/" + path, query });
   },
-  render: (h) => h() // avoid warning message
+  render: h => h() // avoid warning message
 };
 </script>

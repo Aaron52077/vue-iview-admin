@@ -1,2 +1,3 @@
-import Video from './main.vue'
-export default Video
+import Video from "./main.vue";
+
+export default Video;

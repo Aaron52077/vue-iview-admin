@@ -1,4 +1,4 @@
-import directive from './install';
+import directive from "./install";
 
 const directives = Vue => {
   /**
@@ -18,8 +18,8 @@ const directives = Vue => {
    *  error:    /复制失败后的回调/
    * }
    */
-  Vue.directive('clipboard', directive.clipboard);
-  Vue.directive('waves', directive.waves);
+  Vue.directive("clipboard", directive.clipboard);
+  Vue.directive("waves", directive.waves);
 };
 
 export default directives;

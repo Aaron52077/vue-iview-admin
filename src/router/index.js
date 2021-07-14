@@ -7,12 +7,9 @@ Vue.use(Router);
 /** 动态路由配置
  *  获取各个模块router.js配置上下文
  */
-const routersContext = require.context("@/views", true, /router\.js$/);
+const routersContext = require.context("./modules", false, /\.js$/);
 // 自动引入modules目录下的所有模块
-let routersArray = routersContext.keys().map((key) => routersContext(key).default);
-
-/* Layout */
-import Layout from "@/layout/main.vue";
+let routersArray = routersContext.keys().map(key => routersContext(key).default);
 
 /** 404路由
  *  最终无法匹配到相应路由，重定向到404
@@ -25,7 +22,7 @@ export const constantRoutes = [
   },
   {
     path: "/redirect",
-    component: Layout,
+    component: () => import("@/layout/main"),
     children: [
       {
         path: "/redirect/:path*",
@@ -44,7 +41,7 @@ export const constantRoutes = [
   },
   {
     path: "/404",
-    component: () => import("@/views/errorPage/404")
+    component: () => import("@/views/404")
   },
   { path: "*", redirect: "/404" }
 ];

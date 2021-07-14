@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import VCharts from 'v-charts'
+import Vue from "vue";
+import VCharts from "v-charts";
 
-Vue.use(VCharts)
+Vue.use(VCharts);
 
 export default {
-    data () {
-        return {
-            pubSetting: {
-                height: '100%'
-            }
-        }
-    }
-}
+  data() {
+    return {
+      pubSetting: {
+        height: "100%"
+      }
+    };
+  }
+};

@@ -1,6 +1,6 @@
-import draggable from './module/draggable';
-import clipboard from './module/clipboard';
-import waves from './module/waves';
+import draggable from "./module/draggable";
+import clipboard from "./module/clipboard";
+import waves from "./module/waves";
 
 const directives = {
   draggable,

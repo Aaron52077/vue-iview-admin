@@ -1,5 +1,5 @@
 /* eslint-disable */
-import Clipboard from 'clipboard';
+import Clipboard from "clipboard";
 
 export default {
   bind: (el, binding) => {
@@ -8,11 +8,11 @@ export default {
     });
     el.success_callback = binding.value.success;
     el.error_callback = binding.value.error;
-    clipboard.on('success', e => {
+    clipboard.on("success", e => {
       const callback = el.success_callback;
       callback && callback(e);
     });
-    clipboard.on('error', e => {
+    clipboard.on("error", e => {
       const callback = el.error_callback;
       callback && callback(e);
     });

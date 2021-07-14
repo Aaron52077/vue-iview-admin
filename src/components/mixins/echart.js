@@ -28,7 +28,8 @@ export default {
 
     this.$on("hook:beforeDestroy", () => {
       offEvent(window, "resize", this._resizeHandler);
-      this.$_sidebarElm && offEvent(this.$_sidebarElm, "transitionend", this.$_sidebarResizeHandler);
+      this.$_sidebarElm &&
+        offEvent(this.$_sidebarElm, "transitionend", this.$_sidebarResizeHandler);
     });
     // ps: 等价于在生命周期beforeDestroy中的实现
     // beforeDestroy() {

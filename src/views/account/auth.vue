@@ -1,6 +1,6 @@
 <template>
   <div class="gc-oauth">
-    <sButton type="primary" @click="thirdAccout">第三方登录</sButton>
+    <sButton type="primary" @click="thirdOAuth">第三方登录</sButton>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     return {};
   },
   methods: {
-    thirdAccout(thirdpart = "单点登录") {
+    thirdOAuth(thirdpart = "单点登录") {
       const cassos = "http://10.88.83.111:3033/sso/login";
       const redirect_uri = encodeURIComponent(cassos + "/auth");
       const url =

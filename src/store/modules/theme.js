@@ -1,8 +1,8 @@
-import cache from '@/utils/cache';
+import cache from "@/utils/cache";
 
 const state = {
   list: [],
-  activeName: 'defalut'
+  activeName: "defalut"
 };
 
 const getters = {
@@ -40,8 +40,8 @@ const actions = {
         ? themeName
         : state.list[0].name;
       // 将 vuex 中的主题应用到 dom
-      commit('DOM');
-      cache.setLocal('theme', state.activeName);
+      commit("DOM");
+      cache.setLocal("theme", state.activeName);
       resolve();
     });
   },
@@ -52,16 +52,16 @@ const actions = {
   load({ state, commit }) {
     return new Promise(resolve => {
       // store 赋值
-      let activeName = cache.getLocal('theme');
+      let activeName = cache.getLocal("theme");
       // 检查这个主题在主题列表里是否存在
       if (state.list.find(e => e.name === activeName)) {
         state.activeName = activeName;
       } else {
         state.activeName = state.list[0].name;
-        cache.setLocal('theme', state.activeName);
+        cache.setLocal("theme", state.activeName);
       }
       // 将 vuex 中的主题应用到 dom
-      commit('DOM');
+      commit("DOM");
       resolve();
     });
   }

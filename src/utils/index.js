@@ -4,13 +4,13 @@
 
 /* eslint-disable */
 
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 
 // 加密处理
 export const encryption = params => {
   let { data, type, param, key } = params;
   const result = JSON.parse(JSON.stringify(data));
-  if (type === 'Base64') {
+  if (type === "Base64") {
     param.forEach(ele => {
       result[ele] = btoa(result[ele]);
     });
@@ -34,7 +34,7 @@ export const encryption = params => {
 // 获取地址栏的query参数
 export function paramObj(url) {
   url = url == null ? window.location.href : url;
-  const search = url.substring(url.lastIndexOf('?') + 1);
+  const search = url.substring(url.lastIndexOf("?") + 1);
   const obj = {};
   const reg = /([^?&=]+)=([^?&=]*)/g;
   search.replace(reg, (rs, $1, $2) => {
@@ -48,7 +48,7 @@ export function paramObj(url) {
 }
 
 export function param2Obj(url) {
-  const search = url.split('?')[1];
+  const search = url.split("?")[1];
   if (!search) {
     return {};
   }
@@ -63,13 +63,13 @@ export function param2Obj(url) {
 }
 
 export function param(json) {
-  if (!json) return '';
+  if (!json) return "";
   return deepClone(
     Object.keys(json).map(key => {
-      if (json[key] === undefined) return '';
-      return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+      if (json[key] === undefined) return "";
+      return encodeURIComponent(key) + "=" + encodeURIComponent(json[key]);
     })
-  ).join('&');
+  ).join("&");
 }
 
 // 防抖机制
@@ -125,13 +125,13 @@ export function throttle(fn, wait) {
 
 // 深度克隆对象数组
 export function deepClone(source) {
-  if (!source && typeof source !== 'object') {
-    throw new Error('error arguments', 'shallowClone');
+  if (!source && typeof source !== "object") {
+    throw new Error("error arguments", "shallowClone");
   }
   const targetObj = source.constructor === Array ? [] : {};
   for (const keys in source) {
     if (source.hasOwnProperty(keys)) {
-      if (source[keys] && typeof source[keys] === 'object') {
+      if (source[keys] && typeof source[keys] === "object") {
         targetObj[keys] = source[keys].constructor === Array ? [] : {};
         targetObj[keys] = deepClone(source[keys]);
       } else {
@@ -158,14 +158,14 @@ export function uniqueToArray(array, key) {
 // 生成字符串 mock token
 export function guid() {
   let s = [];
-  const hexDigits = '0123456789abcdef';
+  const hexDigits = "0123456789abcdef";
   for (let i = 0; i < 36; i++) {
     s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
   }
-  s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
+  s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
   s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-  s[8] = s[13] = s[18] = s[23] = '-';
-  let uuid = s.join('');
+  s[8] = s[13] = s[18] = s[23] = "-";
+  let uuid = s.join("");
   return uuid;
 }
 
@@ -182,7 +182,7 @@ export const onEvent = (function() {
   } else {
     return function(element, event, handler) {
       if (element && event && handler) {
-        element.attachEvent('on' + event, handler);
+        element.attachEvent("on" + event, handler);
       }
     };
   }
@@ -201,7 +201,7 @@ export const offEvent = (function() {
   } else {
     return function(element, event, handler) {
       if (element && event) {
-        element.detachEvent('on' + event, handler);
+        element.detachEvent("on" + event, handler);
       }
     };
   }
@@ -211,9 +211,9 @@ export const offEvent = (function() {
 const getRouteTitle = route => {
   let router = { ...route };
   let meta = { ...route.meta };
-  let title = '';
+  let title = "";
   if (meta.title) {
-    if (typeof meta.title === 'function') {
+    if (typeof meta.title === "function") {
       title = meta.title(router);
     } else {
       title = meta.title;
@@ -226,9 +226,9 @@ const getRouteTitle = route => {
 
 const showTitle = (item, vm) => {
   let { title } = item.meta;
-  if (!title) return '';
+  if (!title) return "";
   if (vm.t) {
-    if (title.includes('{{') && title.includes('}}') && vm.t)
+    if (title.includes("{{") && title.includes("}}") && vm.t)
       title = title.replace(/({{[\s\S]+?}})/, (m, str) =>
         str.replace(/{{([\s\S]*)}}/, (m, _) => vm.t(_.trim()))
       );

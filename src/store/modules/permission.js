@@ -1,4 +1,4 @@
-import router, { constantRoutes } from '@/router';
+import router, { constantRoutes } from "@/router";
 
 const asyncRoutes = router.options.routes;
 /**
@@ -50,7 +50,7 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }) {
     return new Promise(resolve => {
-      commit('SET_ROUTES', asyncRoutes);
+      commit("SET_ROUTES", asyncRoutes);
       resolve(asyncRoutes);
     });
   }

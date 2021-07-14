@@ -7,12 +7,12 @@ export default {
     menuHide: true
   },
   redirect: "dashboard",
-  component: r => require.ensure([], () => r(require("../../layout/index.vue")), "docs"),
+  component: () => import("@/layout/index.vue"),
   children: [
     {
       path: "dashboard",
       name: "dashboard",
-      component: r => require.ensure([], () => r(require("./dashboard/index.vue")), "docs"),
+      component: () => import("@/views/component/dashboard/index.vue"),
       meta: {
         module: "docs",
         title: "主页",
@@ -22,7 +22,7 @@ export default {
     {
       path: "icons",
       name: "compicons",
-      component: r => require.ensure([], () => r(require("./icon/index.vue")), "docs"),
+      component: () => import("@/views/component/icon/index.vue"),
       meta: {
         module: "docs",
         title: "图标"
@@ -31,7 +31,7 @@ export default {
     {
       path: "avatar",
       name: "compavatar",
-      component: r => require.ensure([], () => r(require("./avatar/index.vue")), "docs"),
+      component: () => import("@/views/component/avatar/index.vue"),
       meta: {
         module: "docs",
         title: "头像"
@@ -40,7 +40,7 @@ export default {
     {
       path: "loading",
       name: "comploading",
-      component: r => require.ensure([], () => r(require("./loading/index.vue")), "docs"),
+      component: () => import("@/views/component/loading/index.vue"),
       meta: {
         module: "docs",
         title: "加载中"
@@ -49,7 +49,7 @@ export default {
     {
       path: "noneTip",
       name: "compnoneTip",
-      component: r => require.ensure([], () => r(require("./noneTip/index.vue")), "docs"),
+      component: () => import("@/views/component/noneTip/index.vue"),
       meta: {
         module: "docs",
         title: "无记录"
@@ -58,7 +58,7 @@ export default {
     {
       path: "timePicker",
       name: "comptimePicker",
-      component: r => require.ensure([], () => r(require("./timePicker/index.vue")), "docs"),
+      component: () => import("@/views/component/timePicker/index.vue"),
       meta: {
         module: "docs",
         title: "时间控件"
@@ -67,7 +67,7 @@ export default {
     {
       path: "treeSelect",
       name: "comptreeSelect",
-      component: r => require.ensure([], () => r(require("./treeSelect/index.vue")), "docs"),
+      component: () => import("@/views/component/treeSelect/index.vue"),
       meta: {
         module: "docs",
         title: "树状下拉选择器"
@@ -76,7 +76,7 @@ export default {
     {
       path: "dragList",
       name: "compdragList",
-      component: r => require.ensure([], () => r(require("./dragList/index.vue")), "docs"),
+      component: () => import("@/views/component/dragList/index.vue"),
       meta: {
         module: "docs",
         title: "拖拽列表"
@@ -85,7 +85,7 @@ export default {
     {
       path: "dragDrawer",
       name: "compdragDrawer",
-      component: r => require.ensure([], () => r(require("./dragDrawer/index.vue")), "docs"),
+      component: () => import("@/views/component/dragDrawer/index.vue"),
       meta: {
         module: "docs",
         title: "拖拽抽屉"
@@ -94,7 +94,7 @@ export default {
     {
       path: "skeleton",
       name: "compskeleton",
-      component: r => require.ensure([], () => r(require("./skeleton/index.vue")), "docs"),
+      component: () => import("@/views/component/skeleton/index.vue"),
       meta: {
         module: "docs",
         title: "骨架屏"
@@ -103,7 +103,7 @@ export default {
     {
       path: "vlist",
       name: "compvlist",
-      component: r => require.ensure([], () => r(require("./vlist/index.vue")), "docs"),
+      component: () => import("@/views/component/vlist/index.vue"),
       meta: {
         module: "docs",
         title: "虚拟列表"
@@ -112,7 +112,7 @@ export default {
     {
       path: "docPreview",
       name: "compdocPreview",
-      component: r => require.ensure([], () => r(require("./docPreview/index.vue")), "docs"),
+      component: () => import("@/views/component/docPreview/index.vue"),
       meta: {
         module: "docs",
         title: "文件预览"
@@ -121,7 +121,7 @@ export default {
     {
       path: "videoPreview",
       name: "compvideoPreview",
-      component: r => require.ensure([], () => r(require("./video/index.vue")), "docs"),
+      component: () => import("@/views/component/video/index.vue"),
       meta: {
         module: "docs",
         title: "视频预览"
@@ -130,7 +130,7 @@ export default {
     {
       path: "map",
       name: "compmap",
-      component: r => require.ensure([], () => r(require("./map/index.vue")), "docs"),
+      component: () => import("@/views/component/map/index.vue"),
       meta: {
         module: "docs",
         title: "地图坐标拾取器"
@@ -139,7 +139,7 @@ export default {
     {
       path: "countTo",
       name: "comcountTo",
-      component: r => require.ensure([], () => r(require("./countTo/index.vue")), "docs"),
+      component: () => import("@/views/component/countTo/index.vue"),
       meta: {
         module: "docs",
         title: "动态赋值"
@@ -148,7 +148,7 @@ export default {
     {
       path: "seamless",
       name: "comseamless",
-      component: r => require.ensure([], () => r(require("./seamless/index.vue")), "docs"),
+      component: () => import("@/views/component/seamless/index.vue"),
       meta: {
         module: "docs",
         title: "无缝滚动"

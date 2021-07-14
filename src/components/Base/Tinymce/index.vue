@@ -88,7 +88,7 @@ export default {
           default_link_target: "_blank",
           link_title: false,
           nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
-          init_instance_callback: (editor) => {
+          init_instance_callback: editor => {
             if (_this.value) {
               editor.setContent(_this.value);
             }
@@ -103,7 +103,7 @@ export default {
             success(img);
           },
           setup(editor) {
-            editor.on("FullscreenStateChanged", (e) => {
+            editor.on("FullscreenStateChanged", e => {
               _this.fullscreen = e.state;
             });
           }
@@ -128,7 +128,7 @@ export default {
     },
     imageSuccessCBK(arr) {
       const _this = this;
-      arr.forEach((v) => {
+      arr.forEach(v => {
         window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`);
       });
     }

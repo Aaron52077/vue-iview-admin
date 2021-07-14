@@ -1,5 +1,10 @@
 <template>
-  <mScrollbar ref="scrollContainer" class="gc-scroll__container" @wheel.native.prevent="handleScroll" hide>
+  <mScrollbar
+    ref="scrollContainer"
+    class="gc-scroll__container"
+    @wheel.native.prevent="handleScroll"
+    hide
+  >
     <slot></slot>
   </mScrollbar>
 </template>
@@ -46,12 +51,13 @@ export default {
         $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth;
       } else {
         // find preTag and nextTag
-        const currentIndex = tagList.findIndex((item) => item === currentTag);
+        const currentIndex = tagList.findIndex(item => item === currentTag);
         const prevTag = tagList[currentIndex - 1];
         const nextTag = tagList[currentIndex + 1];
 
         // the tag's offsetLeft after of nextTag
-        const afterNextTagOffsetLeft = nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagAndTagSpacing;
+        const afterNextTagOffsetLeft =
+          nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagAndTagSpacing;
 
         // the tag's offsetLeft before of prevTag
         const beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagAndTagSpacing;
